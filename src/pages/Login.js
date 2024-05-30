@@ -1,10 +1,14 @@
-import { auth, provider } from "../config/firebase";
+import { auth, googleProvider } from "../config/firebase";
 import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
+import "../css/styles.css";
+import "../css/login.css";
+
+
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
@@ -15,7 +19,7 @@ export const Login = () => {
   const navigate = useNavigate();
 
   const singInWithGoogle = async () => {
-    const result = await signInWithPopup(auth, provider);
+    const result = await signInWithPopup(auth, googleProvider);
     console.log(result);
     navigate("/");
   }

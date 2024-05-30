@@ -23,7 +23,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 export const auth = getAuth(app); // <-- aceasta variabila stocheaza toate informatiile primite de la getAuth()
-export const provider = new GoogleAuthProvider();
+export const googleProvider = new GoogleAuthProvider();
 // export const providerFacebook = new FacebookAuthProvider();
 
 // Notă: Am adăugat Firebase în proiect înainte să văd cum poate fi legat de Passport.js folosit în server, și de PostgreSQL.

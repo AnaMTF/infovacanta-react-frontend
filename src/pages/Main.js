@@ -1,3 +1,6 @@
+import "../css/styles.css";
+import "../css/main.css";
+
 import Container from "react-bootstrap/Container";
 import Jumbotron from "react-bootstrap/esm/Jumbotron";
 import Button from "react-bootstrap/Button";
