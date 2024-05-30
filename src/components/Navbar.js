@@ -10,6 +10,7 @@ import { FormControl } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import Image from "react-bootstrap/Image";
 
 import logo from "../resources/infovacanta_logo.png";
 
@@ -20,7 +21,7 @@ export const InfoVacantaNavbar = () => {
     await signOut(auth);
   };
 
-  console.log(user);
+  //console.log(user);
 
   // return (
   //   <div>
@@ -74,9 +75,11 @@ export const InfoVacantaNavbar = () => {
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
-            Signed in as: <a href="#login">Mark Otto</a>
+            Signed in as: <a href="#login">{auth.currentUser?.displayName}</a>
           </Navbar.Text>
         </Navbar.Collapse>
+
+        <Image src={$"{auth.currentUser?.photoURL}"} rounded />
       </Navbar>
     </div>
   )

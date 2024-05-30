@@ -8,9 +8,14 @@ import { Statiuni } from "./pages/Statiuni";
 import RegisterTemp from "./pages/RegisterTemp";
 import EditReview from "./pages/EditReviewTemp";
 
+
+import { Provider } from 'react-redux';
+//import { store } from './app/store.old';
+
 function App() {
   return (
     <div className="App">
+      {/* <Provider store={store}> */}
       <Router>
         <Navbar />
         <Routes>
@@ -22,6 +27,7 @@ function App() {
           <Route path="/editreview" element={<EditReview />} />
         </Routes>
       </Router>
+      {/* </Provider> */}
     </div>
   );
 }

@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { auth, googleProvider } from "../config/firebase";
-import { signInWithPopup } from "firebase/auth";
+import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+//import { Axios } from "axios";
 
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -14,14 +16,29 @@ import Button from "react-bootstrap/Button";
 
 import EmailIcon from "@mui/icons-material/Email";
 import KeyIcon from "@mui/icons-material/Key";
+import { Axios } from "axios";
 
 export const Login = () => {
+  //const []
+
   const navigate = useNavigate();
 
   const singInWithGoogle = async () => {
-    const result = await signInWithPopup(auth, googleProvider);
-    console.log(result);
-    navigate("/");
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+
+      // result.user === auth.currentUser
+      // logica pt baza de date
+
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
+  const signInWithFacebook = async () => {
+    // TO DO
   }
 
   return (
@@ -51,7 +68,7 @@ export const Login = () => {
           </Card>
           <Card sm={4}>
             <Card.Body>
-              <Button variant="primary" type="submit">Login cu Google</Button>
+              <Button variant="primary" type="submit" onClick={singInWithGoogle}>Login cu Google</Button>
             </Card.Body>
           </Card>
         </Col>
