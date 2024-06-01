@@ -11,7 +11,7 @@ import "../css/statiuni.css";
 
 function Card(props) {
   return (<div className="card">
-    <img src="http://localhost:5000/Sinaia.jpeg" className="card-img-top" alt="Mamaia" />
+    <img src={props.content.location} className="card-img-top" alt="Mamaia" />
     <div className="card-body">
       <h5 className="card-title">{props.content.destination_name}</h5>
       <small>{props.content.destination_category}</small>
