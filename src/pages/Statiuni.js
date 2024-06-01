@@ -9,7 +9,7 @@ import "../css/header.css";
 import "../css/statiuni.css";
 
 
-function Card(props) {
+function CardReview(props) {
   return (<div className="card">
     <img src={props.content.location} className="card-img-top" alt="Mamaia" />
     <div className="card-body">
@@ -40,7 +40,7 @@ export const Statiuni = () => {
         {statiuni?.map((statiune, idx) => {
           return (
             <div className="col-sm-4" id="cardDestinatii">
-              <Card content={statiune}></Card>
+              <CardReview content={statiune} />
             </div>
           );
         })}
