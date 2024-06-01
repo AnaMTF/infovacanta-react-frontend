@@ -7,6 +7,7 @@ import { Main } from "./pages/Main";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { Statiuni } from "./pages/Statiuni";
+import { NewReview } from "./pages/NewReview";
 
 import { Provider } from 'react-redux';
 
@@ -30,8 +31,12 @@ function App() {
         <Router>
           <Navbar />
           <Routes>
+            <Route index element={<Home />} />
             <Route path="/" element={<Home />} />
             <Route path="/main" element={<Main />} />
+            <Route path="/new" element={<NewReview />} />
+              {/* <Route path="/edit/:id" element={<EditReview />} /> */}
+            {/* </Route> */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/statiuni" element={<Statiuni />} />
