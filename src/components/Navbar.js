@@ -1,7 +1,4 @@
 import { Link } from "react-router-dom";
-import { auth } from "../config/firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { signOut } from "firebase/auth";
 
 import Navbar from "react-bootstrap/Navbar";
 import Form from "react-bootstrap/Form";
@@ -15,32 +12,6 @@ import Image from "react-bootstrap/Image";
 import logo from "../resources/infovacanta_logo.png";
 
 export const InfoVacantaNavbar = () => {
-  const [user, loading, error] = useAuthState(auth);
-
-  const signUserOut = async () => {
-    await signOut(auth);
-  };
-
-  //console.log(user);
-
-  // return (
-  //   <div>
-  //     <h1>Bara de navigatie</h1>
-  //     <Link to="/">Home</Link>
-  //     <Link to="/login">Login</Link>
-
-  //     <div>
-  //       {user && (
-  //         <div >
-  //           <p>Nume: {user?.displayName}</p>
-  //           <img src={user?.photoURL} width="111" height="111" />
-  //           <button onClick={signUserOut}>Iesi din cont</button>
-  //         </div>
-  //       )}
-  //     </div>
-  //   </div>
-  // );
-
   return (
     <div>
       <Navbar sticky="top" bg="dark" variant="dark" className="justify-content-center">
@@ -51,7 +22,7 @@ export const InfoVacantaNavbar = () => {
             width="30"
             height="30"
             className="d-inline-block align-top"
-          />{' '}
+          />
           Info Vacanță
         </Navbar.Brand>
 
@@ -67,19 +38,14 @@ export const InfoVacantaNavbar = () => {
           </NavDropdown>
         </Nav>
 
-        {/* <Form inline>
-          <FormControl type="text" placeholder="Search" className=" mr-sm-2" />
-          <Button type="submit">Submit</Button>
-        </Form> */}
-
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
-            Signed in as: <a href="#login">{auth.currentUser?.displayName}</a>
+            Signed in as: <a href="#login">Hardcoded Username</a>
           </Navbar.Text>
         </Navbar.Collapse>
 
-        <Image src={$"{auth.currentUser?.photoURL}"} rounded />
+        <Image src="" rounded />
       </Navbar>
     </div>
   )
