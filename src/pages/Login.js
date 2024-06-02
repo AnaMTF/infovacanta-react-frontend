@@ -7,35 +7,35 @@ import "../css/login.css";
 export const Login = () => {
   return (
     <div>
-      <div class="container mt-5 jumbotron centered">
+      <div className="container mt-5 jumbotron centered">
         <h1>Login</h1>
 
-        <div class="row">
-          <div class="col-sm-8">
-            <div class="card">
-              <div class="card-body">
+        <div className="row">
+          <div className="col-sm-8">
+            <div className="card">
+              <div className="card-body">
                 <form action="http://localhost:5000/auth/login/password" method="POST">
-                  <div class="form-group">
-                    <i class="fa fa-envelope icon"></i>
-                    <label for="email">Email</label>
+                  <div className="form-group">
+                    <i className="fa fa-envelope icon"></i>
+                    <label htmlFor="email">Email</label>
                     <input
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       placeholder="Emailul dumneavoastră"
-                      name="email"
+                      name="username"
                     />
                   </div>
-                  <div class="form-group">
-                    <i class="fa fa-key icon"></i>
-                    <label for="password">Parolă</label>
+                  <div className="form-group">
+                    <i className="fa fa-key icon"></i>
+                    <label htmlFor="password">Parolă</label>
                     <input
                       type="password"
-                      class="form-control"
+                      className="form-control"
                       placeholder="Parola domneavoastră"
                       name="password"
                     />
                   </div>
-                  <button type="submit" class="btn btn-dark">
+                  <button type="submit" className="btn btn-dark">
                     Login
                   </button>
                 </form>
@@ -43,11 +43,11 @@ export const Login = () => {
             </div>
           </div>
 
-          <div class="col-sm-4">
-            <div class="card">
-              <div class="card-body">
-                <a class="btn btn-block" href="/auth/google" role="button">
-                  <i class="fab fa-google"></i>
+          <div className="col-sm-4">
+            <div className="card">
+              <div className="card-body">
+                <a className="btn btn-block" href="/auth/google" role="button">
+                  <i className="fab fa-google"></i>
                   Sign In with Google
                 </a>
               </div>
