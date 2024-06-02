@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react';
 
 import "../css/styles.css";
 import "../css/header.css";
@@ -14,15 +14,15 @@ export const Login = () => {
           <div class="col-sm-8">
             <div class="card">
               <div class="card-body">
-                <form action="/login" method="POST">
+                <form action="http://localhost:5000/auth/login/password" method="POST">
                   <div class="form-group">
                     <i class="fa fa-envelope icon"></i>
                     <label for="email">Email</label>
                     <input
-                      type="email"
+                      type="text"
                       class="form-control"
                       placeholder="Emailul dumneavoastră"
-                      name="username"
+                      name="email"
                     />
                   </div>
                   <div class="form-group">
