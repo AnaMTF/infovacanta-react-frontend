@@ -7,47 +7,70 @@ import "../css/register.css";
 export const Register = () => {
   return (
     <div>
-      <div class="container mt-5 jumbotron centered">
+      <div className="container mt-5 jumbotron centered">
         <h1>Register</h1>
 
-        <div class="row">
-          <div class="col-sm-8">
-            <div class="card">
-              <div class="card-body">
-                <form action="/register" method="POST">
-                  <div class="form-group">
-                    <label for="email">Email</label>
+        <div className="row">
+          <div className="col-sm-8">
+            <div className="card">
+              <div className="card-body">
+                <form action="http://localhost:5000/auth/register/password" method="POST">
+                  <div className="form-group">
+                    <label htmlFor="email">Email</label>
                     <input
                       type="email"
-                      class="form-control"
-                      name="username"
+                      id="email"
+                      className="form-control"
+                      placeholder="Emailul dumneavoastră"
+                      name="email"
+                      required
                     />
                   </div>
-                  <div class="form-group">
-                    <label for="nickname">Nume de utilizator</label>
+                  <div className="form-group">
+                    <label htmlFor="nickname">Nume de utilizator</label>
                     <input
                       type="text"
-                      class="form-control"
+                      id="nickname"
+                      className="form-control"
+                      placeholder="Numele dumneavoastră de utilizator"
                       name="nickname"
+                      required
                     />
                   </div>
-                  <div class="form-group">
-                    <label for="fullname">Nume complet</label>
+                  <div className="form-group">
+                    <label htmlFor="fullname">Nume complet</label>
                     <input
                       type="text"
-                      class="form-control"
-                      name="fullname"
+                      id="full_name"
+                      className="form-control"
+                      placeholder="Numele dumneavoastră complet"
+                      name="full_name"
+                      required
                     />
                   </div>
-                  <div class="form-group">
-                    <label for="password">Password</label>
+                  <div className="form-group">
+                    <label htmlFor="password">Parolă</label>
                     <input
                       type="password"
-                      class="form-control"
+                      id="password"
+                      className="form-control"
+                      placeholder="Parola dumneavoastră"
                       name="password"
+                      required
                     />
                   </div>
-                  <button type="submit" class="btn btn-dark">
+                  <div className="form-group">
+                    <label htmlFor="profile-picture">Poză de profil</label>
+                    <input
+                      type="file"
+                      id="profile_picture"
+                      className="form-control"
+                      placeholder="Alegeți o poză de profil"
+                      name="profile_picture"
+                      required
+                    />
+                  </div>
+                  <button type="submit" className="btn btn-dark">
                     Register
                   </button>
                 </form>
@@ -55,12 +78,11 @@ export const Register = () => {
             </div>
           </div>
 
-          <div class="col-sm-4">
-            <div class="card social-block">
-              <div class="card-body">
-                <a class="btn btn-block" href="/auth/google" role="button">
-                  <i class="fab fa-google"></i>
-                  Sign Up with Google
+          <div className="col-sm-4">
+            <div className="card social-block">
+              <div className="card-body">
+                <a className="btn btn-block" href="/auth/google" role="button">
+                  <i className="fab fa-google">Sign Up with Google</i>
                 </a>
               </div>
             </div>

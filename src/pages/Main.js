@@ -45,7 +45,7 @@ export const Main = () => {
       <div className="container-fluid jumbotron centered">
         <h1>InfoVacanță</h1>
         <a id="newPostBtn" href="/new">Recenzie Nouă</a> {/* <-- de transformat in LINK component*/}
-        <a id="logoutBtn" href="/logout">Logout</a>
+        <a id="logoutBtn" href="http://localhost:5000/auth/logout">Logout</a>
         <ul id="postsList" className="list-group">
           {reviews?.map((review, idx) => {
             return (

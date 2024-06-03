@@ -19,10 +19,12 @@ export const Login = () => {
                     <i className="fa fa-envelope icon"></i>
                     <label htmlFor="email">Email</label>
                     <input
-                      type="text"
+                      type="email"
+                      id="email"
                       className="form-control"
                       placeholder="Emailul dumneavoastră"
                       name="username"
+                      required
                     />
                   </div>
                   <div className="form-group">
@@ -30,9 +32,11 @@ export const Login = () => {
                     <label htmlFor="password">Parolă</label>
                     <input
                       type="password"
+                      id="password"
                       className="form-control"
                       placeholder="Parola domneavoastră"
                       name="password"
+                      required
                     />
                   </div>
                   <button type="submit" className="btn btn-dark">
@@ -47,8 +51,7 @@ export const Login = () => {
             <div className="card">
               <div className="card-body">
                 <a className="btn btn-block" href="/auth/google" role="button">
-                  <i className="fab fa-google"></i>
-                  Sign In with Google
+                  <i className="fab fa-google">Sign In with Google</i>
                 </a>
               </div>
             </div>
