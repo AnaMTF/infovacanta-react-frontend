@@ -14,7 +14,7 @@ export const Register = () => {
           <div className="col-sm-8">
             <div className="card">
               <div className="card-body">
-                <form action="http://localhost:5000/auth/register/password" method="POST">
+                <form encType="multipart/form-data" action="http://localhost:5000/auth/register/password" method="POST">
                   <div className="form-group">
                     <label htmlFor="email">Email</label>
                     <input

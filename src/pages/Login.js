@@ -10,9 +10,9 @@ export const Login = () => {
       <div className="container mt-5 jumbotron centered">
         <h1>Login</h1>
 
+            <div className="card">
         <div className="row">
           <div className="col-sm-8">
-            <div className="card">
               <div className="card-body">
                 <form action="http://localhost:5000/auth/login/password" method="POST">
                   <div className="form-group">
