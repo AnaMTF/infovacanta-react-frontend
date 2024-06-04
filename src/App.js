@@ -30,7 +30,7 @@ function App() {
     <div className="App">
       <QueryClientProvider client={client}>
         <Router>
-          <Navbar />
+          {/* <Navbar /> */}
           <Routes>
             <Route index element={<Home />} />
             <Route path="/" element={<Home />} />
@@ -44,7 +44,7 @@ function App() {
             <Route path="/profil" element={<Profile />} />
           </Routes>
         </Router>
-        <Footer />
+        {/* <Footer /> */}
       </QueryClientProvider>
     </div>
   );
