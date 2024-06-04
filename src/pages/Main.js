@@ -14,7 +14,7 @@ function Review(props) {
     <p>{props.content.review_body}</p>
     <small>By: {props.content.nickname}</small>
     <small>Date posted: {props.content.date_posted}</small>
-    <div id="starRating" data-lyket-type="rate" data-lyket-id="my-<%=review.reviewid%>-post" data-lyket-show-rating="average"></div>
+    <div id="starRating" data-lyket-type="rate" data-lyket-id={`my-${props.content.review_id}-post`} data-lyket-show-rating="average"></div>
     <div className="lyket-counter" data-lyket-type="updown" data-lyket-id="my-<%=i%>-post" data-lyket-namespace="blog" data-lyket-template="simple"></div>
     <a className="edit" href="/modify/<%=review.reviewid%>">Editează</a>
     <a className="delete" href="/reviews/delete/<%=review.reviewid%>">Șterge</a>

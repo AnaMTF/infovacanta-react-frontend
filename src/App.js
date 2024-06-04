@@ -8,6 +8,7 @@ import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { Statiuni } from "./pages/Statiuni";
 import { NewReview } from "./pages/NewReview";
+import { Profile } from "./pages/Profile";
 
 import { Provider } from 'react-redux';
 
@@ -18,11 +19,11 @@ import "./css/header.css";
 
 function App() {
   const client = new QueryClient({
-     defaultOptions: {
-       queries: {
-         refetchOnWindowFocus: false,
-       },
-     },
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+      },
+    },
   });
 
   return (
@@ -35,11 +36,12 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/main" element={<Main />} />
             <Route path="/new" element={<NewReview />} />
-              {/* <Route path="/edit/:id" element={<EditReview />} /> */}
+            {/* <Route path="/edit/:id" element={<EditReview />} /> */}
             {/* </Route> */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/statiuni" element={<Statiuni />} />
+            <Route path="/profil" element={<Profile />} />
           </Routes>
         </Router>
         <Footer />
