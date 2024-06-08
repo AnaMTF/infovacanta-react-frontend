@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 import { useQuery } from "@tanstack/react-query";
 import Axios from "axios";
 
+import { useSelector, useDispatch } from 'react-redux';
+import { logoutUser } from '../app/userSlice';
+import { useNavigate } from 'react-router-dom';
+
 import "../css/styles.css";
 import "../css/header.css";
 import "../css/main.css";
 
+import { Link } from "react-router-dom";
 
 function Review(props) {
   return (<li className="list-group-item list-group-item-action" id="postsItems">
@@ -24,10 +29,14 @@ function Review(props) {
 
 
 export const Main = () => {
+  const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { data: reviews } = useQuery(["review_id"], async function () {
     try {
       const result = await Axios.get("http://localhost:5000/reviews");
-      console.log(result.data);
+      //console.log(result.data);
       return result.data;
     } catch (error) {
       console.error(error);
@@ -44,12 +53,20 @@ export const Main = () => {
     <body>
       <div className="container-fluid jumbotron centered">
         <h1>InfoVacanță</h1>
-        <a id="newPostBtn" href="/new">Recenzie Nouă</a> {/* <-- de transformat in LINK component*/}
-        <a id="logoutBtn" href="http://localhost:5000/auth/logout">Logout</a>
+        <Link to="/new">
+          <button id="newPostBtn">Recenzie Nouă</button>
+        </Link>
+        <Link to="/profil">
+          <button id="newPostBtn">Profil ({user?.nickname || "no user detected"})</button>
+        </Link>
+        <Link to="/">
+          <button id="logoutBtn" onClick={() => dispatch(logoutUser(navigate))}>Logout</button>
+        </Link>
+
         <ul id="postsList" className="list-group">
           {reviews?.map((review, idx) => {
             return (
-              <Review content={review}></Review>
+              <Review key={idx} content={review}></Review>
             );
           })}
         </ul>
