@@ -15,50 +15,10 @@ import default_profile_picture from "../resources/blank-profile-pic.png";
 import "../css/styles.css";
 import "../css/header.css";
 
-// export const InfoVacantaNavbar = () => {
-//   return (
-//     <div>
-//       <Navbar sticky="top" bg="dark" variant="dark" className="justify-content-center">
-//         <Navbar.Brand href="#home">
-//           <img
-//             alt=""
-//             src={logo}
-//             width="30"
-//             height="30"
-//             className="d-inline-block align-top"
-//           />
-//           Info Vacanță
-//         </Navbar.Brand>
-
-//         <Nav className="mr-auto">
-//           <Nav.Link href="#home">Home</Nav.Link>
-//           <Nav.Link href="#link">Link</Nav.Link>
-//           <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-//             <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-//             <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-//             <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-//             <NavDropdown.Divider />
-//             <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-//           </NavDropdown>
-//         </Nav>
-
-//         <Navbar.Toggle />
-//         <Navbar.Collapse className="justify-content-end">
-//           <Navbar.Text>
-//             Signed in as: <a href="#login">Hardcoded Username</a>
-//           </Navbar.Text>
-//         </Navbar.Collapse>
-
-//         <Image src="" rounded />
-//       </Navbar>
-//     </div>
-//   )
-// };
-
 export const InfoVacantaNavbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-      <a className="navbar-brand" href="/"><img src={logo} alt="logo InfoVacanță" height="70px" width="80px" />InfoVacanță</a>
+      <a className="navbar-brand" href="/"><img src={logo} alt="logo InfoVacanță" height="80px" width="80px" />InfoVacanță</a>
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
@@ -92,5 +52,5 @@ export const InfoVacantaNavbar = () => {
         </ul>
       </div>
     </nav>
-  )
+  );
 }

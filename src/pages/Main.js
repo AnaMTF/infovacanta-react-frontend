@@ -13,6 +13,25 @@ import "../css/main.css";
 import { Link } from "react-router-dom";
 
 function Review(props) {
+
+  const deleteReview = async function (reviewId) {
+    console.log("delete review with id:", reviewId);
+    try {
+      await Axios.delete(`http://localhost:5000/reviews/${reviewId}`);
+      console.log("Review deleted");
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const editReview = async function (reviewId) {
+    console.log("edit review with id:", reviewId);
+  }
+
+  const commentReview = async function (reviewId) {
+    console.log("comment on review with id:", reviewId);
+  }
+
   return (<li className="list-group-item list-group-item-action" id="postsItems">
     <h2>{props.content.destination_name}</h2>
     <small>{props.content.destination_category}</small>
@@ -21,9 +40,19 @@ function Review(props) {
     <small>Date posted: {props.content.date_posted}</small>
     <div id="starRating" data-lyket-type="rate" data-lyket-id={`my-${props.content.review_id}-post`} data-lyket-show-rating="average"></div>
     <div className="lyket-counter" data-lyket-type="updown" data-lyket-id="my-<%=i%>-post" data-lyket-namespace="blog" data-lyket-template="simple"></div>
-    <a className="edit" href="/modify/<%=review.reviewid%>">Editează</a>
-    <a className="delete" href="/reviews/delete/<%=review.reviewid%>">Șterge</a>
-    <a className="comment" href="">Lasă un comentariu</a>
+    {
+      props.loggedInUserId == props.content.author_id &&
+      <Link to="">
+        <button className="edit">Editează</button>
+      </Link>
+    }
+    {
+      props.loggedInUserId == props.content.author_id &&
+      <button className="delete">Șterge</button>
+    }
+    <Link to="">
+      <button className="comment">Lasă un comentariu</button>
+    </Link>
   </li>);
 }
 
@@ -66,7 +95,7 @@ export const Main = () => {
         <ul id="postsList" className="list-group">
           {reviews?.map((review, idx) => {
             return (
-              <Review key={idx} content={review}></Review>
+              <Review loggedInUserId={user?.user_id} key={idx} content={review}></Review>
             );
           })}
         </ul>

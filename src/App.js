@@ -29,7 +29,7 @@ function App() {
       <QueryClientProvider client={client}>
         <Provider store={store}>
           <Router>
-            {/* <Navbar /> */}
+            <Navbar />
             <Routes>
               <Route index element={<Home />} />
               <Route path="/main" element={<Main />} />

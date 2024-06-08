@@ -15,17 +15,24 @@ a {
   font-family: "Outfit";
 }
 
-p::selection, small::selection, h1::selection, h2::selection, a::selection, button::selection, input::selection, textarea::selection {
+p::selection,
+small::selection,
+h1::selection,
+h2::selection,
+a::selection,
+button::selection,
+input::selection,
+textarea::selection {
   background-color: #8666ae;
   color: #fff;
 }
 
 .centered {
-    padding-top: 200px;
-    text-align: center;
+  padding-top: 200px;
+  text-align: center;
 }
 
-h1{
+h1 {
   background-color: #e9fbfe90;
   border-radius: 40px;
 }
@@ -124,6 +131,7 @@ button.full-width {
   text-align: center;
   width: 100%;
 }
+
 a.full-width {
   display: block;
   text-align: center;
@@ -147,7 +155,7 @@ li:last-child {
   background-color: #E9FBFE !important;
 }
 
-#starRating{
+#starRating {
   background: rgba(222, 180, 229);
   border-radius: 30px;
 }
