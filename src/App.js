@@ -40,7 +40,7 @@ function App() {
               <Route path="/profil" element={<Profile />} />
             </Routes>
           </Router>
-          {/* <Footer /> */}
+          <Footer />
         </Provider>
       </QueryClientProvider>
     </div>
