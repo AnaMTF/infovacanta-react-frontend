@@ -32,7 +32,7 @@ export const InfoVacantaNavbar = () => {
           </li>
           <li>
             <div className="search-container">
-              <form action="/action_page.php" className="d-flex">
+              <form action="" className="d-flex">
                 <input type="text" placeholder="Search.." name="search" id="search-navbar" />
                 <button type="submit" id="button-navbar-search">Submit</button>
               </form>

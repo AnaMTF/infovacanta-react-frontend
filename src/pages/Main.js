@@ -79,27 +79,25 @@ export const Main = () => {
   // });
 
   return (
-    <body>
-      <div className="container-fluid jumbotron centered">
-        <h1>InfoVacanță</h1>
-        <Link to="/new">
-          <button id="newPostBtn">Recenzie Nouă</button>
-        </Link>
-        <Link to="/profil">
-          <button id="newPostBtn">Profil ({user?.nickname || "no user detected"})</button>
-        </Link>
-        <Link to="/">
-          <button id="logoutBtn" onClick={() => dispatch(logoutUser(navigate))}>Logout</button>
-        </Link>
+    <div className="container-fluid jumbotron centered">
+      <h1>InfoVacanță</h1>
+      <Link to="/new">
+        <button id="newPostBtn">Recenzie Nouă</button>
+      </Link>
+      <Link to="/profil">
+        <button id="newPostBtn">Profil ({user?.nickname || "no user detected"})</button>
+      </Link>
+      <Link to="/">
+        <button id="logoutBtn" onClick={() => dispatch(logoutUser(navigate))}>Logout</button>
+      </Link>
 
-        <ul id="postsList" className="list-group">
-          {reviews?.map((review, idx) => {
-            return (
-              <Review loggedInUserId={user?.user_id} key={idx} content={review}></Review>
-            );
-          })}
-        </ul>
-      </div>
-    </body>
+      <ul id="postsList" className="list-group">
+        {reviews?.map((review, idx) => {
+          return (
+            <Review loggedInUserId={user?.user_id} key={idx} content={review}></Review>
+          );
+        })}
+      </ul>
+    </div>
   );
 };
