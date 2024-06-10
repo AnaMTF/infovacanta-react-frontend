@@ -10,6 +10,7 @@ import { Statiuni } from "./pages/Statiuni";
 import { NewReview } from "./pages/NewReview";
 import { Profile } from "./pages/Profile";
 import { Rezultate } from "./pages/Rezultate";
+import { Statiune } from "./components/Statiune";
 
 import { Provider } from 'react-redux';
 import { store } from "./app/store";
@@ -39,6 +40,8 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/statiuni" element={<Statiuni />} />
               <Route path="/profil" element={<Profile />} />
+              <Route path="/statiune" element={<Statiune />} />
+
               <Route path="/cautare/:keyword" element={<Rezultate />} />
             </Routes>
           </Router>
