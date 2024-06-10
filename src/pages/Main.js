@@ -12,7 +12,7 @@ import "../css/main.css";
 
 import { Link } from "react-router-dom";
 
-function Review(props) {
+export function Review(props) {
 
   const deleteReview = async function (reviewId) {
     console.log("delete review with id:", reviewId);

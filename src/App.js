@@ -9,6 +9,7 @@ import { Register } from "./pages/Register";
 import { Statiuni } from "./pages/Statiuni";
 import { NewReview } from "./pages/NewReview";
 import { Profile } from "./pages/Profile";
+import { Rezultate } from "./pages/Rezultate";
 
 import { Provider } from 'react-redux';
 import { store } from "./app/store";
@@ -38,6 +39,7 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/statiuni" element={<Statiuni />} />
               <Route path="/profil" element={<Profile />} />
+              <Route path="/cautare/:keyword" element={<Rezultate />} />
             </Routes>
           </Router>
           <Footer />

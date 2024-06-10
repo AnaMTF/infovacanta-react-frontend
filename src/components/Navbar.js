@@ -12,10 +12,18 @@ import { Link } from "react-router-dom";
 import logo from "../resources/infovacanta_logo.png";
 import default_profile_picture from "../resources/blank-profile-pic.png";
 
+import { useNavigate } from "react-router-dom";
+
 import "../css/styles.css";
 import "../css/header.css";
 
 export const InfoVacantaNavbar = () => {
+  const navigate = useNavigate();
+  const search = function (formData) {
+    navigate(`/cautare/${formData.get("keyword")}`); // nu merge
+    console.log("searching for:", formData.get("keyword"));
+  }
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
       <a className="navbar-brand" href="/"><img src={logo} alt="logo InfoVacanță" height="80px" width="80px" />InfoVacanță</a>
@@ -32,8 +40,8 @@ export const InfoVacantaNavbar = () => {
           </li>
           <li>
             <div className="search-container">
-              <form action="" className="d-flex">
-                <input type="text" placeholder="Search.." name="search" id="search-navbar" />
+              <form action={search} className="d-flex">
+                <input type="text" placeholder="Search.." name="keyword" id="search-navbar" />
                 <button type="submit" id="button-navbar-search">Submit</button>
               </form>
             </div>
