@@ -13,9 +13,11 @@ import "../css/main.css";
 import { Link } from "react-router-dom";
 
 import { AllCommentsModal } from "../components/AllCommentsModal";
+import { NewCommentModal } from "../components/NewCommentModal";
 
 export function Review(props) {
   const [showComments, setShowComments] = useState(false);
+  const [showNewComment, setShowNewComment] = useState(false);
 
   const deleteReview = async function (reviewId) {
     console.log("delete review with id:", reviewId);
@@ -53,7 +55,9 @@ export function Review(props) {
       props.loggedInUserId == props.content.author_id &&
       <button className="delete">Șterge</button>
     }
-    <button className="comment">Lasă un comentariu</button>
+    {
+      props.loggedInUserId && <button className="comment" onClick={() => setShowNewComment(true)}>Lasă un comentariu</button>
+    }
     <button className="comment" onClick={() => setShowComments(true)}>Vezi toate comentariile</button>
 
     <AllCommentsModal
@@ -61,6 +65,13 @@ export function Review(props) {
       author_nickname={props.content.nickname}
       show={showComments} onHide={() => setShowComments(false)}
     ></AllCommentsModal>
+
+    <NewCommentModal
+      review_id={props.content.review_id}
+      review_author_nickname={props.content.nickname}
+      user_id={props.loggedInUserId}
+      show={showNewComment} onHide={() => setShowNewComment(false)}
+    ></NewCommentModal>
   </li>);
 }
 
