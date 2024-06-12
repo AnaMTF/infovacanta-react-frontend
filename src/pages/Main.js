@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, Component } from 'react';
 import { useQuery } from "@tanstack/react-query";
 import Axios from "axios";
 
@@ -12,7 +12,10 @@ import "../css/main.css";
 
 import { Link } from "react-router-dom";
 
+import { AllCommentsModal } from "../components/AllCommentsModal";
+
 export function Review(props) {
+  const [showComments, setShowComments] = useState(false);
 
   const deleteReview = async function (reviewId) {
     console.log("delete review with id:", reviewId);
@@ -50,9 +53,10 @@ export function Review(props) {
       props.loggedInUserId == props.content.author_id &&
       <button className="delete">Șterge</button>
     }
-    <Link to="">
-      <button className="comment">Lasă un comentariu</button>
-    </Link>
+    <button className="comment">Lasă un comentariu</button>
+    <button className="comment" onClick={() => setShowComments(true)}>Vezi toate comentariile</button>
+
+    <AllCommentsModal review_id={props.content.review_id} show={showComments} onHide={() => setShowComments(false)}></AllCommentsModal>
   </li>);
 }
 
