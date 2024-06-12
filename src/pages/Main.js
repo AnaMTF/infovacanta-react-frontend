@@ -56,7 +56,11 @@ export function Review(props) {
     <button className="comment">Lasă un comentariu</button>
     <button className="comment" onClick={() => setShowComments(true)}>Vezi toate comentariile</button>
 
-    <AllCommentsModal review_id={props.content.review_id} show={showComments} onHide={() => setShowComments(false)}></AllCommentsModal>
+    <AllCommentsModal
+      review_id={props.content.review_id}
+      author_nickname={props.content.nickname}
+      show={showComments} onHide={() => setShowComments(false)}
+    ></AllCommentsModal>
   </li>);
 }
 

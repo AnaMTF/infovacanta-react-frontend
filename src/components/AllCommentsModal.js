@@ -5,6 +5,8 @@ import { useState, useEffect, useRef } from 'react';
 import { useQuery } from "@tanstack/react-query";
 import Axios from "axios";
 
+import "../css/comments.css";
+
 export const AllCommentsModal = (props) => {
   const { data: comments, isLoading, error } = useQuery(["comment_id"], async function () {
     try {
@@ -19,26 +21,28 @@ export const AllCommentsModal = (props) => {
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered scrollable>
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Comentarii
+          Comentarii la postarea utilizatorului {props.author_nickname}
         </Modal.Title>
       </Modal.Header>
 
-      <Modal.Body>
+      <Modal.Body className="comments">
         {isLoading && <p>Se încarcă comentariile...</p>}
         {error && <p>Eroare la încărcarea comentariilor</p>}
-        {comments?.map((comment, idx) => {
-          return (
-            <div key={idx} className="list-group-item list-group-item-action" id="postsItems">
-              <p>{comment.content}</p>
-              <p>{comment.author_id}</p>
-            </div>
-          ); // <-- testare
-        })}
+        <div id="postsList" className="list-group">
+          {comments?.map((comment, idx) => {
+            return (
+              <div key={idx} className="list-group-item list-group-item-action" id="postsItems">
+                <small>{comment.nickname} a comentat la data de {comment.date_posted}:</small>
+                <p>{comment.content}</p>
+              </div>
+            ); // <-- testare
+          })}
+        </div>
       </Modal.Body>
 
       {/* <Modal.Footer>
         <Button variant="primary" onClick={() => this.props.show = false}>Închide</Button>
       </Modal.Footer> */}
-    </Modal>
+    </Modal >
   );
 };
