@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { useState } from 'react'
 import { useQuery } from "@tanstack/react-query";
 import Axios from "axios";
 
@@ -8,17 +8,20 @@ import "../css/styles.css";
 import "../css/header.css";
 import "../css/statiuni.css";
 
+import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 
 function CardReview(props) {
-  return (<div className="card">
-    <img src={props.content.location} className="card-img-top" alt="Mamaia" />
-    <div className="card-body">
-      <h5 className="card-title">{props.content.destination_name}</h5>
-      <small>{props.content.destination_category}</small>
-      <p className="card-text">{props.content.description}</p>
-      <a href="https://www.mamaia.ro/" className="btn btn-primary">Mai multe detalii</a>
+  return (
+    <div className="card">
+      <img src={props.content.location} className="card-img-top" alt="Mamaia" />
+      <div className="card-body">
+        <h5 className="card-title">{props.content.destination_name}</h5>
+        <small>{props.content.destination_category}</small>
+        <p className="card-text">{props.content.description}</p>
+        <button className="btn btn-primary">Mai multe detalii</button>
+      </div>
     </div>
-  </div>);
+  );
 }
 
 export const Statiuni = () => {
