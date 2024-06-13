@@ -10,6 +10,8 @@ import "../css/statiuni.css";
 
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 
+import { Link } from "react-router-dom";
+
 function CardReview(props) {
   return (
     <div className="card">
@@ -18,14 +20,16 @@ function CardReview(props) {
         <h5 className="card-title">{props.content.destination_name}</h5>
         <small>{props.content.destination_category}</small>
         <p className="card-text">{props.content.description}</p>
-        <button className="btn btn-primary">Mai multe detalii</button>
+        <Link to={props.content.destination_link}>
+          <button className="btn btn-primary">Mai multe detalii</button>
+        </Link>
       </div>
     </div>
   );
 }
 
-export const Statiuni = () => {
-  const { data: statiuni } = useQuery(["review_id"], async function () {
+export const Statiuni = ({ list }) => {
+  const { data: statiuni } = useQuery(["destination_id"], async function () {
     try {
       const result = await Axios.get("http://localhost:5000/destinations");
       console.log(result.data);
@@ -37,17 +41,19 @@ export const Statiuni = () => {
   });
 
   return (
-    <div className="container jumbotron centered">
-      <h1>Stațiuni</h1>
-      <div className="row">
-        {statiuni?.map((statiune, idx) => {
-          return (
-            <div className="col-sm-4" id="cardDestinatii">
-              <CardReview content={statiune} />
-            </div>
-          );
-        })}
+    <>
+      <div className="container jumbotron centered">
+        <h1>Stațiuni</h1>
+        <div className="row">
+          {statiuni?.map((statiune, idx) => {
+            return (
+              <div className="col-sm-4" id="cardDestinatii">
+                <CardReview content={statiune} />
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </>
   );
 };

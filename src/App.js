@@ -12,6 +12,9 @@ import { Profile } from "./pages/Profile";
 import { Rezultate } from "./pages/Rezultate";
 import { Statiune } from "./pages/StatiuneIndividuala";
 
+import { StatiuniOutlet } from "./pages/StatiuniOutlet";
+import { NotFound } from "./pages/404";
+
 import { Provider } from 'react-redux';
 import { store } from "./app/store";
 
@@ -85,9 +88,11 @@ function App() {
               <Route path="/register" element={<Register />} />
 
               {/* pagina principala cu statiuni (cate un card pentru fiecare statiune) */}
-              <Route path="/statiuni" element={<Statiuni list={lista_statiuni} />}>
+              <Route path="/statiuni" element={<StatiuniOutlet />}>
                 {/* pagina cu detalii despre o statiune */}
+                <Route index element={<Statiuni list={lista_statiuni} />} />
                 <Route path=":nume" element={<Statiune />} />
+                <Route path="*" element={<NotFound />} />
               </Route>
 
               {/* pagina cu profilul utilizatorului */}
