@@ -9,7 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 
 export const Statiune = (props) => {
-  // let [coordinates, setCoordinates] = useState({ lat: 45.9442858, lng: 25.0094303 });
+  let [coordinates, setCoordinates] = useState({ lat: 45.9442858, lng: 25.0094303 });
 
   let { nume } = useParams();
   let { data: statiune, isError, isPaused } = useQuery(["destination_link"], async function () {
@@ -26,22 +26,22 @@ export const Statiune = (props) => {
     }
   });
 
-  const { data: coordinates } = useQuery(["coordinates"], async function () {
-    try {
-      const result = await Axios.get(`http://localhost:5000/query/destinations/${nume}`);
-      console.log(`http://localhost:5000/query/destinations/${nume}`);
-      console.log(result.data[0].coordinates.x, result.data[0].coordinates.y);
-      return [result.data[0].coordinates.x, result.data[0].coordinates.y];
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
-  });
+  // const { data: coordinates } = useQuery(["coordinates"], async function () {
+  //   try {
+  //     const result = await Axios.get(`http://localhost:5000/query/destinations/${nume}`);
+  //     console.log(`http://localhost:5000/query/destinations/${nume}`);
+  //     console.log(result.data[0].coordinates.x, result.data[0].coordinates.y);
+  //     return [result.data[0].coordinates.x, result.data[0].coordinates.y];
+  //   } catch (error) {
+  //     console.error(error);
+  //     return null;
+  //   }
+  // });
 
-  useEffect(() => {
-    console.log("UseEffect: ", coordinates);
-    // setCoordinates({ lat: statiune?.coordinates.x, lng: statiune?.coordinates.y });
-  }, []);
+  // useEffect(() => {
+  //   console.log("UseEffect: ", coordinates);
+  //   // setCoordinates({ lat: statiune?.coordinates.x, lng: statiune?.coordinates.y });
+  // }, []);
 
   const switchCategory = function (category) {
     switch (category) {
@@ -65,7 +65,7 @@ export const Statiune = (props) => {
           <h1>{statiune?.destination_name}</h1>
           {switchCategory(statiune?.destination_category)}
 
-          <Alert variant="info">
+          {/* <Alert variant="info">
             {
               [statiune?.coordinates.x, statiune?.coordinates.y].toString()
             }
@@ -73,7 +73,7 @@ export const Statiune = (props) => {
               // setCoordinates({ lat: statiune?.coordinates.x, lng: statiune?.coordinates.y });
               console.log("Show on map!", coordinates);
             }}>Show on map</button>
-          </Alert>
+          </Alert> */}
         </Container>
       </div>
 
@@ -98,7 +98,7 @@ export const Statiune = (props) => {
             <MapContainer center={
               // [statiune?.coordinates.x, statiune?.coordinates.y]
               coordinates
-            } zoom={13} style={{ height: "500px", width: "100%" }}>
+            } zoom={10} style={{ height: "500px", width: "100%" }}>
               <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
