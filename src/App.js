@@ -38,10 +38,17 @@ function App() {
               <Route path="/new" element={<NewReview />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/statiuni" element={<Statiuni />} />
-              <Route path="/profil" element={<Profile />} />
-              <Route path="/statiune" element={<Statiune />} />
 
+              {/* pagina principala cu statiuni (cate un card pentru fiecare statiune) */}
+              <Route path="/statiuni" element={<Statiuni />}>
+                {/* pagina cu detalii despre o statiune */}
+                <Route path=":nume" element={<Statiune />} />
+              </Route>
+
+              {/* pagina cu profilul utilizatorului */}
+              <Route path="/profil" element={<Profile />} />
+
+              {/* pagina cu rezultatele cautarii */}
               <Route path="/cautare/:keyword" element={<Rezultate />} />
             </Routes>
           </Router>
