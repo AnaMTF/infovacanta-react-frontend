@@ -10,7 +10,7 @@ import { Statiuni } from "./pages/Statiuni";
 import { NewReview } from "./pages/NewReview";
 import { Profile } from "./pages/Profile";
 import { Rezultate } from "./pages/Rezultate";
-import { Statiune } from "./components/Statiune";
+import { Statiune } from "./pages/StatiuneIndividuala";
 
 import { Provider } from 'react-redux';
 import { store } from "./app/store";
@@ -18,6 +18,51 @@ import { store } from "./app/store";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 function App() {
+  // lista cu statiuni; incalca principiul Open/Closed din SOLID!!!!!!!! dar aia e pana la urma
+  // am actionat asa pentru a nu face un request catre server pentru a obtine lista statiunilor
+  // dar daca vom mai avea de adaugat statiuni trebuie modificat si aici
+  const lista_statiuni = [
+    "mamaia",
+    "constanta",
+    "eforie-nord",
+    "eforie-sud",
+    "costinesti",
+    "vama-veche",
+    "olimp",
+    "neptun",
+    "jupiter",
+    "venus",
+    "saturn",
+    "mangalia",
+    "2-mai",
+    "tuzla",
+    "gura-portitei",
+    "agigea",
+    "vadu",
+    "corbu",
+    "muntele-mic",
+    "straja",
+    "sinaia",
+    "predeal",
+    "poiana-brasov",
+    "azuga",
+    "paltinis",
+    "semenic",
+    "balea",
+    "vatra-dornei",
+    "transalpina",
+    "busteni",
+    "ranca",
+    "superski-cavnic",
+    "borsa",
+    "bucovina",
+    "baile-felix",
+    "baile-herculane",
+    "baile-tusnad",
+    "baile-techirghiol",
+    "baile-olanesti"
+  ];
+
   const client = new QueryClient({
     defaultOptions: {
       queries: {
@@ -40,7 +85,7 @@ function App() {
               <Route path="/register" element={<Register />} />
 
               {/* pagina principala cu statiuni (cate un card pentru fiecare statiune) */}
-              <Route path="/statiuni" element={<Statiuni />}>
+              <Route path="/statiuni" element={<Statiuni list={lista_statiuni} />}>
                 {/* pagina cu detalii despre o statiune */}
                 <Route path=":nume" element={<Statiune />} />
               </Route>
