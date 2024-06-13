@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { InfoVacantaNavbar as Navbar } from "./components/Navbar";
+import { MyNavbar as Navbar } from "./components/NewNavbar";
 import { Footer } from "./components/Footer";
 
 import { Home } from "./pages/Home";
@@ -79,7 +79,7 @@ function App() {
       <QueryClientProvider client={client}>
         <Provider store={store}>
           <Router>
-            {/* <Navbar /> <-- trebuie refacut */}
+            <Navbar />
             <Routes>
               <Route index element={<Home />} />
               <Route path="/main" element={<Main />} />
