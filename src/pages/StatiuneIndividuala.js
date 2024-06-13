@@ -6,17 +6,17 @@ import Axios from "axios";
 
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export const Statiune = (props) => {
-  let [coordinates, setCoordinates] = useState({ lat: 45.9442858, lng: 25.0094303 });
+  // let [coordinates, setCoordinates] = useState({ lat: 45.9442858, lng: 25.0094303 });
 
   let { nume } = useParams();
   let { data: statiune, isError, isPaused } = useQuery(["destination_link"], async function () {
     try {
       const result = await Axios.get(`http://localhost:5000/query/destinations/${nume}`);
       console.log(`http://localhost:5000/query/destinations/${nume}`);
-      setCoordinates({ lat: result.data[0].coordinates.x, lng: result.data[0].coordinates.y });
+      // setCoordinates({ lat: result.data[0].coordinates.x, lng: result.data[0].coordinates.y });
 
       console.log(result.data[0]); // <-- testare: afisare date in consola   
       return result.data[0];
@@ -26,18 +26,22 @@ export const Statiune = (props) => {
     }
   });
 
-  // const { data: statiune, isError, isPaused } = useQuery(["destination_link"], function () {
-  //   const result = Axios.get(`http://localhost:5000/query/destinations/${nume}`)
-  //     .then(response => {
-  //       setCoordinates({ lat: response.data[0].coordinates.x, lng: response.data[0].coordinates.y });
-  //       return response.data[0];
-  //     })
-  //     .catch(error => {
-  //       console.error(error);
-  //       return null;
-  //     });
-  //   return result;
-  // });
+  const { data: coordinates } = useQuery(["coordinates"], async function () {
+    try {
+      const result = await Axios.get(`http://localhost:5000/query/destinations/${nume}`);
+      console.log(`http://localhost:5000/query/destinations/${nume}`);
+      console.log(result.data[0].coordinates.x, result.data[0].coordinates.y);
+      return [result.data[0].coordinates.x, result.data[0].coordinates.y];
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  });
+
+  useEffect(() => {
+    console.log("UseEffect: ", coordinates);
+    // setCoordinates({ lat: statiune?.coordinates.x, lng: statiune?.coordinates.y });
+  }, []);
 
   const switchCategory = function (category) {
     switch (category) {
@@ -65,7 +69,10 @@ export const Statiune = (props) => {
             {
               [statiune?.coordinates.x, statiune?.coordinates.y].toString()
             }
-            <button onClick={() => setCoordinates([statiune?.coordinates.x, statiune?.coordinates.y])}>Show on map</button>
+            <button onClick={() => {
+              // setCoordinates({ lat: statiune?.coordinates.x, lng: statiune?.coordinates.y });
+              console.log("Show on map!", coordinates);
+            }}>Show on map</button>
           </Alert>
         </Container>
       </div>
