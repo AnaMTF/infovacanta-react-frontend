@@ -79,7 +79,7 @@ function App() {
       <QueryClientProvider client={client}>
         <Provider store={store}>
           <Router>
-            <Navbar />
+            {/* <Navbar /> <-- trebuie refacut */}
             <Routes>
               <Route index element={<Home />} />
               <Route path="/main" element={<Main />} />
@@ -102,7 +102,7 @@ function App() {
               <Route path="/cautare/:keyword" element={<Rezultate />} />
             </Routes>
           </Router>
-          <Footer />
+          {/* <Footer /> */}
         </Provider>
       </QueryClientProvider>
     </div>
