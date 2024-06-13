@@ -33,23 +33,23 @@ export const MyNavbar = () => {
             <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
               Filter
             </Dropdown.Toggle>
-            <Dropdown.Menu>
+            <Dropdown.Menu style={{ width: '200px', align: 'left' }}>
               <Form>
-                <Dropdown.Item as="div">
+                <Dropdown.Item as="div" style={{ justifyContent: "left", width: '200px', marginBottom: "0" }}>
                   <FormCheck
                     type="checkbox"
                     id="filter1"
                     label="Filter 1"
                   />
                 </Dropdown.Item>
-                <Dropdown.Item as="div">
+                <Dropdown.Item as="div" style={{ justifyContent: "left", width: '200px', marginBottom: "0" }}>
                   <FormCheck
                     type="checkbox"
                     id="filter2"
                     label="Filter 2"
                   />
                 </Dropdown.Item>
-                <Dropdown.Item as="div">
+                <Dropdown.Item as="div" style={{ justifyContent: "left", width: '200px', marginBottom: "0" }}>
                   <FormCheck
                     type="checkbox"
                     id="filter3"
