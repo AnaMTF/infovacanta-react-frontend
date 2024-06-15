@@ -75,7 +75,7 @@ export const loginUser = (username, password, navigate) => async (dispatch) => {
   }
 };
 
-export const logoutUser = () => async (dispatch) => {
+export const logoutUser = () => async (dispatch, navigate) => {
   try {
     await axios.get('http://localhost:5000/auth/logout');
     dispatch(clearUser());
