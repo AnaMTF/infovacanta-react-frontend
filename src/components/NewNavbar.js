@@ -3,7 +3,7 @@ import default_profile_picture from "../resources/blank-profile-pic.png";
 
 import React from 'react';
 import { Navbar, Nav, Form, FormControl, Button, Dropdown, Image, FormCheck, Modal } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 const SearchFilter = ({ show, handleClose, handleSearch }) => {
@@ -130,6 +130,8 @@ const SearchFilter = ({ show, handleClose, handleSearch }) => {
 };
 
 export const MyNavbar = () => {
+  const navigate = useNavigate();
+
   // stari pentru modal
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);

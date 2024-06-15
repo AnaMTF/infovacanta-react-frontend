@@ -12,7 +12,7 @@ import default_picture from "../resources/blank-profile-pic.png";
 import banner from "../resources/banner.png";
 
 
-export const Rezultate = () => {
+export const Rezultate = (props) => {
   const { keyword } = useParams();
 
   const user = useSelector((state) => state.user.user);
@@ -100,24 +100,19 @@ export const Rezultate = () => {
             {query_results?.users.map((user, idx) => {
               return (
                 <Card style={{ position: 'relative', marginBottom: "30px" }}>
-                  {/* Cover picture */}
                   <Card.Img variant="bottom" src={banner} alt="User cover" />
-
-                  {/* Profile picture (overlay) */}
                   <div style={{ position: 'absolute', top: '20%', left: '12.5%', transform: 'translate(-50%, -50%)' }}>
-                    <Card.Img src={default_picture} alt="User profile" style={{ height: "120px", width: "120px" }} />
+                    <Card.Img src={user.pfp_location || default_picture} alt="User profile" style={{ height: "120px", width: "120px" }} />
                   </div>
 
                   <Card.Body>
-                    {/* User name */}
-                    <Card.Title>John Doe</Card.Title>
+                    <Card.Title ><b>{user.nickname}</b></Card.Title>
+                    <Card.Subtitle>{user.full_name}</Card.Subtitle>
 
-                    {/* User bio */}
                     <Card.Text>
                       Some quick example text to build on the card title and make up the bulk of the card's content.
                     </Card.Text>
 
-                    {/* Button for more details */}
                     <Button variant="primary">View Profile</Button>
                   </Card.Body>
                 </Card>
