@@ -6,7 +6,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 import { Review } from "./Main";
 
-import { Tab, Tabs } from "react-bootstrap";
+import { Tab, Tabs, Card, Button } from "react-bootstrap";
+
+import default_picture from "../resources/blank-profile-pic.png";
+import banner from "../resources/banner.png";
+
 
 export const Rezultate = () => {
   const { keyword } = useParams();
@@ -54,7 +58,7 @@ export const Rezultate = () => {
           <ul id="postsList" className="list-group">
             {query_results?.destinations.map((destination, idx) => {
               return (
-                <div className="card">
+                <div className="card" key={idx}>
                   <img src={destination.location} className="card-img-top" alt="Mamaia" />
                   <div className="card-body">
                     <h5 className="card-title">{destination.destination_name}</h5>
@@ -82,6 +86,41 @@ export const Rezultate = () => {
                   <small>{comment.nickname} a comentat la data de {comment.date_posted}:</small>
                   <p>{comment.content}</p>
                 </div>
+              );
+            })}
+          </ul>
+        </div>
+      </Tab>
+
+      <Tab eventKey="users" title="Utilizatori" style={{ borderRadius: "unset" }}>
+        <div className="container-fluid jumbotron centered">
+          <h1>Rezultatele căutării</h1>
+
+          <ul id="postsList" className="list-group">
+            {query_results?.users.map((user, idx) => {
+              return (
+                <Card style={{ position: 'relative', marginBottom: "30px" }}>
+                  {/* Cover picture */}
+                  <Card.Img variant="bottom" src={banner} alt="User cover" />
+
+                  {/* Profile picture (overlay) */}
+                  <div style={{ position: 'absolute', top: '20%', left: '12.5%', transform: 'translate(-50%, -50%)' }}>
+                    <Card.Img src={default_picture} alt="User profile" style={{ height: "120px", width: "120px" }} />
+                  </div>
+
+                  <Card.Body>
+                    {/* User name */}
+                    <Card.Title>John Doe</Card.Title>
+
+                    {/* User bio */}
+                    <Card.Text>
+                      Some quick example text to build on the card title and make up the bulk of the card's content.
+                    </Card.Text>
+
+                    {/* Button for more details */}
+                    <Button variant="primary">View Profile</Button>
+                  </Card.Body>
+                </Card>
               );
             })}
           </ul>
