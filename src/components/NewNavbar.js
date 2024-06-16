@@ -5,31 +5,30 @@ import React from 'react';
 import { Navbar, Nav, Form, FormControl, Button, Dropdown, Image, FormCheck, Modal } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setSearchFilters } from '../app/searchSlice';
 
-const SearchFilter = ({ show, handleClose, handleSearch }) => {
-  const [filters, setFilters] = useState({
-    isBeachDestination: false,
-    isMountainDestination: false,
-    isThermalSpringDestination: false,
-    searchInReviews: false,
-    searchInUsers: false,
-    searchInDestinations: false,
-    searchInComments: false,
-    minDate: '',
-    maxDate: '',
-    minRatings: 0,
-  });
+const SearchFilter = ({ show, handleClose }) => {
+  const search = useSelector((state) => state.search.filters);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFilters({
-      ...filters,
+  const [filterSettings, setFilterSettings] = useState(search);
+
+  const handleChange = (event) => {
+    console.log("OLD FILTER SETTINGS\n", filterSettings)
+
+    const { name, value, type, checked } = event.target;
+
+    const newFilterSettings = {
+      ...filterSettings,
       [name]: type === 'checkbox' ? checked : value,
-    });
-  };
+    };
 
-  const handleSubmit = () => {
-    handleSearch(filters);
+    setFilterSettings(newFilterSettings);
+    dispatch(setSearchFilters(newFilterSettings));
+
+    console.log("NEW FILTER SETTINGS\n", newFilterSettings);
   };
 
   return (
@@ -43,49 +42,49 @@ const SearchFilter = ({ show, handleClose, handleSearch }) => {
             type="checkbox"
             label="Destinație la mare?"
             name="isBeachDestination"
-            checked={filters.isBeachDestination}
+            checked={filterSettings.isBeachDestination}
             onChange={handleChange}
           />
           <Form.Check
             type="checkbox"
             label="Destinație la munte?"
             name="isMountainDestination"
-            checked={filters.isMountainDestination}
+            checked={filterSettings.isMountainDestination}
             onChange={handleChange}
           />
           <Form.Check
             type="checkbox"
             label="Destinație balneară?"
             name="isThermalSpringDestination"
-            checked={filters.isThermalSpringDestination}
+            checked={filterSettings.isThermalSpringDestination}
             onChange={handleChange}
           />
           <Form.Check
             type="checkbox"
             label="Căutați în recenzii?"
             name="searchInReviews"
-            checked={filters.searchInReviews}
+            checked={filterSettings.searchInReviews}
             onChange={handleChange}
           />
           <Form.Check
             type="checkbox"
             label="Căutați utilizatori?"
             name="searchInUsers"
-            checked={filters.searchInUsers}
+            checked={filterSettings.searchInUsers}
             onChange={handleChange}
           />
           <Form.Check
             type="checkbox"
             label="Căutați în destinații?"
             name="searchInDestinations"
-            checked={filters.searchInDestinations}
+            checked={filterSettings.searchInDestinations}
             onChange={handleChange}
           />
           <Form.Check
             type="checkbox"
             label="Căutați în comentarii?"
             name="searchInComments"
-            checked={filters.searchInComments}
+            checked={filterSettings.searchInComments}
             onChange={handleChange}
           />
           <Form.Group controlId="formMinDate">
@@ -93,7 +92,7 @@ const SearchFilter = ({ show, handleClose, handleSearch }) => {
             <Form.Control
               type="date"
               name="minDate"
-              value={filters.minDate}
+              value={filterSettings.minDate}
               onChange={handleChange}
             />
           </Form.Group>
@@ -102,7 +101,7 @@ const SearchFilter = ({ show, handleClose, handleSearch }) => {
             <Form.Control
               type="date"
               name="maxDate"
-              value={filters.maxDate}
+              value={filterSettings.maxDate}
               onChange={handleChange}
             />
           </Form.Group>
@@ -111,7 +110,7 @@ const SearchFilter = ({ show, handleClose, handleSearch }) => {
             <Form.Control
               type="number"
               name="minRatings"
-              value={filters.minRatings}
+              value={filterSettings.minRatings}
               onChange={handleChange}
             />
           </Form.Group>
@@ -121,15 +120,14 @@ const SearchFilter = ({ show, handleClose, handleSearch }) => {
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="primary" onClick={handleSubmit}>
-          Search
-        </Button>
       </Modal.Footer>
     </Modal>
   );
 };
 
 export const MyNavbar = () => {
+  const search = useSelector((state) => state.search);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   // stari pentru modal
@@ -137,10 +135,12 @@ export const MyNavbar = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handleSearch = (filters) => {
-    console.log('Filters:', filters);
-    // Handle search logic here
+  // stari pentru bara de cautare (text)
+  const [searchText, setSearchText] = useState('');
+
+  const handleSearch = () => {
     handleClose();
+    navigate(`cautare/${searchText}`);
   };
 
   return (
@@ -165,10 +165,10 @@ export const MyNavbar = () => {
           <Nav.Link as={Link} to="/register">Register</Nav.Link>
           <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
         </Nav>
-        <Form inline className="mx-auto">
+        <Form inline className="mx-auto" onSubmit={handleSearch}>
           <Button variant="outline-primary" style={{ marginRight: "8px" }} onClick={() => setShow(true)}>Filtre</Button>
-          <FormControl type="text" placeholder="Search" className="mr-sm-2" style={{ marginBottom: "0" }} />
-          <Button variant="outline-success">Search</Button>
+          <FormControl type="text" placeholder="Search" className="mr-sm-2" style={{ marginBottom: "0" }} onChange={(e) => setSearchText(e.target.value)} />
+          <Button type="submit" variant="outline-success">Search</Button>
         </Form>
         <Nav>
           <Dropdown alignRight>
@@ -190,7 +190,7 @@ export const MyNavbar = () => {
           </Dropdown>
         </Nav>
       </Navbar.Collapse>
-      <SearchFilter show={show} handleClose={handleClose} handleSearch={handleSearch} />
+      <SearchFilter show={show} handleClose={handleClose} />
     </Navbar>
   );
 };

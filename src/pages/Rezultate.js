@@ -1,7 +1,9 @@
 import React from "react";
 import Axios from "axios";
 
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useState } from "react";
+
+import { useParams, useNavigate, Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 import { Review } from "./Main";
@@ -11,18 +13,42 @@ import { Tab, Tabs, Card, Button } from "react-bootstrap";
 import default_picture from "../resources/blank-profile-pic.png";
 import banner from "../resources/banner.png";
 
+import { useEffect } from "react";
+
+import "../css/styles.css";
+import "../css/header.css";
+// import "../css/main.css";
 
 export const Rezultate = (props) => {
+  useLocation();
+
   const { keyword } = useParams();
 
   const user = useSelector((state) => state.user.user);
+  const search = useSelector((state) => state.search.filters);
+
+  const [showReviews, setShowReviews] = useState(true);
+  const [showDestinations, setShowDestinations] = useState(true);
+  const [showComments, setShowComments] = useState(true);
+  const [showUsers, setShowUsers] = useState(true);
+
+  useEffect(() => {
+    console.log("REDUX STATE:\n", search);
+
+    // setShowReviews(search.searchInReviews);
+    // setShowDestinations(search.searchInDestinations);
+    // setShowComments(search.searchInComments);
+    // setShowUsers(search.searchInUsers);
+
+  }, [search]);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { data: query_results, isLoading, isError } = useQuery(["review_id"], async function () {
     try {
       const result = await Axios.get(`http://localhost:5000/query/${keyword}`);
-      console.log(result.data);
+      // console.log(result.data);
       return result.data;
     } catch (error) {
       console.error(error);
@@ -36,8 +62,10 @@ export const Rezultate = (props) => {
   // });
 
   return (
-    <Tabs defaultKey="reviews" id="uncontrolled-tab-example">
-      <Tab eventKey="reviews" title="Recenzii" style={{ borderRadius: "unset" }}>
+    <Tabs defaultKey="reviews" id="uncontrolled-tab-example"
+      style={{ backgroundColor: "blue", color: "red" }}
+    >
+      {showReviews && <Tab eventKey="reviews" title="Recenzii" style={{ borderRadius: "unset" }}>
         <div className="container-fluid jumbotron centered">
           <h1>Rezultatele căutării</h1>
 
@@ -49,9 +77,9 @@ export const Rezultate = (props) => {
             })}
           </ul>
         </div>
-      </Tab>
+      </Tab>}
 
-      <Tab eventKey="destinations" title="Stațiuni" style={{ borderRadius: "unset" }}>
+      {showDestinations && <Tab eventKey="destinations" title="Stațiuni" style={{ borderRadius: "unset" }}>
         <div className="container-fluid jumbotron centered">
           <h1>Rezultatele căutării</h1>
 
@@ -73,9 +101,9 @@ export const Rezultate = (props) => {
             })}
           </ul>
         </div>
-      </Tab>
+      </Tab>}
 
-      <Tab eventKey="comments" title="Comentarii" style={{ borderRadius: "unset" }}>
+      {showComments && <Tab eventKey="comments" title="Comentarii" style={{ borderRadius: "unset" }}>
         <div className="container-fluid jumbotron centered">
           <h1>Rezultatele căutării</h1>
 
@@ -90,9 +118,9 @@ export const Rezultate = (props) => {
             })}
           </ul>
         </div>
-      </Tab>
+      </Tab>}
 
-      <Tab eventKey="users" title="Utilizatori" style={{ borderRadius: "unset" }}>
+      {showUsers && <Tab eventKey="users" title="Utilizatori" style={{ borderRadius: "unset" }}>
         <div className="container-fluid jumbotron centered">
           <h1>Rezultatele căutării</h1>
 
@@ -120,7 +148,7 @@ export const Rezultate = (props) => {
             })}
           </ul>
         </div>
-      </Tab>
+      </Tab>}
     </Tabs>
   );
 };

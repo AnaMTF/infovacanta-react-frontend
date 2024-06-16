@@ -4,24 +4,27 @@ import axios from 'axios';
 const searchSlice = createSlice({
   name: 'search',
   initialState: {
-    isBeachDestination: false,
-    isMountainDestination: false,
-    isThermalSpringDestination: false,
-    searchInReviews: false,
-    searchInUsers: false,
-    searchInDestinations: false,
-    searchInComments: false,
-    minDate: '',
-    maxDate: '',
-    minRatings: 0,
+    filters: {
+      isBeachDestination: false,
+      isMountainDestination: false,
+      isThermalSpringDestination: false,
+      searchInReviews: true,
+      searchInUsers: false,
+      searchInDestinations: false,
+      searchInComments: false,
+      minDate: '',
+      maxDate: '',
+      minRatings: 0,
+    }
   },
   reducers: {
-    setSearchResults: (state, action) => {
-      state.searchResults = action.payload;
+    setSearchFilters: (state, action) => {
+      // state.value = action.payload;
+      state.filters = action.payload;
     },
   },
 });
 
-export const { setSearchResults } = searchSlice.actions;
+export const { setSearchFilters } = searchSlice.actions;
 
 export default searchSlice.reducer;
