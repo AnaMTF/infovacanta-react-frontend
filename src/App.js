@@ -18,6 +18,8 @@ import { NotFound } from "./pages/404";
 import { Provider } from 'react-redux';
 import { store } from "./app/store";
 
+import { Provider as LyketProvider } from '@lyket/react';
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 function App() {
@@ -78,31 +80,35 @@ function App() {
     <div className="App">
       <QueryClientProvider client={client}>
         <Provider store={store}>
-          <Router>
-            <Navbar />
-            <Routes>
-              <Route index element={<Home />} />
-              <Route path="/main" element={<Main />} />
-              <Route path="/new" element={<NewReview />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
+          <LyketProvider apiKey="pt_49ef1b9862ddcdc97d841106b33e79">
 
-              {/* pagina principala cu statiuni (cate un card pentru fiecare statiune) */}
-              <Route path="/statiuni" element={<StatiuniOutlet />}>
-                {/* pagina cu detalii despre o statiune */}
-                <Route index element={<Statiuni list={lista_statiuni} />} />
-                <Route path=":nume" element={<Statiune />} />
-                <Route path="*" element={<NotFound />} />
-              </Route>
 
-              {/* pagina cu profilul utilizatorului */}
-              <Route path="/profil" element={<Profile />} />
+            <Router>
+              <Navbar />
+              <Routes>
+                <Route index element={<Home />} />
+                <Route path="/main" element={<Main />} />
+                <Route path="/new" element={<NewReview />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
 
-              {/* pagina cu rezultatele cautarii */}
-              <Route path="/cautare/:keyword" element={<Rezultate />} />
-            </Routes>
-          </Router>
-          {/* <Footer /> */}
+                {/* pagina principala cu statiuni (cate un card pentru fiecare statiune) */}
+                <Route path="/statiuni" element={<StatiuniOutlet />}>
+                  {/* pagina cu detalii despre o statiune */}
+                  <Route index element={<Statiuni list={lista_statiuni} />} />
+                  <Route path=":nume" element={<Statiune />} />
+                  <Route path="*" element={<NotFound />} />
+                </Route>
+
+                {/* pagina cu profilul utilizatorului */}
+                <Route path="/profil" element={<Profile />} />
+
+                {/* pagina cu rezultatele cautarii */}
+                <Route path="/cautare/:keyword" element={<Rezultate />} />
+              </Routes>
+            </Router>
+            {/* <Footer /> */}
+          </LyketProvider>
         </Provider>
       </QueryClientProvider>
     </div>

@@ -15,6 +15,10 @@ import { Link } from "react-router-dom";
 import { AllCommentsModal } from "../components/AllCommentsModal";
 import { NewCommentModal } from "../components/NewCommentModal";
 
+import Chatbot from '../components/Chatbot';
+
+import { RateButton, UpdownButton } from '@lyket/react';
+
 export function Review(props) {
   const [showComments, setShowComments] = useState(false);
   const [showNewComment, setShowNewComment] = useState(false);
@@ -59,6 +63,21 @@ export function Review(props) {
       props.loggedInUserId && <button className="comment" onClick={() => setShowNewComment(true)}>Lasă un comentariu</button>
     }
     <button className="comment" onClick={() => setShowComments(true)}>Vezi toate comentariile</button>
+
+    <div style={{ width: "100%" }}>
+      <RateButton className="list-group-item"
+        namespace="infovacanta-react"
+        id={`review-${props.content.review_id}`}
+        showRating="average"
+      />
+
+      <UpdownButton className="list-group-item lyket-counter"
+        namespace='infovacanta-react'
+        id={`review-${props.content.review_id}`}
+        template='simple'
+      >
+      </UpdownButton>
+    </div>
 
     <AllCommentsModal
       review_id={props.content.review_id}
@@ -117,6 +136,8 @@ export const Main = () => {
           );
         })}
       </ul>
+
+      <Chatbot />
     </div>
   );
 };

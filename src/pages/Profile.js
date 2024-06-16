@@ -14,6 +14,15 @@ import "../css/main.css";
 import logo from "../resources/infovacanta_logo.png";
 import banner from "../resources/banner.png";
 
+import commentsBronze from "../resources/trophies/bronze-cup.png";
+import commentsSilver from "../resources/trophies/silver-cup.png";
+import commentsGold from "../resources/trophies/gold-cup.png";
+
+import upvotesBronze from "../resources/trophies/medal-bronze.png"
+import upvotesSilver from "../resources/trophies/medal-silver.png"
+import upvotesGold from "../resources/trophies/medal-gold.png"
+
+
 export const Profile = () => {
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();

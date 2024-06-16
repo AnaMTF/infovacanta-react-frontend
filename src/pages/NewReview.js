@@ -5,17 +5,32 @@ import { useState } from 'react'
 
 import { Link } from 'react-router-dom';
 
+import { RateButton } from '@lyket/react';
+
+import { useSelector } from 'react-redux';
+
 import "../css/styles.css";
 import "../css/header.css";
 import "../css/new.css";
 
 export const NewReview = (props) => {
+    const user = useSelector((state) => state.user.user);
+
     const [review_body, setReviewBody] = useState('');
     const [destination_name, setDestinationName] = useState('');
 
     const { data: destinations } = useQuery(["destination_id"], async function () {
         try {
             const response = await Axios.get(`http://localhost:5000/destinations`);
+            return response.data;
+        } catch (error) {
+            console.error(error);
+        }
+    });
+
+    const { data: newReviewId } = useQuery(["review_id"], async function () {
+        try {
+            const response = await Axios.get("http://localhost:5000/query/reviews/max");
             return response.data;
         } catch (error) {
             console.error(error);
@@ -56,9 +71,17 @@ export const NewReview = (props) => {
                     value={review_body}
                     onChange={(e) => setReviewBody(e.target.value)}
                 ></textarea>
-                <div id="starRating" data-lyket-type="rate" data-lyket-id="my-<%=starId%>-post" data-lyket-show-rating="user"></div>
+                <RateButton className="list-group-item"
+                    namespace="infovacanta-react"
+                    // id={`review-${newReviewId[0] + 1}`}
+                    id="review-test"
+                    showRating="user"
+                />
+
                 <button className="full-width" type="submit" id="publicaBtn">Publică</button>
             </form>
+
+
             <Link to="/main">
                 <button className="full-width" id="cancelBtn">Anulează</button>
             </Link>
