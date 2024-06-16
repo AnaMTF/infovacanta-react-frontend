@@ -7,6 +7,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSearchFilters } from '../app/searchSlice';
+import { useQuery } from "@tanstack/react-query";
+
+import Axios from "axios";
 
 const SearchFilter = ({ show, handleClose }) => {
   const search = useSelector((state) => state.search.filters);
@@ -126,6 +129,8 @@ const SearchFilter = ({ show, handleClose }) => {
 };
 
 export const MyNavbar = () => {
+  const user = useSelector((state) => state.user.user);
+
   const search = useSelector((state) => state.search);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -142,6 +147,15 @@ export const MyNavbar = () => {
     handleClose();
     navigate(`cautare/${searchText}`);
   };
+
+  const { data: profilePictures, isFetched } = useQuery(["profilePictures"], async () => {
+    try {
+      const result = await Axios.get(`http://localhost:5000/images/${user?.profile_picture_id}`);
+      return result.data;
+    } catch (error) {
+      console.error(error);
+    }
+  });
 
   return (
     <Navbar bg="light" expand="lg">
@@ -161,8 +175,8 @@ export const MyNavbar = () => {
           <Nav.Link as={Link} to="/">Acasă</Nav.Link>
           <Nav.Link as={Link} to="/main">Recenzii</Nav.Link>
           <Nav.Link as={Link} to="/statiuni">Stațiuni</Nav.Link>
-          <Nav.Link as={Link} to="/login">Login</Nav.Link>
-          <Nav.Link as={Link} to="/register">Register</Nav.Link>
+          {!!user?.user_id || <Nav.Link as={Link} to="/login">Login</Nav.Link>}
+          {!!user?.user_id || <Nav.Link as={Link} to="/register">Register</Nav.Link>}
           <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
         </Nav>
         <Form inline className="mx-auto" onSubmit={handleSearch}>
@@ -174,7 +188,7 @@ export const MyNavbar = () => {
           <Dropdown alignRight>
             <Dropdown.Toggle variant="light" id="dropdown-profile" style={{ backgroundColor: "#E9FBFE" }}>
               <Image
-                src={default_profile_picture}
+                src={!!profilePictures ? profilePictures[0]?.location : default_profile_picture}
                 width="30"
                 height="30"
                 className="d-inline-block align-top"

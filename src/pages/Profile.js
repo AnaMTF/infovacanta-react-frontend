@@ -11,6 +11,8 @@ import { Review } from "../pages/Main";
 import "../css/profil.css";
 import "../css/main.css";
 
+import { useEffect } from 'react';
+
 import logo from "../resources/infovacanta_logo.png";
 import banner from "../resources/banner.png";
 
@@ -18,9 +20,9 @@ import commentsBronze from "../resources/trophies/bronze-cup.png";
 import commentsSilver from "../resources/trophies/silver-cup.png";
 import commentsGold from "../resources/trophies/gold-cup.png";
 
-import upvotesBronze from "../resources/trophies/medal-bronze.png"
-import upvotesSilver from "../resources/trophies/medal-silver.png"
-import upvotesGold from "../resources/trophies/medal-gold.png"
+import reviewsBronze from "../resources/trophies/medal-bronze.png"
+import reviewsSilver from "../resources/trophies/medal-silver.png"
+import reviewsGold from "../resources/trophies/medal-gold.png"
 
 
 export const Profile = () => {
@@ -46,6 +48,50 @@ export const Profile = () => {
     }
   });
 
+  const { data: profilePictures } = useQuery(["profilePictures"], async () => {
+    try {
+      const result = await Axios.get(`http://localhost:5000/images/${user?.profile_picture_id}`);
+      return result.data;
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
+  const [hasBronzeComments, setBronzeComments] = React.useState(true);
+  const [hasSilverComments, setSilverComments] = React.useState(true);
+  const [hasGoldComments, setGoldComments] = React.useState(true);
+  const [hasBronzeReviews, setBronzeReviews] = React.useState(true);
+  const [hasSilverReviews, setSilverReviews] = React.useState(true);
+  const [hasGoldReviews, setGoldReviews] = React.useState(true);
+
+  useEffect(() => {
+    userStats?.map((stat) => {
+      if (stat.num_reviews >= 0) {
+        setBronzeReviews(true);
+      }
+
+      if (stat.num_reviews >= 0) {
+        setSilverReviews(true);
+      }
+
+      if (stat.num_reviews >= 0) {
+        setGoldReviews(true);
+      }
+
+      if (stat.num_comments >= 0) {
+        setBronzeComments(true);
+      }
+
+      if (stat.num_comments >= 0) {
+        setSilverComments(true);
+      }
+
+      if (stat.num_comments >= 0) {
+        setGoldComments(true);
+      }
+    });
+  }, [userStats]);
+
   return (
     <div className="container jumbotron centered">
 
@@ -60,7 +106,7 @@ export const Profile = () => {
             </div>
 
             <div className="profileClass" id="btnChangeProfile">
-              <img src={logo} className="imagineProfil" alt="Profil" />
+              <img src={profilePictures[0]?.location} className="imagineProfil" alt="Profil" />
               <div className="middleProfile" >
                 <div className="textProfil">Schimbă imaginea de profil</div>
               </div>
@@ -102,14 +148,40 @@ export const Profile = () => {
 
           }}>
             {
-              [1, 2, 3, 4, 5].map(trophy => {
-                return (
-                  <img src={logo} alt="Trophy" width="100" height="100" style={{
-                    borderRadius: "50%",
-                    margin: "10px 10px 10px 10px",
-                  }} />
-                );
-              })
+              hasBronzeReviews && <img src={reviewsBronze} alt="Trophy" width="100" height="100" style={{
+                borderRadius: "50%",
+                margin: "10px 10px 10px 10px",
+              }} />
+            }
+            {
+              hasSilverReviews && <img src={reviewsSilver} alt="Trophy" width="100" height="100" style={{
+                borderRadius: "50%",
+                margin: "10px 10px 10px 10px",
+              }} />
+            }
+            {
+              hasGoldReviews && <img src={reviewsGold} alt="Trophy" width="100" height="100" style={{
+                borderRadius: "50%",
+                margin: "10px 10px 10px 10px",
+              }} />
+            }
+            {
+              hasBronzeComments && <img src={commentsBronze} alt="Trophy" width="100" height="100" style={{
+                borderRadius: "50%",
+                margin: "10px 10px 10px 10px",
+              }} />
+            }
+            {
+              hasSilverComments && <img src={commentsSilver} alt="Trophy" width="100" height="100" style={{
+                borderRadius: "50%",
+                margin: "10px 10px 10px 10px",
+              }} />
+            }
+            {
+              hasGoldComments && <img src={commentsGold} alt="Trophy" width="100" height="100" style={{
+                borderRadius: "50%",
+                margin: "10px 10px 10px 10px",
+              }} />
             }
           </div>
         </div>
