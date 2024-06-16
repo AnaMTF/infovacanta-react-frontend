@@ -107,7 +107,7 @@ export const Statiune = (props) => {
 
                 <Marker position={coordinates}>
                   <Popup>
-                    A pretty CSS3 popup. <br /> Easily customizable.
+                    {`Aici se află stațiunea ${statiune?.destination_name}`}
                   </Popup>
                 </Marker>
               </MapContainer>
