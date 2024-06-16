@@ -159,7 +159,7 @@ export const MyNavbar = () => {
 
   return (
     <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="#home">
+      <Navbar.Brand as={Link} to="/">
         <img
           src={logo}
           width="30"
