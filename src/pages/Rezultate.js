@@ -27,18 +27,18 @@ export const Rezultate = (props) => {
   const user = useSelector((state) => state.user.user);
   const search = useSelector((state) => state.search.filters);
 
-  const [showReviews, setShowReviews] = useState(true);
-  const [showDestinations, setShowDestinations] = useState(true);
-  const [showComments, setShowComments] = useState(true);
-  const [showUsers, setShowUsers] = useState(true);
+  const [showReviews, setShowReviews] = useState(search.searchInReviews);
+  const [showDestinations, setShowDestinations] = useState(search.searchInDestinations);
+  const [showComments, setShowComments] = useState(search.searchInComments);
+  const [showUsers, setShowUsers] = useState(search.searchInUsers);
 
   useEffect(() => {
     console.log("REDUX STATE:\n", search);
 
-    // setShowReviews(search.searchInReviews);
-    // setShowDestinations(search.searchInDestinations);
-    // setShowComments(search.searchInComments);
-    // setShowUsers(search.searchInUsers);
+    setShowReviews(search.searchInReviews);
+    setShowDestinations(search.searchInDestinations);
+    setShowComments(search.searchInComments);
+    setShowUsers(search.searchInUsers);
 
   }, [search]);
 
