@@ -172,7 +172,7 @@ export const MyNavbar = () => {
         </Form>
         <Nav>
           <Dropdown alignRight>
-            <Dropdown.Toggle variant="light" id="dropdown-profile">
+            <Dropdown.Toggle variant="light" id="dropdown-profile" style={{ backgroundColor: "#E9FBFE" }}>
               <Image
                 src={default_profile_picture}
                 width="30"
@@ -182,7 +182,7 @@ export const MyNavbar = () => {
                 style={{ objectFit: 'cover' }}
               />
             </Dropdown.Toggle>
-            <Dropdown.Menu>
+            <Dropdown.Menu style={{ backgroundColor: "#E9FBFE" }}>
               <Dropdown.Item as={Link} to="/profil">Profilul meu</Dropdown.Item>
               <Dropdown.Item as={Link} to="/">Setări</Dropdown.Item>
               <Dropdown.Item as={Link} to="/">Logout</Dropdown.Item>

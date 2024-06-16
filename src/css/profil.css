@@ -1,10 +1,12 @@
 .imagineProfil {
   opacity: 1;
   border-radius: 50%;
-  position: relative;
+  position: absolute;
+  top: 27.5%;
+  left: 5.95%;
 
-  margin-top: -200px;
-  margin-left: 50px;
+  /* margin-top: -200px;
+  margin-right: 50px; */
   width: 250px;
   transition: .5s ease;
   backface-visibility: hidden;
