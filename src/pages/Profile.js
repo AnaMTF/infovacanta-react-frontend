@@ -37,6 +37,15 @@ export const Profile = () => {
     }
   })
 
+  const { data: userStats } = useQuery(["userStats"], async () => {
+    try {
+      const result = await Axios.get(`http://localhost:5000/query/users/${user?.user_id}/statistics`);
+      return result.data;
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
   return (
     <div className="container jumbotron centered">
 
