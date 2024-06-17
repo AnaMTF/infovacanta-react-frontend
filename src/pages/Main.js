@@ -45,7 +45,11 @@ export function Review(props) {
     <h2>{props.content.destination_name}</h2>
     <small>{props.content.destination_category}</small>
     <p>{props.content.review_body}</p>
-    <small>By: {props.content.nickname}</small>
+
+    <small><a style={{
+      color: "#888"
+    }} href={`/profil/${props.content.author_id}`}>By: {props.content.nickname}</a></small>
+
     <small>Date posted: {props.content.date_posted}</small>
     <div id="starRating" data-lyket-type="rate" data-lyket-id={`my-${props.content.review_id}-post`} data-lyket-show-rating="average"></div>
     <div className="lyket-counter" data-lyket-type="updown" data-lyket-id="my-<%=i%>-post" data-lyket-namespace="blog" data-lyket-template="simple"></div>

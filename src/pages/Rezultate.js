@@ -63,7 +63,7 @@ export const Rezultate = (props) => {
 
   return (
     <Tabs defaultKey="reviews" id="uncontrolled-tab-example"
-      style={{ backgroundColor: "blue", color: "red" }}
+      style={{ backgroundColor: "#E6D1F2", color: "red" }}
     >
       {showReviews && <Tab eventKey="reviews" title="Recenzii" style={{ borderRadius: "unset" }}>
         <div className="container-fluid jumbotron centered">
@@ -134,14 +134,16 @@ export const Rezultate = (props) => {
                   </div>
 
                   <Card.Body>
-                    <Card.Title ><b>{user.nickname}</b></Card.Title>
-                    <Card.Subtitle>{user.full_name}</Card.Subtitle>
+                    <Card.Title >Nickname: <b>{user.nickname}</b></Card.Title>
+                    <Card.Subtitle>Nume: <b>{user.full_name}</b></Card.Subtitle>
 
                     <Card.Text>
-                      Some quick example text to build on the card title and make up the bulk of the card's content.
+                      <small>Email: <b>{user.email}</b></small>
                     </Card.Text>
 
-                    <Button variant="primary">View Profile</Button>
+                    <Link to={`/profil/${user.user_id}`}>
+                      <Button variant="primary">View Profile</Button>
+                    </Link>
                   </Card.Body>
                 </Card>
               );

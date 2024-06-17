@@ -1,9 +1,14 @@
+import "../css/header.css";
+import "../css/styles.css";
+import "../css/main.css";
+
 import { Container, Navbar, Nav, Row, Col, Card, Button, Alert } from 'react-bootstrap';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import L from 'leaflet';
 
+import { useSelector } from 'react-redux';
 
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
@@ -21,7 +26,12 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 
+import { Review } from "./Main";
+
+
 export const Statiune = (props) => {
+  const user = useSelector((state) => state.user.user);
+
   const [coordinates, setCoordinates] = useState({ lat: 45.9442858, lng: 25.0094303 });
 
   const { nume } = useParams();
@@ -114,8 +124,19 @@ export const Statiune = (props) => {
             }
 
           </Col>
+
+
         </Row>
       </Container>
+
+      <h1>Recenzii</h1>
+      <ul id="postsList" className="list-group">
+        {reviews?.map((review, idx) => {
+          return (
+            <Review loggedInUserId={user?.user_id} key={idx} content={review}></Review>
+          );
+        })}
+      </ul>
     </div>
   );
 };
