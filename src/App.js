@@ -22,6 +22,8 @@ import { Provider as LyketProvider } from '@lyket/react';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
+// import { WebchatProvider, useClient } from '@botpress/webchat';
+
 function App() {
   // lista cu statiuni; incalca principiul Open/Closed din SOLID!!!!!!!! dar aia e pana la urma
   // am actionat asa pentru a nu face un request catre server pentru a obtine lista statiunilor
@@ -76,6 +78,10 @@ function App() {
     },
   });
 
+  // const botpressClient = useClient({
+  //   clientId: '75424437-4b00-4535-8cf2-b56dbabe0397',
+  // });
+
   return (
     <div className="App">
       <QueryClientProvider client={client}>
@@ -87,11 +93,12 @@ function App() {
               <Navbar />
               <Routes>
                 <Route index element={<Home />} />
-                <Route path="/main" element={<Main />} />
                 <Route path="/new" element={<NewReview />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
 
+
+                <Route path="/main" element={<Main />} />
                 {/* pagina principala cu statiuni (cate un card pentru fiecare statiune) */}
                 <Route path="/statiuni" element={<StatiuniOutlet />}>
                   {/* pagina cu detalii despre o statiune */}

@@ -1,4 +1,4 @@
-import React, { useState, Component } from 'react';
+import React, { useState, Component, useEffect } from 'react';
 import { useQuery } from "@tanstack/react-query";
 import Axios from "axios";
 
@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 import { AllCommentsModal } from "../components/AllCommentsModal";
 import { NewCommentModal } from "../components/NewCommentModal";
 
-import Chatbot from '../components/Chatbot';
+// import Chatbot from '../components/Chatbot';
 
 import { RateButton, UpdownButton } from '@lyket/react';
 
@@ -111,10 +111,21 @@ export const Main = () => {
     }
   });
 
-  // const { data: reviews, isLoading, error } = useQuery(["reviews"], async () => {
-  //   const result = await Axios.get("http://localhost:5000/reviews");
-  //   return result.data;
-  // });
+  useEffect(() => {
+    const script1 = document.createElement('script');
+    script1.src = "https://cdn.botpress.cloud/webchat/v2/inject.js";
+
+    const script2 = document.createElement('script');
+    script2.src = "https://mediafiles.botpress.cloud/75424437-4b00-4535-8cf2-b56dbabe0397/webchat/v2/config.js";
+
+    document.body.appendChild(script1);
+    document.body.appendChild(script2);
+
+    return () => {
+      document.body.removeChild(script1);
+      document.body.removeChild(script2);
+    }
+  }, []);
 
   return (
     <div className="container-fluid jumbotron centered">
@@ -137,7 +148,8 @@ export const Main = () => {
         })}
       </ul>
 
-      <Chatbot />
+      {/* <Chatbot /> */}
+
     </div>
   );
 };

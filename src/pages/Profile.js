@@ -14,6 +14,7 @@ import "../css/main.css";
 import { useEffect } from 'react';
 
 import logo from "../resources/infovacanta_logo.png";
+import default_profile_picture from "../resources/blank-profile-pic.png";
 import banner from "../resources/banner.png";
 
 import commentsBronze from "../resources/trophies/bronze-cup.png";
@@ -30,7 +31,7 @@ export const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { data: reviews, isLoading, error } = useQuery(["reviews"], async () => {
+  const { data: reviews } = useQuery(["reviews"], async () => {
     try {
       const result = await Axios.get(`http://localhost:5000/users/${user?.user_id}/reviews`);
       return result.data;
@@ -48,7 +49,7 @@ export const Profile = () => {
     }
   });
 
-  const { data: profilePictures } = useQuery(["profilePictures"], async () => {
+  const { data: profilePictures, isFetchedAfterMount } = useQuery(["profilePictures"], async () => {
     try {
       const result = await Axios.get(`http://localhost:5000/images/${user?.profile_picture_id}`);
       return result.data;
@@ -106,7 +107,9 @@ export const Profile = () => {
             </div>
 
             <div className="profileClass" id="btnChangeProfile">
-              <img src={profilePictures[0]?.location} className="imagineProfil" alt="Profil" />
+              <img src={
+                isFetchedAfterMount ? profilePictures[0]?.location : default_profile_picture
+              } className="imagineProfil" alt="Profil" />
               <div className="middleProfile" >
                 <div className="textProfil">Schimbă imaginea de profil</div>
               </div>
