@@ -24,6 +24,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ContactPage } from "./pages/ContactPage";
 
 import { ProfileOtherUser } from "./pages/ProfileOtherUser";
+import { ProfilOutlet } from "./pages/ProfilOutlet";
 
 // import { WebchatProvider, useClient } from '@botpress/webchat';
 
@@ -109,8 +110,9 @@ function App() {
                 </Route>
 
                 {/* pagina cu profilul utilizatorului */}
-                <Route path="/profil" element={<Profile />}>
-                  <Route path=":username" element={<ProfileOtherUser />} />
+                <Route path="/profil" element={<ProfilOutlet />}>
+                  <Route path="" element={<Profile />} />
+                  <Route path=":userId" element={<ProfileOtherUser />} />
                   <Route path="*" element={<NotFound />} />
                 </Route>
 

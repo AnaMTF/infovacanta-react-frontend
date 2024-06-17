@@ -25,15 +25,25 @@ import reviewsBronze from "../resources/trophies/medal-bronze.png"
 import reviewsSilver from "../resources/trophies/medal-silver.png"
 import reviewsGold from "../resources/trophies/medal-gold.png"
 
+import { useParams } from "react-router-dom";
 
-export const ProfileOtherUser = () => {
+export const ProfileOtherUser = (props) => {
+  const { userId } = useParams();
+
   const user = useSelector((state) => state.user.user);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+
+  const { data: thisUser } = useQuery(["this_user_id"], async () => {
+    try {
+      const result = await Axios.get(`http://localhost:5000/users/${userId}`);
+      return result.data;
+    } catch (error) {
+      console.error(error);
+    }
+  });
 
   const { data: reviews } = useQuery(["reviews"], async () => {
     try {
-      const result = await Axios.get(`http://localhost:5000/users/${user?.user_id}/reviews`);
+      const result = await Axios.get(`http://localhost:5000/users/${userId}/reviews`);
       return result.data;
     } catch (error) {
       console.error(error);
@@ -42,21 +52,18 @@ export const ProfileOtherUser = () => {
 
   const { data: userStats } = useQuery(["userStats"], async () => {
     try {
-      const result = await Axios.get(`http://localhost:5000/query/users/${user?.user_id}/statistics`);
+      const result = await Axios.get(`http://localhost:5000/query/users/${userId}/statistics`);
       return result.data;
     } catch (error) {
       console.error(error);
     }
   });
 
-  const { data: profilePictures, isFetchedAfterMount } = useQuery(["profilePictures"], async () => {
-    try {
-      const result = await Axios.get(`http://localhost:5000/images/${user?.profile_picture_id}`);
-      return result.data;
-    } catch (error) {
-      console.error(error);
-    }
-  });
+  useEffect(() => {
+    console.log("\nthisUser: ", thisUser);
+    console.log("\nreviews: ", reviews);
+    console.log("\nuserStats: ", userStats)
+  }, [thisUser, reviews, userStats])
 
   const [hasBronzeComments, setBronzeComments] = React.useState(true);
   const [hasSilverComments, setSilverComments] = React.useState(true);
@@ -108,7 +115,9 @@ export const ProfileOtherUser = () => {
 
             <div className="profileClass" id="btnChangeProfile">
               <img src={
-                isFetchedAfterMount ? profilePictures[0]?.location : default_profile_picture
+                thisUser?.map((user) => {
+                  return user.pfp_location;
+                }) || default_profile_picture
               } className="imagineProfil" alt="Profil" />
               <div className="middleProfile" >
                 <div className="textProfil">Schimbă imaginea de profil</div>
@@ -116,9 +125,21 @@ export const ProfileOtherUser = () => {
             </div>
 
             <div className="card-body">
-              <h5 className="card-title ">{user?.nickname}</h5>
-              <h6>nume: {user?.full_name}</h6>
-              <h6>email: {user?.email}</h6>
+              <h5 className="card-title ">{
+                thisUser?.map((user) => {
+                  return user.nickname;
+                })
+              }</h5>
+              <h6>nume: {
+                thisUser?.map((user) => {
+                  return user.full_name;
+                })
+              }</h6>
+              <h6>email: {
+                thisUser?.map((user) => {
+                  return user.email;
+                })
+              }</h6>
               <p className="card-text">Aici vei găsi toate recenziile postate de tine.</p>
               <a href="/new" className="btn btn-primary">Adaugă o recenzie</a>
 
