@@ -29,9 +29,9 @@ const searchSlice = createSlice({
   name: 'search',
   initialState: loadStateFromLocalStorage() || {
     filters: {
-      isBeachDestination: false,
-      isMountainDestination: false,
-      isThermalSpringDestination: false,
+      isBeachDestination: true,
+      isMountainDestination: true,
+      isThermalSpringDestination: true,
       searchInReviews: true,
       searchInUsers: false,
       searchInDestinations: false,
