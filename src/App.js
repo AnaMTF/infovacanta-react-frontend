@@ -21,6 +21,9 @@ import { store } from "./app/store";
 import { Provider as LyketProvider } from '@lyket/react';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ContactPage } from "./pages/ContactPage";
+
+import { ProfileOtherUser } from "./pages/ProfileOtherUser";
 
 // import { WebchatProvider, useClient } from '@botpress/webchat';
 
@@ -87,8 +90,6 @@ function App() {
       <QueryClientProvider client={client}>
         <Provider store={store}>
           <LyketProvider apiKey="pt_49ef1b9862ddcdc97d841106b33e79">
-
-
             <Router>
               <Navbar />
               <Routes>
@@ -108,13 +109,18 @@ function App() {
                 </Route>
 
                 {/* pagina cu profilul utilizatorului */}
-                <Route path="/profil" element={<Profile />} />
+                <Route path="/profil" element={<Profile />}>
+                  <Route path=":username" element={<ProfileOtherUser />} />
+                  <Route path="*" element={<NotFound />} />
+                </Route>
 
                 {/* pagina cu rezultatele cautarii */}
                 <Route path="/cautare/:keyword" element={<Rezultate />} />
+
+                <Route path="/contact" element={<ContactPage />} />
               </Routes>
             </Router>
-            {/* <Footer /> */}
+            <Footer />
           </LyketProvider>
         </Provider>
       </QueryClientProvider>

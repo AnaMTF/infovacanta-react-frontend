@@ -9,8 +9,8 @@ export const Footer = () => {
         <footer class="footer">
             <div class="footercontainer">
                 <span class="text-muted">© InfoVacanță Țițeche Anamaria-Florentina {new Date().getFullYear()}</span>
-                <a class="btn btn-dark " href="/login" role="button">Ceva</a>
-                <a class="btn btn-dark " href="/login" role="button">Altceva</a>
+                {/* <a class="btn btn-dark " href="/login" role="button">Ceva</a>
+                <a class="btn btn-dark " href="/login" role="button">Altceva</a> */}
             </div>
         </footer>
     );
