@@ -122,12 +122,12 @@ export const Main = () => {
       <Link to="/new">
         <button id="newPostBtn">Recenzie Nouă</button>
       </Link>
-      <Link to="/profil">
+      {/* <Link to="/profil">
         <button id="newPostBtn">Profil ({user?.nickname || "no user detected"})</button>
-      </Link>
-      <Link to="/">
+      </Link> */}
+      {/* <Link to="/">
         <button id="logoutBtn" onClick={() => dispatch(logoutUser(navigate))}>Logout</button>
-      </Link>
+      </Link> */}
 
       <ul id="postsList" className="list-group">
         {reviews?.map((review, idx) => {

@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSearchFilters } from '../app/searchSlice';
 import { useQuery } from "@tanstack/react-query";
+import { logoutUser } from '../app/userSlice';
 
 import Axios from "axios";
 
@@ -148,14 +149,18 @@ export const MyNavbar = () => {
     navigate(`cautare/${searchText}`);
   };
 
-  const { data: profilePictures, isFetched } = useQuery(["profilePictures"], async () => {
+  const { data: profilePictures, isLoading, error, isFetchedAfterMount } = useQuery(["image_id"], async () => {
     try {
       const result = await Axios.get(`http://localhost:5000/images/${user?.profile_picture_id}`);
       return result.data;
     } catch (error) {
       console.error(error);
     }
+    // const result = await Axios.get(`http://localhost:5000/images/${user?.profile_picture_id}`);
   });
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <Navbar bg="light" expand="lg">
@@ -175,8 +180,8 @@ export const MyNavbar = () => {
           <Nav.Link as={Link} to="/">Acasă</Nav.Link>
           <Nav.Link as={Link} to="/main">Recenzii</Nav.Link>
           <Nav.Link as={Link} to="/statiuni">Stațiuni</Nav.Link>
-          {!!user?.user_id || <Nav.Link as={Link} to="/login">Login</Nav.Link>}
-          {!!user?.user_id || <Nav.Link as={Link} to="/register">Register</Nav.Link>}
+          {/* {!!user?.user_id || <Nav.Link as={Link} to="/login">Login</Nav.Link>}
+          {!!user?.user_id || <Nav.Link as={Link} to="/register">Register</Nav.Link>} */}
           <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
         </Nav>
         <Form inline className="mx-auto" onSubmit={handleSearch}>
@@ -188,7 +193,9 @@ export const MyNavbar = () => {
           <Dropdown alignRight>
             <Dropdown.Toggle variant="light" id="dropdown-profile" style={{ backgroundColor: "#E9FBFE" }}>
               <Image
-                src={!!profilePictures ? profilePictures[0]?.location : default_profile_picture}
+                src={
+                  isFetchedAfterMount ? profilePictures[0]?.location : default_profile_picture
+                }
                 width="30"
                 height="30"
                 className="d-inline-block align-top"
@@ -197,9 +204,11 @@ export const MyNavbar = () => {
               />
             </Dropdown.Toggle>
             <Dropdown.Menu style={{ backgroundColor: "#E9FBFE" }}>
-              <Dropdown.Item as={Link} to="/profil">Profilul meu</Dropdown.Item>
-              <Dropdown.Item as={Link} to="/">Setări</Dropdown.Item>
-              <Dropdown.Item as={Link} to="/">Logout</Dropdown.Item>
+              {!!user?.user_id && <Dropdown.Item as={Link} to="/profil">Profilul meu</Dropdown.Item>}
+              {!!user?.user_id && <Dropdown.Item as={Link} to="/">Setări</Dropdown.Item>}
+              {!!user?.user_id || <Dropdown.Item as={Link} to="/login">Login</Dropdown.Item>}
+              {!!user?.user_id || <Dropdown.Item as={Link} to="/register">Register</Dropdown.Item>}
+              {!!user?.user_id && <Dropdown.Item as={Link} to="/" onClick={() => dispatch(logoutUser(navigate))}>Logout</Dropdown.Item>}
             </Dropdown.Menu>
           </Dropdown>
         </Nav>
