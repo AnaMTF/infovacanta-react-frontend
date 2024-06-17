@@ -149,19 +149,6 @@ export const MyNavbar = () => {
     navigate(`cautare/${searchText}`);
   };
 
-  const { data: profilePictures, isLoading, error, isFetchedAfterMount } = useQuery(["image_id"], async () => {
-    try {
-      const result = await Axios.get(`http://localhost:5000/images/${user?.profile_picture_id}`);
-      return result.data;
-    } catch (error) {
-      console.error(error);
-    }
-    // const result = await Axios.get(`http://localhost:5000/images/${user?.profile_picture_id}`);
-  });
-
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
-
   return (
     <Navbar bg="light" expand="lg">
       <Navbar.Brand as={Link} to="/">
@@ -194,7 +181,7 @@ export const MyNavbar = () => {
             <Dropdown.Toggle variant="light" id="dropdown-profile" style={{ backgroundColor: "#E9FBFE" }}>
               <Image
                 src={
-                  isFetchedAfterMount ? profilePictures[0]?.location : default_profile_picture
+                  user?.pfp_location || default_profile_picture
                 }
                 width="30"
                 height="30"

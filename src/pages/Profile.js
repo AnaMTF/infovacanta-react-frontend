@@ -25,6 +25,8 @@ import reviewsBronze from "../resources/trophies/medal-bronze.png"
 import reviewsSilver from "../resources/trophies/medal-silver.png"
 import reviewsGold from "../resources/trophies/medal-gold.png"
 
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export const Profile = () => {
   const user = useSelector((state) => state.user.user);
@@ -43,15 +45,6 @@ export const Profile = () => {
   const { data: userStats } = useQuery(["userStats"], async () => {
     try {
       const result = await Axios.get(`http://localhost:5000/query/users/${user?.user_id}/statistics`);
-      return result.data;
-    } catch (error) {
-      console.error(error);
-    }
-  });
-
-  const { data: profilePictures, isFetchedAfterMount } = useQuery(["profilePictures"], async () => {
-    try {
-      const result = await Axios.get(`http://localhost:5000/images/${user?.profile_picture_id}`);
       return result.data;
     } catch (error) {
       console.error(error);
@@ -100,7 +93,7 @@ export const Profile = () => {
         <div id="cardProfil">
           <div className="card">
             <div className="bannerClass" id="btnChangeBanner">
-              <img src={banner} className="bannerImg" alt="Banner" />
+              <img src={user?.bg_location || banner} className="bannerImg" alt="Banner" />
               <div className="middleBanner" >
                 <div className="textFundal">Schimbă imaginea de fundal</div>
               </div>
@@ -108,7 +101,7 @@ export const Profile = () => {
 
             <div className="profileClass" id="btnChangeProfile">
               <img src={
-                isFetchedAfterMount ? profilePictures[0]?.location : default_profile_picture
+                user?.pfp_location || default_profile_picture
               } className="imagineProfil" alt="Profil" />
               <div className="middleProfile" >
                 <div className="textProfil">Schimbă imaginea de profil</div>
@@ -120,7 +113,9 @@ export const Profile = () => {
               <h6>nume: {user?.full_name}</h6>
               <h6>email: {user?.email}</h6>
               <p className="card-text">Aici vei găsi toate recenziile postate de tine.</p>
-              <a href="/new" className="btn btn-primary">Adaugă o recenzie</a>
+              <Link to="/new">
+                <button className="btn btn-primary">Adaugă o recenzie</button>
+              </Link>
 
             </div>
           </div>
@@ -151,40 +146,83 @@ export const Profile = () => {
 
           }}>
             {
-              hasBronzeReviews && <img src={reviewsBronze} alt="Trophy" width="100" height="100" style={{
-                borderRadius: "50%",
-                margin: "10px 10px 10px 10px",
-              }} />
+              hasBronzeReviews &&
+              <OverlayTrigger placement="bottom" overlay={
+                <Tooltip>
+                  Ai cel puțin 5 recenzii!
+                </Tooltip>
+              }>
+                <img src={reviewsBronze} alt="Trophy" width="100" height="100" style={{
+                  borderRadius: "50%",
+                  margin: "10px 10px 10px 10px",
+                }} />
+              </OverlayTrigger>
+
             }
             {
-              hasSilverReviews && <img src={reviewsSilver} alt="Trophy" width="100" height="100" style={{
-                borderRadius: "50%",
-                margin: "10px 10px 10px 10px",
-              }} />
+              hasSilverReviews &&
+              <OverlayTrigger placement="bottom" overlay={
+                <Tooltip>
+                  Ai cel puțin 10 recenzii!
+                </Tooltip>
+              }>
+                <img src={reviewsSilver} alt="Trophy" width="100" height="100" style={{
+                  borderRadius: "50%",
+                  margin: "10px 10px 10px 10px",
+                }} />
+              </OverlayTrigger>
             }
             {
-              hasGoldReviews && <img src={reviewsGold} alt="Trophy" width="100" height="100" style={{
-                borderRadius: "50%",
-                margin: "10px 10px 10px 10px",
-              }} />
+              hasGoldReviews &&
+              <OverlayTrigger placement="bottom" overlay={
+                <Tooltip>
+                  Ai cel puțin 15 recenzii!
+                </Tooltip>
+              }>
+                <img src={reviewsGold} alt="Trophy" width="100" height="100" style={{
+                  borderRadius: "50%",
+                  margin: "10px 10px 10px 10px",
+                }} />
+              </OverlayTrigger>
             }
             {
-              hasBronzeComments && <img src={commentsBronze} alt="Trophy" width="100" height="100" style={{
-                borderRadius: "50%",
-                margin: "10px 10px 10px 10px",
-              }} />
+              hasBronzeComments &&
+              <OverlayTrigger placement="bottom" overlay={
+                <Tooltip>
+                  Ai cel puțin 5 comentarii!
+                </Tooltip>
+              }>
+                <img src={commentsBronze} alt="Trophy" width="100" height="100" style={{
+                  borderRadius: "50%",
+                  margin: "10px 10px 10px 10px",
+                }} />
+              </OverlayTrigger>
             }
             {
-              hasSilverComments && <img src={commentsSilver} alt="Trophy" width="100" height="100" style={{
-                borderRadius: "50%",
-                margin: "10px 10px 10px 10px",
-              }} />
+              hasSilverComments &&
+              <OverlayTrigger placement="bottom" overlay={
+                <Tooltip>
+                  Ai cel puțin 10 comentarii!
+                </Tooltip>
+              }>
+                <img src={commentsSilver} alt="Trophy" width="100" height="100" style={{
+                  borderRadius: "50%",
+                  margin: "10px 10px 10px 10px",
+                }} />
+              </OverlayTrigger>
             }
             {
-              hasGoldComments && <img src={commentsGold} alt="Trophy" width="100" height="100" style={{
-                borderRadius: "50%",
-                margin: "10px 10px 10px 10px",
-              }} />
+              hasGoldComments &&
+              <OverlayTrigger placement="bottom" overlay={
+                <Tooltip>
+                  Ai cel puțin 15 comentarii!
+                </Tooltip>
+              }>
+                <img src={commentsGold} alt="Trophy" width="100" height="100" style={{
+                  borderRadius: "50%",
+                  margin: "10px 10px 10px 10px",
+                }} />
+              </OverlayTrigger>
             }
           </div>
         </div>

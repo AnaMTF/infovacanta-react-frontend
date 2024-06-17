@@ -27,6 +27,8 @@ import reviewsGold from "../resources/trophies/medal-gold.png"
 
 import { useParams } from "react-router-dom";
 
+import { Tooltip, OverlayTrigger } from 'react-bootstrap';
+
 export const ProfileOtherUser = (props) => {
   const { userId } = useParams();
 
@@ -107,7 +109,11 @@ export const ProfileOtherUser = (props) => {
         <div id="cardProfil">
           <div className="card">
             <div className="bannerClass" id="btnChangeBanner">
-              <img src={banner} className="bannerImg" alt="Banner" />
+              <img src={
+                thisUser?.map((user) => {
+                  return user.bg_location;
+                }) || banner
+              } className="bannerImg" alt="Banner" />
               <div className="middleBanner" >
                 <div className="textFundal">Schimbă imaginea de fundal</div>
               </div>
@@ -140,8 +146,7 @@ export const ProfileOtherUser = (props) => {
                   return user.email;
                 })
               }</h6>
-              <p className="card-text">Aici vei găsi toate recenziile postate de tine.</p>
-              <a href="/new" className="btn btn-primary">Adaugă o recenzie</a>
+              <p className="card-text">Aici vei găsi toate recenziile postate de acest utilizator.</p>
 
             </div>
           </div>
@@ -172,40 +177,83 @@ export const ProfileOtherUser = (props) => {
 
           }}>
             {
-              hasBronzeReviews && <img src={reviewsBronze} alt="Trophy" width="100" height="100" style={{
-                borderRadius: "50%",
-                margin: "10px 10px 10px 10px",
-              }} />
+              hasBronzeReviews &&
+              <OverlayTrigger placement="bottom" overlay={
+                <Tooltip>
+                  Acest utilizator are cel puțin 5 recenzii!
+                </Tooltip>
+              }>
+                <img src={reviewsBronze} alt="Trophy" width="100" height="100" style={{
+                  borderRadius: "50%",
+                  margin: "10px 10px 10px 10px",
+                }} />
+              </OverlayTrigger>
+
             }
             {
-              hasSilverReviews && <img src={reviewsSilver} alt="Trophy" width="100" height="100" style={{
-                borderRadius: "50%",
-                margin: "10px 10px 10px 10px",
-              }} />
+              hasSilverReviews &&
+              <OverlayTrigger placement="bottom" overlay={
+                <Tooltip>
+                  Acest utilizator are cel puțin 10 recenzii!
+                </Tooltip>
+              }>
+                <img src={reviewsSilver} alt="Trophy" width="100" height="100" style={{
+                  borderRadius: "50%",
+                  margin: "10px 10px 10px 10px",
+                }} />
+              </OverlayTrigger>
             }
             {
-              hasGoldReviews && <img src={reviewsGold} alt="Trophy" width="100" height="100" style={{
-                borderRadius: "50%",
-                margin: "10px 10px 10px 10px",
-              }} />
+              hasGoldReviews &&
+              <OverlayTrigger placement="bottom" overlay={
+                <Tooltip>
+                  Acest utilizator are cel puțin 15 recenzii!
+                </Tooltip>
+              }>
+                <img src={reviewsGold} alt="Trophy" width="100" height="100" style={{
+                  borderRadius: "50%",
+                  margin: "10px 10px 10px 10px",
+                }} />
+              </OverlayTrigger>
             }
             {
-              hasBronzeComments && <img src={commentsBronze} alt="Trophy" width="100" height="100" style={{
-                borderRadius: "50%",
-                margin: "10px 10px 10px 10px",
-              }} />
+              hasBronzeComments &&
+              <OverlayTrigger placement="bottom" overlay={
+                <Tooltip>
+                  Acest utilizator are cel puțin 5 comentarii!
+                </Tooltip>
+              }>
+                <img src={commentsBronze} alt="Trophy" width="100" height="100" style={{
+                  borderRadius: "50%",
+                  margin: "10px 10px 10px 10px",
+                }} />
+              </OverlayTrigger>
             }
             {
-              hasSilverComments && <img src={commentsSilver} alt="Trophy" width="100" height="100" style={{
-                borderRadius: "50%",
-                margin: "10px 10px 10px 10px",
-              }} />
+              hasSilverComments &&
+              <OverlayTrigger placement="bottom" overlay={
+                <Tooltip>
+                  Acest utilizator are cel puțin 10 comentarii!
+                </Tooltip>
+              }>
+                <img src={commentsSilver} alt="Trophy" width="100" height="100" style={{
+                  borderRadius: "50%",
+                  margin: "10px 10px 10px 10px",
+                }} />
+              </OverlayTrigger>
             }
             {
-              hasGoldComments && <img src={commentsGold} alt="Trophy" width="100" height="100" style={{
-                borderRadius: "50%",
-                margin: "10px 10px 10px 10px",
-              }} />
+              hasGoldComments &&
+              <OverlayTrigger placement="bottom" overlay={
+                <Tooltip>
+                  Acest utilizator are cel puțin 15 comentarii!
+                </Tooltip>
+              }>
+                <img src={commentsGold} alt="Trophy" width="100" height="100" style={{
+                  borderRadius: "50%",
+                  margin: "10px 10px 10px 10px",
+                }} />
+              </OverlayTrigger>
             }
           </div>
         </div>
