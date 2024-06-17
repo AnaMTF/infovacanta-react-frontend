@@ -71,6 +71,36 @@ export const Rezultate = (props) => {
 
           <ul id="postsList" className="list-group">
             {query_results?.reviews.map((review, idx) => {
+              if (search?.minDate) {
+                if (new Date(review.date_posted) < new Date(search.minDate)) {
+                  return null;
+                }
+              }
+
+              if (search?.maxDate) {
+                if (new Date(review.date_posted) > new Date(search.maxDate)) {
+                  return null;
+                }
+              }
+
+              // if (search?.isBeachDestination) {
+              //   if (!review.destination_category.includes("mare")) {
+              //     return null;
+              //   }
+              // }
+
+              // if (search?.isMountainDestination) {
+              //   if (!review.destination_category.includes("munte")) {
+              //     return null;
+              //   }
+              // }
+
+              // if (search?.isThermalSpringDestination) {
+              //   if (!review.destination_category.includes("balnear")) {
+              //     return null;
+              //   }
+              // }
+
               return (
                 <Review loggedInUserId={user?.user_id} key={idx} content={review}></Review>
               );
