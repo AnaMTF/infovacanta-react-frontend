@@ -88,7 +88,6 @@ export function Review(props) {
     <NewCommentModal
       review_id={props.content.review_id}
       review_author_nickname={props.content.nickname}
-      user_id={props.loggedInUserId}
       show={showNewComment} onHide={() => setShowNewComment(false)}
     ></NewCommentModal>
   </li>);
