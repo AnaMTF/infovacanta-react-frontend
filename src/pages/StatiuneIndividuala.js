@@ -33,13 +33,18 @@ export const Statiune = (props) => {
   const user = useSelector((state) => state.user.user);
 
   const [coordinates, setCoordinates] = useState({ lat: 45.9442858, lng: 25.0094303 });
+  const [reviews, setReviews] = useState([]);
 
   const { nume } = useParams();
+
   const { data: statiune, isError, isPaused, isFetchedAfterMount } = useQuery(["destination_link"], async function () {
     try {
       const result = await Axios.get(`http://localhost:5000/query/destinations/${nume}`);
       console.log(`http://localhost:5000/query/destinations/${nume}`);
       setCoordinates({ lat: result.data[0].coordinates.x, lng: result.data[0].coordinates.y });
+
+      const result_reviews = await Axios.get(`http://localhost:5000/destinations/${result.data[0]?.destination_id}/reviews`);
+      setReviews(result_reviews.data);
 
       // console.log(result.data[0]); // <-- testare: afisare date in consola   
       return result.data[0];
@@ -129,14 +134,16 @@ export const Statiune = (props) => {
         </Row>
       </Container>
 
-      <h1>Recenzii</h1>
-      <ul id="postsList" className="list-group">
-        {reviews?.map((review, idx) => {
-          return (
-            <Review loggedInUserId={user?.user_id} key={idx} content={review}></Review>
-          );
-        })}
-      </ul>
+      <div className="container-fluid jumbotron centered">
+        <h1>Recenziile stațiunii</h1>
+        <ul id="postsList" className="list-group">
+          {reviews?.map((review, idx) => {
+            return (
+              <Review loggedInUserId={user?.user_id} key={idx} content={review}></Review>
+            );
+          })}
+        </ul>
+      </div>
     </div>
   );
 };
