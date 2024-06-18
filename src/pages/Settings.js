@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
+import { ChangePasswordModal } from "../components/ChangePasswordModal";
+
 export const Settings = () => {
   const user = useSelector((state) => state.user.user);
 
@@ -13,9 +15,9 @@ export const Settings = () => {
   const [full_name, setFullname] = useState(user.full_name);
   const [nickname, setNickname] = useState(user.nickname);
 
-  const handleSubmit = (e) => {
+  const [showModal, setShowModal] = useState(false);
 
-  };
+  const handleCloseModal = () => setShowModal(false);
 
   return (
     <div className="jumbotron container centered">
@@ -82,9 +84,11 @@ export const Settings = () => {
 
             <button className="btn btn-secondary" style={{
               marginTop: "20px"
-            }}>
+            }} onClick={() => setShowModal(true)}>
               Schimbați-vă parola
             </button>
+
+            <ChangePasswordModal show={showModal} handleClose={handleCloseModal} />
           </div>
         </div>
       </div>
