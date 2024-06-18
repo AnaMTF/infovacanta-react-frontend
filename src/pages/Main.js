@@ -64,6 +64,7 @@ export function Review(props) {
     setShowAreYouSure(false);
 
     try {
+      console.log(props.content.review_id);
       await Axios.delete(`http://localhost:5000/reviews/${props.content.review_id}`);
       console.log("Review deleted");
     } catch (error) {
@@ -128,18 +129,24 @@ export function Review(props) {
     <div className="lyket-counter" data-lyket-type="updown" data-lyket-id="my-<%=i%>-post" data-lyket-namespace="blog" data-lyket-template="simple"></div>
     {
       props.loggedInUserId == props.content.author_id &&
-      <Link to="">
-        <button className="edit">Editează</button>
-      </Link>
+      <button className="edit">
+        <i className="fa-solid fa-highlighter" style={{ marginRight: "6px" }} />
+        Editează</button>
     }
     {
       props.loggedInUserId == props.content.author_id &&
-      <button className="delete" onClick={() => setShowAreYouSure(true)}>Șterge</button>
+      <button className="delete" onClick={() => setShowAreYouSure(true)}>
+        <i className="fa-solid fa-eraser" style={{ marginRight: "6px" }} />
+        Șterge</button>
     }
     {
-      props.loggedInUserId && <button className="comment" onClick={() => setShowNewComment(true)}>Lasă un comentariu</button>
+      props.loggedInUserId && <button className="comment" onClick={() => setShowNewComment(true)}>
+        <i className="fa-solid fa-comment" style={{ marginRight: "6px" }} />
+        Lasă un comentariu</button>
     }
-    <button className="comment" onClick={() => setShowComments(true)}>Vezi toate comentariile</button>
+    <button className="all-comments" onClick={() => setShowComments(true)}>
+      <i className="fa-solid fa-comments" style={{ marginRight: "6px" }} />
+      Vezi toate comentariile</button>
 
     {
       !isSaved ?

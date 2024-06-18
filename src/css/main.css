@@ -33,11 +33,11 @@ button.delete {
   margin: 20px 0;
   text-align: center;
   text-decoration: none;
-  background-color: #D4C3ED;
+  background-color: #f1948a;
 }
 
 button.delete:hover {
-  background-color: #b5a5cb;
+  background-color: #ec7063;
 }
 
 button.comment {
@@ -45,10 +45,22 @@ button.comment {
   margin: 20px 0;
   text-align: center;
   text-decoration: none;
-  background-color: #C2DEE6;
+  background-color: #D4C3ED;
 }
 
 button.comment:hover {
+  background-color: #b5a5cb;
+}
+
+button.all-comments {
+  color: #555;
+  margin: 20px 0;
+  text-align: center;
+  text-decoration: none;
+  background-color: #C2DEE6;
+}
+
+button.all-comments:hover {
   background-color: #a7c1c8;
 }
 

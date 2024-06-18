@@ -61,13 +61,19 @@ export const Statiune = (props) => {
   const switchCategory = function (category) {
     switch (category) {
       case "mare":
-        return (<h2>Stațiune pe litoral</h2>);
+        return (<h2><i class="fa-solid fa-umbrella-beach" style={{
+          marginRight: "6px"
+        }}></i>Stațiune pe litoral</h2>);
         break;
       case "munte":
-        return (<h2>Stațiune montană</h2>);
+        return (<h2><i class="fa-solid fa-mountain" style={{
+          marginRight: "6px"
+        }}></i>Stațiune montană</h2>);
         break;
       case "balnear":
-        return (<h2>Stațiune balneară</h2>);
+        return (<h2><i class="fa-solid fa-hot-tub-person" style={{
+          marginRight: "6px"
+        }}></i>Stațiune balneară</h2>);
         break;
     };
   };
@@ -95,7 +101,11 @@ export const Statiune = (props) => {
       <Container id="about" className="text-center my-5">
         <Row>
           <Col md={6}>
-            <h2>Descriere</h2>
+            <h2>
+              <i class="fa-regular fa-pen-to-square" style={{
+                marginRight: "6px"
+
+              }}></i>Descriere</h2>
             <p>
               {statiune?.description}
             </p>
@@ -107,7 +117,11 @@ export const Statiune = (props) => {
       </Container>
 
       <Container id="map" className="my-5">
-        <h2 className="text-center">Locația stațiunii</h2>
+        <h2 className="text-center">
+          <i class="fa-solid fa-location-dot" style={{
+            marginRight: "6px"
+          }}></i>
+          Locația stațiunii</h2>
         <Row>
           <Col>
             {

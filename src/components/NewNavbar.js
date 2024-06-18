@@ -198,11 +198,21 @@ export const MyNavbar = () => {
               />
             </Dropdown.Toggle>
             <Dropdown.Menu style={{ backgroundColor: "#E9FBFE" }}>
-              {!!user?.user_id && <Dropdown.Item as={Link} to="/profil">Profilul meu</Dropdown.Item>}
-              {!!user?.user_id && <Dropdown.Item as={Link} to="/setari">Setări</Dropdown.Item>}
-              {!!user?.user_id || <Dropdown.Item as={Link} to="/login">Login</Dropdown.Item>}
-              {!!user?.user_id || <Dropdown.Item as={Link} to="/register">Register</Dropdown.Item>}
-              {!!user?.user_id && <Dropdown.Item as={Link} to="/" onClick={() => dispatch(logoutUser(navigate))}>Logout</Dropdown.Item>}
+              {!!user?.user_id && <Dropdown.Item as={Link} to="/profil">
+                <i className="fa-user fa-solid" style={{ marginRight: "6px" }} />
+                Profilul meu</Dropdown.Item>}
+              {!!user?.user_id && <Dropdown.Item as={Link} to="/setari">
+                <i className="fa-gear fa-solid" style={{ marginRight: "6px" }} />
+                Setări</Dropdown.Item>}
+              {!!user?.user_id || <Dropdown.Item as={Link} to="/login">
+                <i className="fa-right-to-bracket fa-solid" style={{ marginRight: "6px" }} />
+                Login</Dropdown.Item>}
+              {!!user?.user_id || <Dropdown.Item as={Link} to="/register">
+                <i className="fa-user-plus fa-solid" style={{ marginRight: "6px" }} />
+                Register</Dropdown.Item>}
+              {!!user?.user_id && <Dropdown.Item as={Link} to="/" onClick={() => dispatch(logoutUser(navigate))}>
+                <i className="fa-right-from-bracket fa-solid" style={{ marginRight: "6px" }} />
+                Logout</Dropdown.Item>}
             </Dropdown.Menu>
           </Dropdown>
         </Nav>

@@ -12,6 +12,8 @@ import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 
 import { Link } from "react-router-dom";
 
+import "@fortawesome/fontawesome-free/css/all.css";
+
 function CardReview(props) {
   return (
     <div className="card">
@@ -21,7 +23,11 @@ function CardReview(props) {
         <small>{props.content.destination_category}</small>
         <p className="card-text">{props.content.description}</p>
         <Link to={props.content.destination_link}>
-          <button className="btn btn-primary">Mai multe detalii</button>
+          <button className="btn btn-primary">
+            <i className="fa-solid fa-circle-info" style={{
+              marginRight: "6px"
+            }} />
+            Mai multe detalii</button>
         </Link>
       </div>
     </div>
