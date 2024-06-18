@@ -7,6 +7,8 @@ import "../css/header.css";
 import "../css/styles.css";
 import "../css/login.css";
 
+import "@fortawesome/fontawesome-free/css/all.css";
+
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -64,11 +66,28 @@ export const Login = () => {
         </div>
 
         <div className="col-sm-4">
-          <div className="card">
+          <div className="card" style={{
+            marginBottom: "25px"
+          }}>
             <div className="card-body">
               <a className="btn btn-block" href="/auth/google" role="button">
-                <i className="fab fa-google"></i>
+                <i className="fab fa-google" style={{
+                  paddingRight: "6px"
+                }} />
                 Sign In with Google
+              </a>
+            </div>
+          </div>
+
+          <div className="card" style={{
+            marginBottom: "25px"
+          }}>
+            <div className="card-body">
+              <a className="btn btn-block" href="/auth/google" role="button">
+                <i className="fab fa-facebook" style={{
+                  paddingRight: "6px"
+                }} />
+                Sign In with Facebook
               </a>
             </div>
           </div>

@@ -79,10 +79,26 @@ export const Register = () => {
           </div>
 
           <div className="col-sm-4">
+            <div className="card social-block" style={{
+              marginBottom: "25px"
+            }}>
+              <div className="card-body">
+                <a className="btn btn-block" href="/auth/google" role="button">
+                  <i className="fab fa-google" style={{
+                    paddingRight: "6px"
+                  }} />
+                  Sign Up with google
+                </a>
+              </div>
+            </div>
+
             <div className="card social-block">
               <div className="card-body">
                 <a className="btn btn-block" href="/auth/google" role="button">
-                  <i className="fab fa-google">Sign Up with Google</i>
+                  <i className="fab fa-facebook" style={{
+                    paddingRight: "6px"
+                  }} />
+                  Sign Up with Facebook
                 </a>
               </div>
             </div>
