@@ -8,6 +8,7 @@
   /* margin-top: -200px;
   margin-right: 50px; */
   width: 250px;
+  height: 250px;
   transition: .5s ease;
   backface-visibility: hidden;
 }
@@ -27,7 +28,7 @@
   margin-top: 75px;
 }
 
-.profileClass:hover .imagineProfil {
+/* .profileClass:hover .imagineProfil {
   transform: scale(1.1);
   transition: .5s ease;
   opacity: 0.75;
@@ -45,7 +46,7 @@
 
 .bannerClass:hover .middleBanner {
   opacity: 1;
-}
+} */
 
 .middleProfile {
   left: 18.5602% !important;
@@ -79,7 +80,7 @@
   backface-visibility: hidden;
 }
 
-.bannerImg:hover {
+/* .bannerImg:hover {
   transform: scale(1.1);
   transition: .5s ease;
   opacity: 0.75;
@@ -87,4 +88,4 @@
 
 .middleProfile:hover {
   opacity: 1;
-}
+} */

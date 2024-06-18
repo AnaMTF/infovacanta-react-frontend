@@ -94,18 +94,18 @@ export const Profile = () => {
           <div className="card">
             <div className="bannerClass" id="btnChangeBanner">
               <img src={user?.bg_location || banner} className="bannerImg" alt="Banner" />
-              <div className="middleBanner" >
+              {/* <div className="middleBanner" >
                 <div className="textFundal">Schimbă imaginea de fundal</div>
-              </div>
+              </div> */}
             </div>
 
             <div className="profileClass" id="btnChangeProfile">
               <img src={
                 user?.pfp_location || default_profile_picture
               } className="imagineProfil" alt="Profil" />
-              <div className="middleProfile" >
+              {/* <div className="middleProfile" >
                 <div className="textProfil">Schimbă imaginea de profil</div>
-              </div>
+              </div> */}
             </div>
 
             <div className="card-body">

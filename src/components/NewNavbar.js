@@ -192,7 +192,7 @@ export const MyNavbar = () => {
             </Dropdown.Toggle>
             <Dropdown.Menu style={{ backgroundColor: "#E9FBFE" }}>
               {!!user?.user_id && <Dropdown.Item as={Link} to="/profil">Profilul meu</Dropdown.Item>}
-              {!!user?.user_id && <Dropdown.Item as={Link} to="/">Setări</Dropdown.Item>}
+              {!!user?.user_id && <Dropdown.Item as={Link} to="/setari">Setări</Dropdown.Item>}
               {!!user?.user_id || <Dropdown.Item as={Link} to="/login">Login</Dropdown.Item>}
               {!!user?.user_id || <Dropdown.Item as={Link} to="/register">Register</Dropdown.Item>}
               {!!user?.user_id && <Dropdown.Item as={Link} to="/" onClick={() => dispatch(logoutUser(navigate))}>Logout</Dropdown.Item>}

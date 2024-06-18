@@ -26,6 +26,8 @@ import { ContactPage } from "./pages/ContactPage";
 import { ProfileOtherUser } from "./pages/ProfileOtherUser";
 import { ProfilOutlet } from "./pages/ProfilOutlet";
 
+import { Settings as SettingsPage } from "./pages/Settings";
+
 // import { WebchatProvider, useClient } from '@botpress/webchat';
 
 function App() {
@@ -120,6 +122,7 @@ function App() {
                 <Route path="/cautare/:keyword" element={<Rezultate />} />
 
                 <Route path="/contact" element={<ContactPage />} />
+                <Route path="/setari" element={<SettingsPage />} />
               </Routes>
             </Router>
             <Footer />
