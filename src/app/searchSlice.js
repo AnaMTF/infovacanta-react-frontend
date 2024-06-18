@@ -39,6 +39,7 @@ const searchSlice = createSlice({
       minDate: '',
       maxDate: '',
       minRatings: 0,
+      searchInSavedReviews: false,
     }
   },
   reducers: {

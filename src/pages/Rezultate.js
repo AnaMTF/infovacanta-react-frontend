@@ -101,6 +101,10 @@ export const Rezultate = (props) => {
                 }
               }
 
+              // if (search.searchInSavedReviews == true) {
+
+              // }
+
               return (
                 <Review loggedInUserId={user?.user_id} key={idx} content={review}></Review>
               );
@@ -113,10 +117,12 @@ export const Rezultate = (props) => {
         <div className="container-fluid jumbotron centered">
           <h1>Rezultatele căutării</h1>
 
-          <ul id="postsList" className="list-group">
+          <ul id="postsList" className="list-group" >
             {query_results?.destinations.map((destination, idx) => {
               return (
-                <div className="card" key={idx}>
+                <div className="card" key={idx} style={{
+                  marginBottom: "30px",
+                }}>
                   <img src={destination.location} className="card-img-top" alt="Mamaia" />
                   <div className="card-body">
                     <h5 className="card-title">{destination.destination_name}</h5>

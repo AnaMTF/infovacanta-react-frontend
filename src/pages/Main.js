@@ -16,6 +16,9 @@ import { Link } from "react-router-dom";
 import { AllCommentsModal } from "../components/AllCommentsModal";
 import { NewCommentModal } from "../components/NewCommentModal";
 
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+
 // import Chatbot from '../components/Chatbot';
 
 import { RateButton, UpdownButton } from '@lyket/react';
@@ -30,31 +33,83 @@ export function Review(props) {
   const [showComments, setShowComments] = useState(false);
   const [showNewComment, setShowNewComment] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
+  const [showAreYouSure, setShowAreYouSure] = useState(false);
 
-  const deleteReview = async function (reviewId) {
-    console.log("delete review with id:", reviewId);
+  const fetchData = async function () {
+    const params = new URLSearchParams();
+    params.append("review_id", props.content.review_id);
+    params.append("user_id", props.loggedInUserId);
+
     try {
-      await Axios.delete(`http://localhost:5000/reviews/${reviewId}`);
+      const result = await Axios.get("http://localhost:5000/save-review", params, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      });
+
+      const savedReviews = result.data;
+      const savedReviewIds = savedReviews.map((review) => review.review_id);
+      setIsSaved(savedReviewIds.includes(props.content.review_id));
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const deleteReview = async function () {
+    try {
+      await Axios.delete(`http://localhost:5000/reviews/${props.content.review_id}`);
       console.log("Review deleted");
     } catch (error) {
       console.error(error);
     }
   }
 
-  const editReview = async function (reviewId) {
-    console.log("edit review with id:", reviewId);
+  const editReview = async function () {
+
   }
 
-  const commentReview = async function (reviewId) {
-    console.log("comment on review with id:", reviewId);
+  const commentReview = async function () {
+
   }
 
-  const saveReview = async function (reviewId) {
+  const saveReview = async function () {
+    const params = new URLSearchParams();
+    params.append("review_id", props.content.review_id);
+    params.append("user_id", props.loggedInUserId);
     setIsSaved(true);
+
+    try {
+      await Axios.post("http://localhost:5000/save-review", params, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  const unsaveReview = async function (reviewId) {
+  // nu inteleg de ce nu merge
+  const unsaveReview = async function () {
+    const params = new URLSearchParams();
+    params.append("review_id", props.content.review_id);
+    params.append("user_id", props.loggedInUserId);
     setIsSaved(false);
+    try {
+      await Axios.delete("http://localhost:5000/save-review", params, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      });
+
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (<li className="list-group-item list-group-item-action" id="postsItems">
@@ -77,7 +132,7 @@ export function Review(props) {
     }
     {
       props.loggedInUserId == props.content.author_id &&
-      <button className="delete">Șterge</button>
+      <button className="delete" onClick={() => setShowAreYouSure(true)}>Șterge</button>
     }
     {
       props.loggedInUserId && <button className="comment" onClick={() => setShowNewComment(true)}>Lasă un comentariu</button>
@@ -86,11 +141,11 @@ export function Review(props) {
 
     {
       !isSaved ?
-        <button id="saveButton" onClick={() => setIsSaved(!isSaved)}>
+        <button id="saveButton" onClick={saveReview}>
           <i className="fa-star fa-regular"></i> Adaugă la recenziile favorite
         </button>
         :
-        <button id="unsaveButton" onClick={() => setIsSaved(!isSaved)}>
+        <button id="unsaveButton" onClick={unsaveReview}>
           <i className="fa-star fa-solid"></i> Scoate recenzia de la favorite
         </button>
     }
@@ -121,6 +176,21 @@ export function Review(props) {
       review_author_nickname={props.content.nickname}
       show={showNewComment} onHide={() => setShowNewComment(false)}
     ></NewCommentModal>
+
+    <Modal show={showAreYouSure} onHide={() => setShowAreYouSure(false)}>
+      <Modal.Header closeButton>
+        <Modal.Title>Ștergere recenzie</Modal.Title>
+      </Modal.Header>
+
+      <Modal.Body>
+        <p>Ești sigur că dorești să ștergi această recenzie?</p>
+      </Modal.Body>
+
+      <Modal.Footer>
+        <Button variant="secondary" onClick={() => setShowAreYouSure(false)}>Înapoi</Button>
+        <Button variant="danger" onClick={deleteReview}>Da, șterge</Button>
+      </Modal.Footer>s
+    </Modal>
   </li>);
 }
 

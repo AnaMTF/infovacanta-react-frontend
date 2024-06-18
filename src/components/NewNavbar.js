@@ -91,6 +91,13 @@ const SearchFilter = ({ show, handleClose }) => {
             checked={filterSettings.searchInComments}
             onChange={handleChange}
           />
+          <Form.Check
+            type="checkbox"
+            label="Căutați în recenziile salvate?"
+            name="searchInSavedReviews"
+            checked={filterSettings.searchInSavedReviews}
+            onChange={handleChange}
+          />
           <Form.Group controlId="formMinDate">
             <Form.Label>De la:</Form.Label>
             <Form.Control
