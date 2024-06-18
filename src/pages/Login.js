@@ -7,8 +7,6 @@ import "../css/header.css";
 import "../css/styles.css";
 import "../css/login.css";
 
-import "@fortawesome/fontawesome-free/css/all.css";
-
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

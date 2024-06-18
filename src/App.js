@@ -30,6 +30,9 @@ import { Settings as SettingsPage } from "./pages/Settings";
 
 // import { WebchatProvider, useClient } from '@botpress/webchat';
 
+import "@fortawesome/fontawesome-free/css/all.css";
+import "./css/savebuttons.css";
+
 function App() {
   // lista cu statiuni; incalca principiul Open/Closed din SOLID!!!!!!!! dar aia e pana la urma
   // am actionat asa pentru a nu face un request catre server pentru a obtine lista statiunilor

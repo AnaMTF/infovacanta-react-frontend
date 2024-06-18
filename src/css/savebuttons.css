@@ -1,0 +1,19 @@
+#saveButton {
+  background-color: #F9D689;
+  margin: 3px;
+
+}
+
+#saveButton:hover {
+  background-color: #e0c17b;
+
+}
+
+#unsaveButton {
+  background-color: #E0A75E;
+  margin: 3px;
+}
+
+#unsaveButton:hover {
+  background-color: #ca9655;
+}

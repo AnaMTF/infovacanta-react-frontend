@@ -1,5 +1,5 @@
 import React, { useState, Component, useEffect } from 'react';
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from '@tanstack/react-query';
 import Axios from "axios";
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import "../css/styles.css";
 import "../css/header.css";
 import "../css/main.css";
+import "../css/savebuttons.css";
 
 import { Link } from "react-router-dom";
 
@@ -19,9 +20,16 @@ import { NewCommentModal } from "../components/NewCommentModal";
 
 import { RateButton, UpdownButton } from '@lyket/react';
 
+import "@fortawesome/fontawesome-free/css/all.css";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+// import "@fortawesome/fontawesome-free";
+
 export function Review(props) {
   const [showComments, setShowComments] = useState(false);
   const [showNewComment, setShowNewComment] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
 
   const deleteReview = async function (reviewId) {
     console.log("delete review with id:", reviewId);
@@ -39,6 +47,14 @@ export function Review(props) {
 
   const commentReview = async function (reviewId) {
     console.log("comment on review with id:", reviewId);
+  }
+
+  const saveReview = async function (reviewId) {
+    setIsSaved(true);
+  }
+
+  const unsaveReview = async function (reviewId) {
+    setIsSaved(false);
   }
 
   return (<li className="list-group-item list-group-item-action" id="postsItems">
@@ -67,6 +83,17 @@ export function Review(props) {
       props.loggedInUserId && <button className="comment" onClick={() => setShowNewComment(true)}>Lasă un comentariu</button>
     }
     <button className="comment" onClick={() => setShowComments(true)}>Vezi toate comentariile</button>
+
+    {
+      !isSaved ?
+        <button id="saveButton" onClick={() => setIsSaved(!isSaved)}>
+          <i className="fa-star fa-regular"></i> Adaugă la recenziile favorite
+        </button>
+        :
+        <button id="unsaveButton" onClick={() => setIsSaved(!isSaved)}>
+          <i className="fa-star fa-solid"></i> Scoate recenzia de la favorite
+        </button>
+    }
 
     <div style={{ width: "100%" }}>
       <RateButton className="list-group-item"
