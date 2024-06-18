@@ -61,6 +61,8 @@ export function Review(props) {
   }, []);
 
   const deleteReview = async function () {
+    setShowAreYouSure(false);
+
     try {
       await Axios.delete(`http://localhost:5000/reviews/${props.content.review_id}`);
       console.log("Review deleted");

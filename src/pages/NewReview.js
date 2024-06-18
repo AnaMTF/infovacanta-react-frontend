@@ -106,7 +106,6 @@ export const NewReview = (props) => {
           })
         }
 
-
         <button className="full-width" type="submit" id="publicaBtn">Publică</button>
       </form>
 
