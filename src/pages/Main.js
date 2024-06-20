@@ -1,10 +1,12 @@
 import React, { useState, Component, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Axios from "axios";
+import default_profile_picture from "../resources/blank-profile-pic.png";
 
 import { useSelector, useDispatch } from 'react-redux';
 import { logoutUser } from '../app/userSlice';
 import { useNavigate } from 'react-router-dom';
+import { Image } from 'react-bootstrap';
 
 import "../css/styles.css";
 import "../css/header.css";
@@ -119,6 +121,16 @@ export function Review(props) {
     <h2>{props.content.destination_name}</h2>
     <small>{props.content.destination_category}</small>
     <p>{props.content.review_body}</p>
+    <a href={`/profil/${props.content.author_id}`}>
+      <Image
+        src={props.content.author_pfp_location || default_profile_picture}
+
+        width="30"
+        height="30"
+        className="d-inline-block align-top"
+        alt="Profile"
+        style={{ objectFit: 'cover' }}
+      /></a>
 
     <small><a style={{
       color: "#888"
@@ -127,6 +139,8 @@ export function Review(props) {
     <small>Date posted: {props.content.date_posted}</small>
     <div data-lyket-type="rate" namespace="infovacanta-react" data-lyket-id={`review-${props.content.review_id}`} data-lyket-show-rating="average"></div>
     console.log(review-${props.content.review_id});
+    DACA ID PROFIL == ID USER LOGAT, SA DEA REDIRECT PE /PROFIL
+    SAU DACA DAI CLICK PE PROFIL SA TE DUCA LA /PROFIL/ID
     <div className="lyket-counter" data-lyket-type="updown" data-lyket-id={`my-${props.content.review_id}-post`} data-lyket-namespace="blog" data-lyket-template="simple"></div>
     {
       props.loggedInUserId == props.content.author_id &&

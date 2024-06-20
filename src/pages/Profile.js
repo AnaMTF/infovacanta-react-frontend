@@ -60,7 +60,7 @@ export const Profile = () => {
 
   useEffect(() => {
     userStats?.map((stat) => {
-      if (stat.num_reviews >= 0) {
+      if (stat.num_reviews >= 50) {
         setBronzeReviews(true);
       }
 
@@ -114,7 +114,7 @@ export const Profile = () => {
               <h6>email: {user?.email}</h6>
               <p className="card-text">Aici vei găsi toate recenziile postate de tine.</p>
               <Link to="/new">
-                <button className="btn btn-primary">Adaugă o recenzie</button>
+                <button className="btn btn-primary" id="adauga-recenzie">Adaugă o recenzie</button>
               </Link>
 
             </div>
