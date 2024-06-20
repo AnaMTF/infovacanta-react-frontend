@@ -98,8 +98,8 @@ export const NewReview = (props) => {
             return (
               <RateButton className="list-group-item"
                 namespace="infovacanta-react"
-                // id={`review-${newid.max + 1}`} // DE CE NU MERGE??
-                id="review-test"
+                id={`review-${newid.max + 1}`} // DE CE NU MERGE??
+                //id="review-test"
                 showRating="user"
               />
             );

@@ -125,8 +125,9 @@ export function Review(props) {
     }} href={`/profil/${props.content.author_id}`}>By: {props.content.nickname}</a></small>
 
     <small>Date posted: {props.content.date_posted}</small>
-    <div id="starRating" data-lyket-type="rate" data-lyket-id={`my-${props.content.review_id}-post`} data-lyket-show-rating="average"></div>
-    <div className="lyket-counter" data-lyket-type="updown" data-lyket-id="my-<%=i%>-post" data-lyket-namespace="blog" data-lyket-template="simple"></div>
+    <div data-lyket-type="rate" namespace="infovacanta-react" data-lyket-id={`review-${props.content.review_id}`} data-lyket-show-rating="average"></div>
+    console.log(review-${props.content.review_id});
+    <div className="lyket-counter" data-lyket-type="updown" data-lyket-id={`my-${props.content.review_id}-post`} data-lyket-namespace="blog" data-lyket-template="simple"></div>
     {
       props.loggedInUserId == props.content.author_id &&
       <button className="edit">
