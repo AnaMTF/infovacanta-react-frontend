@@ -10,6 +10,8 @@ import { setSearchFilters } from '../app/searchSlice';
 import { useQuery } from "@tanstack/react-query";
 import { logoutUser } from '../app/userSlice';
 
+import "../css/header.css";
+
 import Axios from "axios";
 
 const SearchFilter = ({ show, handleClose }) => {
@@ -128,7 +130,7 @@ const SearchFilter = ({ show, handleClose }) => {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+        <Button id="confirmButton" variant="secondary" onClick={handleClose}>
           Close
         </Button>
       </Modal.Footer>
@@ -177,12 +179,32 @@ export const MyNavbar = () => {
           {/* {!!user?.user_id || <Nav.Link as={Link} to="/login">Login</Nav.Link>}
           {!!user?.user_id || <Nav.Link as={Link} to="/register">Register</Nav.Link>} */}
           <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
-        </Nav>
-        <Form inline className="mx-auto" onSubmit={handleSearch}>
-          <Button variant="outline-primary" style={{ marginRight: "8px" }} onClick={() => setShow(true)}>Filtre</Button>
-          <FormControl type="text" placeholder="Search" className="mr-sm-2" style={{ marginBottom: "0" }} onChange={(e) => setSearchText(e.target.value)} />
-          <Button type="submit" variant="outline-success">Search</Button>
+        </Nav><Form inline className="mx-auto" onSubmit={handleSearch}>
+          <Button
+            id="filterButton"
+            variant="outline-primary"
+            className="d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2"
+            style={{ marginRight: "8px" }}
+            onClick={() => setShow(true)}
+          >
+            Filtre
+          </Button>
+          <FormControl
+            type="text"
+            placeholder="Search"
+            className="mr-sm-2"
+            style={{ marginBottom: "0" }}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
+          <Button
+            id="searchButton"
+            type="submit"
+            variant="outline-success"
+          >
+            Search
+          </Button>
         </Form>
+
         <Nav>
           <Dropdown alignRight>
             <Dropdown.Toggle variant="light" id="dropdown-profile" style={{ backgroundColor: "#E9FBFE" }}>

@@ -1,9 +1,38 @@
-#search-navbar{
+/* Remove default focus outline and apply custom purple focus outline for the filter button */
+#filterButton:focus {
+  outline: none !important;
+  box-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.075),
+    0 0 8px rgba(81, 0, 255, 0.6) !important;
+}
+
+/* Remove default focus outline and apply custom pink focus outline for the search button */
+#searchButton:focus {
+  outline: none !important;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 8px rgba(252, 21, 236, 0.6) !important;
+}
+
+#confirmButton {
+  color: #fff !important;
+  background-color: #e758db !important;
+}
+
+#confirmButton:focus,
+#confirmButton:hover {
+  color: #fff !important;
+  background-color: #dc23cc !important;
+  border-color: #e758db !important;
+  outline: none !important;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 8px rgba(252, 21, 236, 0.6) !important;
+}
+
+#search-navbar {
   width: auto;
   margin-bottom: 0px;
 }
 
-#button-navbar-search{
+#button-navbar-search {
   float: right;
   padding: 6px;
   margin-left: 10px;
@@ -16,10 +45,57 @@
 }
 
 .navbar {
-  overflow:visible;
+  overflow: visible;
   max-height: 70px;
 }
 
 .dropdown-menu {
   z-index: 100000;
+}
+
+.btn-outline-primary {
+  color: #8782e7;
+  border-color: #8782e7;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:active:focus {
+  color: #fff !important;
+  background-color: #534ce2 !important;
+  border-color: #534ce2 !important;
+}
+
+.btn-outline-success {
+  color: #e67edd;
+  border-color: #e67edd;
+}
+
+.btn-outline-success:hover,
+.btn-outline-success:active:focus {
+  color: #fff !important;
+  background-color: #e758db !important;
+  border-color: #e758db !important;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  color: #fff;
+  text-decoration: none;
+  background-color: #7772e0;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
+  accent-color: #8782e7;
+}
+
+.form-control:hover {
+  border-color: #8782e7;
+}
+
+.form-control:focus {
+  border-color: #5100ff;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(81, 0, 255, 0.6);
 }
