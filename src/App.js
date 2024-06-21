@@ -11,6 +11,7 @@ import { NewReview } from "./pages/NewReview";
 import { Profile } from "./pages/Profile";
 import { Rezultate } from "./pages/Rezultate";
 import { Statiune } from "./pages/StatiuneIndividuala";
+import { ScrollToTopButton } from "./pages/ScrollToTopButton";
 
 import { StatiuniOutlet } from "./pages/StatiuniOutlet";
 import { NotFound } from "./pages/404";
@@ -132,6 +133,7 @@ function App() {
           </LyketProvider>
         </Provider>
       </QueryClientProvider>
+      <ScrollToTopButton />
     </div>
   );
 }
