@@ -127,7 +127,7 @@ export function Review(props) {
 
         width="30"
         height="30"
-        className="d-inline-block align-top"
+        className="d-inline-block align-top profile-pic"
         alt="Profile"
         style={{ objectFit: 'cover' }}
       /></a>

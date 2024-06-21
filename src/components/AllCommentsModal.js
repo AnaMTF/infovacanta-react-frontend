@@ -1,11 +1,10 @@
+import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-
-import { useState, useEffect, useRef } from 'react';
 import { useQuery } from "@tanstack/react-query";
 import Axios from "axios";
-
 import "../css/comments.css";
+import default_profile_picture from "../resources/blank-profile-pic.png";
 
 export const AllCommentsModal = (props) => {
   const { data: comments, isLoading, error } = useQuery(["comment_id"], async function () {
@@ -31,18 +30,21 @@ export const AllCommentsModal = (props) => {
         <div id="postsList" className="list-group">
           {comments?.map((comment, idx) => {
             return (
-              <div key={idx} className="list-group-item list-group-item-action" id="postsItems">
-                <small>{comment.nickname} a comentat la data de {comment.date_posted}:</small>
-                <p>{comment.content}</p>
+              <div key={idx} className="list-group-item list-group-item-action comment-item" id="postsItems">
+                <div className="comment-header">
+                  <img
+                    src={props.author_pfp_location || default_profile_picture}
+                    alt={`${comment.nickname}'s profile`}
+                    className="comment-profile-pic"
+                  />
+                  <small>{comment.nickname} a comentat la data de<br /> {comment.date_posted}:</small>
+                </div>
+                <p id="comment-text">{comment.content}</p>
               </div>
-            ); // <-- testare
+            );
           })}
         </div>
       </Modal.Body>
-
-      {/* <Modal.Footer>
-        <Button variant="primary" onClick={() => this.props.show = false}>Închide</Button>
-      </Modal.Footer> */}
-    </Modal >
+    </Modal>
   );
 };
