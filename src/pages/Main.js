@@ -138,9 +138,6 @@ export function Review(props) {
 
     <small>Date posted: {new Date(props.content.date_posted).toLocaleDateString()}</small>
     <div data-lyket-type="rate" namespace="infovacanta-react" data-lyket-id={`review-${props.content.review_id}`} data-lyket-show-rating="average"></div>
-    console.log(review-${props.content.review_id});
-    DACA ID PROFIL == ID USER LOGAT, SA DEA REDIRECT PE /PROFIL
-    SAU DACA DAI CLICK PE PROFIL SA TE DUCA LA /PROFIL/ID
     <div className="lyket-counter" data-lyket-type="updown" data-lyket-id={`my-${props.content.review_id}-post`} data-lyket-namespace="blog" data-lyket-template="simple"></div>
     {
       props.loggedInUserId == props.content.author_id &&
