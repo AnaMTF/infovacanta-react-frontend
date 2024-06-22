@@ -33,6 +33,7 @@ import { Settings as SettingsPage } from "./pages/Settings";
 
 import "@fortawesome/fontawesome-free/css/all.css";
 import "./css/savebuttons.css";
+import { EditReview } from "./pages/EditReview";
 
 function App() {
   // lista cu statiuni; incalca principiul Open/Closed din SOLID!!!!!!!! dar aia e pana la urma
@@ -101,10 +102,11 @@ function App() {
               <Navbar />
               <Routes>
                 <Route index element={<Home />} />
-                <Route path="/new" element={<NewReview />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
 
+                <Route path="/new" element={<NewReview />} />
+                <Route path="/edit/:reviewId" element={<EditReview />} />
 
                 <Route path="/main" element={<Main />} />
                 {/* pagina principala cu statiuni (cate un card pentru fiecare statiune) */}
