@@ -43,7 +43,7 @@ export const Statiune = (props) => {
       console.log(`http://localhost:5000/query/destinations/${nume}`);
       setCoordinates({ lat: result.data[0].coordinates.x, lng: result.data[0].coordinates.y });
 
-      const result_reviews = await Axios.get(`http://localhost:5000/destinations/${result.data[0]?.destination_id}/reviews`);
+      const result_reviews = await Axios.get(`http://localhost:5000/destinations/${result.data[0]?.destination_id}/review-cards`);
       setReviews(result_reviews.data);
 
       // console.log(result.data[0]); // <-- testare: afisare date in consola   

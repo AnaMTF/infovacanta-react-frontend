@@ -45,7 +45,7 @@ export const ProfileOtherUser = (props) => {
 
   const { data: reviews } = useQuery(["reviews"], async () => {
     try {
-      const result = await Axios.get(`http://localhost:5000/users/${userId}/reviews`);
+      const result = await Axios.get(`http://localhost:5000/users/${userId}/review-cards`);
       return result.data;
     } catch (error) {
       console.error(error);

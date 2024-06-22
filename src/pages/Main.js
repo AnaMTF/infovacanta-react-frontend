@@ -121,9 +121,9 @@ export function Review(props) {
     <h2>{props.content.destination_name}</h2>
     <small>{props.content.destination_category}</small>
     <p>{props.content.review_body}</p>
-    <a href={`/profil/${props.content.author_id}`}>
+    <a href={props.loggedInUserId === props.content.author_id ? '/profil' : `/profil/${props.content.author_id}`}>
       <Image
-        src={props.content.author_pfp_location || default_profile_picture}
+        src={props.content.author_profile_picture_location || default_profile_picture}
 
         width="30"
         height="30"
@@ -134,9 +134,9 @@ export function Review(props) {
 
     <small><a style={{
       color: "#888"
-    }} href={`/profil/${props.content.author_id}`}>By: {props.content.nickname}</a></small>
+    }} href={props.loggedInUserId === props.content.author_id ? '/profil' : `/profil/${props.content.author_id}`}>By: {props.content.author_nickname}</a></small>
 
-    <small>Date posted: {props.content.date_posted}</small>
+    <small>Date posted: {new Date(props.content.date_posted).toLocaleDateString()}</small>
     <div data-lyket-type="rate" namespace="infovacanta-react" data-lyket-id={`review-${props.content.review_id}`} data-lyket-show-rating="average"></div>
     console.log(review-${props.content.review_id});
     DACA ID PROFIL == ID USER LOGAT, SA DEA REDIRECT PE /PROFIL
@@ -226,7 +226,7 @@ export const Main = () => {
 
   const { data: reviews } = useQuery(["review_id"], async function () {
     try {
-      const result = await Axios.get("http://localhost:5000/reviews");
+      const result = await Axios.get("http://localhost:5000/review-cards");
       //console.log(result.data);
       return result.data;
     } catch (error) {
