@@ -32,7 +32,8 @@ export const NewReview = (props) => {
 
   const { data: newReviewId } = useQuery(["review_id"], async function () {
     try {
-      const response = await Axios.get("http://localhost:5000/query/reviews/max");
+      const response = await Axios.get("http://localhost:5000/next-val/reviews");
+      console.log("NEXT REVIEW ID ESTE", response.data)
       return response.data;
     } catch (error) {
       console.error(error);
@@ -94,11 +95,11 @@ export const NewReview = (props) => {
           onChange={(e) => setReviewBody(e.target.value)}
         ></textarea>
         {
-          newReviewId.map((newid) => {
+          newReviewId?.map((newid, idx) => {
             return (
-              <RateButton className="list-group-item"
+              <RateButton key={idx} className="list-group-item"
                 namespace="infovacanta-react"
-                id={`review-${newid.max + 1}`} // DE CE NU MERGE??
+                id={`review-${parseInt(newid.nextval) + 1}`}
                 //id="review-test"
                 showRating="user"
               />
