@@ -33,7 +33,7 @@ export const AllCommentsModal = (props) => {
               <div key={idx} className="list-group-item list-group-item-action comment-item" id="postsItems">
                 <div className="comment-header">
                   <img
-                    src={props.author_pfp_location || default_profile_picture}
+                    src={props.profile_picture_location || default_profile_picture}
                     alt={`${comment.nickname}'s profile`}
                     className="comment-profile-pic"
                   />

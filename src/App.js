@@ -34,6 +34,7 @@ import { Settings as SettingsPage } from "./pages/Settings";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "./css/savebuttons.css";
 import { EditReview } from "./pages/EditReview";
+import { SavedReviews } from "./pages/SavedReviews";
 
 function App() {
   // lista cu statiuni; incalca principiul Open/Closed din SOLID!!!!!!!! dar aia e pana la urma
@@ -129,6 +130,8 @@ function App() {
 
                 <Route path="/contact" element={<ContactPage />} />
                 <Route path="/setari" element={<SettingsPage />} />
+
+                <Route path="/saved" element={<SavedReviews />} />
               </Routes>
             </Router>
             <Footer />
