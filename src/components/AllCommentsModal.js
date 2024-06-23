@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { useQuery } from "@tanstack/react-query";
@@ -15,6 +15,10 @@ export const AllCommentsModal = (props) => {
       console.error(error);
     }
   });
+
+  useEffect(() => {
+    console.log("MODAL OPENED\nREVIEW ID: ", props.review_id);
+  }, []);
 
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered scrollable>
@@ -33,11 +37,11 @@ export const AllCommentsModal = (props) => {
               <div key={idx} className="list-group-item list-group-item-action comment-item" id="postsItems">
                 <div className="comment-header">
                   <img
-                    src={props.profile_picture_location || default_profile_picture}
+                    src={comment.profile_picture_location || default_profile_picture}
                     alt={`${comment.nickname}'s profile`}
                     className="comment-profile-pic"
                   />
-                  <small>{comment.nickname} a comentat la data de<br /> {comment.date_posted}:</small>
+                  <small>{comment.nickname} a comentat la data de <br /> {new Date(comment.date_posted).toLocaleDateString()}:</small>
                 </div>
                 <p id="comment-text">{comment.content}</p>
               </div>
