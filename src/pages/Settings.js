@@ -77,6 +77,17 @@ export const Settings = () => {
                   name="profile_picture"
                 />
               </div>
+
+              <div className="form-group">
+                <label htmlFor="profile-picture">Poză de profil</label>
+                <input
+                  type="file"
+                  id="background_picture"
+                  className="form-control"
+                  placeholder="Alegeți o poză de fundal"
+                  name="background_picture"
+                />
+              </div>
               <button type="submit" className="btn btn-dark">
                 Actualizați setările
               </button>

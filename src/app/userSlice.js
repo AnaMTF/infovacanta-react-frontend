@@ -49,10 +49,18 @@ const userSlice = createSlice({
       state.user = null;
       removeUserFromLocalStorage();
     },
+    addToSavedReviews: (state, action) => {
+      state.user.saved_reviews.push(action.payload);
+      saveUserToLocalStorage(state.user);
+    },
+    removeFromSavedReviews: (state, action) => {
+      state.user.saved_reviews = state.user.saved_reviews.filter((review_id) => review_id !== action.payload);
+      saveUserToLocalStorage(state.user);
+    },
   },
 });
 
-export const { setUser, clearUser } = userSlice.actions;
+export const { setUser, clearUser, addToSavedReviews, removeFromSavedReviews } = userSlice.actions;
 
 export const registerUser = (user, navigate) => async (dispatch) => {
   try {

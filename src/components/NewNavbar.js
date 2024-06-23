@@ -210,7 +210,7 @@ export const MyNavbar = () => {
             <Dropdown.Toggle variant="light" id="dropdown-profile" style={{ backgroundColor: "#E9FBFE" }}>
               <Image
                 src={
-                  user?.pfp_location || default_profile_picture
+                  user?.profile_picture_location || default_profile_picture
                 }
                 width="30"
                 height="30"

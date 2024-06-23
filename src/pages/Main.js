@@ -31,38 +31,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 // import "@fortawesome/fontawesome-free";
 
+import { addToSavedReviews, removeFromSavedReviews } from '../app/userSlice';
+
 export function Review(props) {
+  const user = useSelector((state) => state.user.user);
+
   const [showComments, setShowComments] = useState(false);
   const [showNewComment, setShowNewComment] = useState(false);
-  const [isSaved, setIsSaved] = useState(false);
+
+  const [isSaved, setIsSaved] = useState(user?.saved_reviews.includes(props.content.review_id) || false);
+
   const [showAreYouSure, setShowAreYouSure] = useState(false);
 
   const navigate = useNavigate();
-
-  const fetchData = async function () {
-    const params = new URLSearchParams();
-    params.append("review_id", props.content.review_id);
-    params.append("user_id", props.loggedInUserId);
-
-    try {
-      const result = await Axios.get("http://localhost:5000/save-review", params, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      });
-
-      const savedReviews = result.data;
-      const savedReviewIds = savedReviews.map((review) => review.review_id);
-      setIsSaved(savedReviewIds.includes(props.content.review_id));
-
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const dispatch = useDispatch();
 
   const deleteReview = async function () {
     setShowAreYouSure(false);
@@ -73,6 +55,8 @@ export function Review(props) {
       console.log("Review deleted");
     } catch (error) {
       console.error(error);
+    } finally {
+      navigate("/main", { replace: true });
     }
   }
 
@@ -88,7 +72,9 @@ export function Review(props) {
     const params = new URLSearchParams();
     params.append("review_id", props.content.review_id);
     params.append("user_id", props.loggedInUserId);
+
     setIsSaved(true);
+    dispatch(addToSavedReviews(props.content.review_id));
 
     try {
       await Axios.post("http://localhost:5000/save-review", params, {
@@ -106,9 +92,12 @@ export function Review(props) {
     const params = new URLSearchParams();
     params.append("review_id", props.content.review_id);
     params.append("user_id", props.loggedInUserId);
+
     setIsSaved(false);
+    dispatch(removeFromSavedReviews(props.content.review_id));
+
     try {
-      await Axios.delete("http://localhost:5000/save-review", params, {
+      await Axios.post("http://localhost:5000/unsave-review", params, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -165,14 +154,16 @@ export function Review(props) {
       Vezi toate comentariile</button>
 
     {
-      !isSaved ?
-        <button id="saveButton" onClick={saveReview}>
-          <i className="fa-star fa-regular"></i> Adaugă la recenziile favorite
-        </button>
-        :
-        <button id="unsaveButton" onClick={unsaveReview}>
-          <i className="fa-star fa-solid"></i> Scoate recenzia de la favorite
-        </button>
+      user && (
+        !isSaved ?
+          <button id="saveButton" onClick={saveReview}>
+            <i className="fa-star fa-regular"></i> Adaugă la recenziile favorite
+          </button>
+          :
+          <button id="unsaveButton" onClick={unsaveReview}>
+            <i className="fa-star fa-solid"></i> Scoate recenzia de la favorite
+          </button>
+      )
     }
 
     <div style={{ width: "100%" }}>
