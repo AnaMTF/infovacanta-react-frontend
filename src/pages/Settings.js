@@ -73,18 +73,16 @@ export const Settings = () => {
                   type="file"
                   id="profile_picture"
                   className="form-control"
-                  placeholder="Alegeți o poză de profil"
                   name="profile_picture"
                 />
               </div>
 
               <div className="form-group">
-                <label htmlFor="profile-picture">Poză de profil</label>
+                <label htmlFor="profile-picture">Poză de fundal</label>
                 <input
                   type="file"
                   id="background_picture"
                   className="form-control"
-                  placeholder="Alegeți o poză de fundal"
                   name="background_picture"
                 />
               </div>
