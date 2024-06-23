@@ -9,6 +9,8 @@ import default_profile_picture from "../resources/blank-profile-pic.png";
 export const AllCommentsModal = (props) => {
   const { data: comments, isLoading, error } = useQuery(["comment_id"], async function () {
     try {
+      console.log(`GET: http://localhost:5000/reviews/${props.review_id}/comments`);
+
       const response = await Axios.get(`http://localhost:5000/reviews/${props.review_id}/comments`);
       return response.data;
     } catch (error) {

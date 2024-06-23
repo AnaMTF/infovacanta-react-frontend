@@ -183,7 +183,6 @@ export function Review(props) {
 
     <AllCommentsModal
       review_id={props.content.review_id}
-      author_nickname={props.content.nickname}
       show={showComments} onHide={() => setShowComments(false)}
     ></AllCommentsModal>
 
