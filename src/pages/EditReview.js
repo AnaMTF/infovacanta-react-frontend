@@ -50,19 +50,19 @@ export const EditReview = (props) => {
   const handleSubmit = async (e, navigate) => {
     e.preventDefault();
     console.log("Form submitted");
-    console.log("Review body:", review_body);
-    console.log("Destination name:", destination_name);
+    console.log("Review body:", reviewBody);
+    console.log("Destination name:", destinationName);
 
     const params = new URLSearchParams();
-    params.append("review_body", review_body);
+    params.append("review_body", reviewBody);
     // params.append("review_category", ""); //<-- determinat pe partea de backend
-    params.append("destination_name", destination_name);
+    params.append("destination_name", destinationName);
     params.append("date_posted", new Date().toISOString());
     //params.append("destination_id", ""); //<-- determinat pe partea de backend
-    params.append("author_id", user.user_id);
+    //params.append("author_id", user.user_id);
 
     try {
-      await Axios.post("http://localhost:5000/reviews", params, {
+      await Axios.put(`http://localhost:5000/reviews/${reviewId}`, params, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }

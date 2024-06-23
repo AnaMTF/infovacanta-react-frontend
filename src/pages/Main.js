@@ -37,6 +37,8 @@ export function Review(props) {
   const [isSaved, setIsSaved] = useState(false);
   const [showAreYouSure, setShowAreYouSure] = useState(false);
 
+  const navigate = useNavigate();
+
   const fetchData = async function () {
     const params = new URLSearchParams();
     params.append("review_id", props.content.review_id);
@@ -75,7 +77,7 @@ export function Review(props) {
   }
 
   const editReview = async function () {
-
+    navigate(`/edit/${props.content.review_id}`);
   }
 
   const commentReview = async function () {
@@ -120,7 +122,7 @@ export function Review(props) {
   return (<li className="list-group-item list-group-item-action" id="postsItems">
     <h2>{props.content.destination_name}</h2>
     <small>{props.content.destination_category}</small>
-    <p>{props.content.review_body}</p>
+
     <a href={props.loggedInUserId === props.content.author_id ? '/profil' : `/profil/${props.content.author_id}`}>
       <Image
         src={props.content.author_profile_picture_location || default_profile_picture}
@@ -130,18 +132,20 @@ export function Review(props) {
         className="d-inline-block align-top profile-pic"
         alt="Profile"
         style={{ objectFit: 'cover' }}
-      /></a>
+      />
+    </a>
 
     <small><a style={{
       color: "#888"
     }} href={props.loggedInUserId === props.content.author_id ? '/profil' : `/profil/${props.content.author_id}`}>By: {props.content.author_nickname}</a></small>
 
+    <p>{props.content.review_body}</p>
     <small>Date posted: {new Date(props.content.date_posted).toLocaleDateString()}</small>
     <div data-lyket-type="rate" namespace="infovacanta-react" data-lyket-id={`review-${props.content.review_id}`} data-lyket-show-rating="average"></div>
     <div className="lyket-counter" data-lyket-type="updown" data-lyket-id={`my-${props.content.review_id}-post`} data-lyket-namespace="blog" data-lyket-template="simple"></div>
     {
       props.loggedInUserId == props.content.author_id &&
-      <button className="edit">
+      <button className="edit" onClick={editReview}>
         <i className="fa-solid fa-highlighter" style={{ marginRight: "6px" }} />
         Editează</button>
     }
@@ -237,7 +241,7 @@ export const Main = () => {
     script1.src = "https://cdn.botpress.cloud/webchat/v2/inject.js";
 
     const script2 = document.createElement('script');
-    script2.src = "https://mediafiles.botpress.cloud/75424437-4b00-4535-8cf2-b56dbabe0397/webchat/v2/config.js";
+    script2.src = "https://mediafiles.botpress.cloud/9b63b3fc-f11f-4a11-a8f4-a72b5bbdfcfe/webchat/v2/config.js";
 
     document.body.appendChild(script1);
     document.body.appendChild(script2);
