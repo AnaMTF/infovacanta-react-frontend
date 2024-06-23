@@ -1,7 +1,7 @@
 import Axios from 'axios';
 
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { RateButton } from '@lyket/react';
 import { useSelector } from 'react-redux';
@@ -15,19 +15,20 @@ export const EditReview = (props) => {
   const { reviewId } = useParams();
   const navigate = useNavigate();
 
-  const [review_body, setReviewBody] = useState('');
-  const [destination_name, setDestinationName] = useState('');
+  const [reviewBody, setReviewBody] = useState('');
+  const [destinationName, setDestinationName] = useState('');
 
   const { data: destinations } = useQuery(["destination_id"], async function () {
     try {
       const response = await Axios.get(`http://localhost:5000/destinations`);
+      console.log(response.data);
       return response.data;
     } catch (error) {
       console.error(error);
     }
   });
 
-  const { data: reviewBasicInfo } = useQuery(["review_id"], async function () {
+  const { data: reviewBasicInfo, isLoading: reviewIsLoading } = useQuery(["review_id"], async function () {
     try {
       const response = await Axios.get(`http://localhost:5000/reviews/${reviewId}/basic`);
       return response.data;
@@ -35,6 +36,16 @@ export const EditReview = (props) => {
       console.error(error);
     }
   });
+
+  useEffect(() => {
+    if (reviewBasicInfo) {
+      console.log("Fetched review info:", reviewBasicInfo); // Debug log
+      reviewBasicInfo.map((review) => {
+        setReviewBody(review.review_body);
+        setDestinationName(review.destination_name);
+      });
+    }
+  }, [reviewBasicInfo]);
 
   const handleSubmit = async (e, navigate) => {
     e.preventDefault();
@@ -63,48 +74,46 @@ export const EditReview = (props) => {
     }
   };
 
+  if (reviewIsLoading) return (<div className="container jumbotron centered"><h1>Se încarcă...</h1></div>);
+
   return (
     <div className="container jumbotron centered">
       <h1>Modificați recenzia</h1>
-      {
-        reviewBasicInfo?.map((info, idx) => {
-          return (
-            <form id="newPostForm" onSubmit={(e) => handleSubmit(e, navigate)}>
-              <input
-                type="text" name="destination_name"
-                placeholder="Destinația turistică vizitată"
-                required
-                list="destination_names"
-                value={info.destination_name}
-                onChange={(e) => info = e.target.value}
-              />
-              <datalist id="destination_names">
-                {destinations?.map((destination, idx) => {
-                  return (
-                    <option key={idx} value={destination.destination_name} />
-                  );
-                })}
-              </datalist>
-              <textarea
-                name="review_body"
-                placeholder="Scrieți recenzia dumneavoastră aici..."
-                required
-                rows="10"
-                value={info.review_body}
-                onChange={(e) => setReviewBody(e.target.value)}
-              ></textarea>
-              <RateButton key={idx} className="list-group-item"
-                namespace="infovacanta-react"
-                id={`review-${reviewId}`}
-                //id="review-test"
-                showRating="user"
-              />
 
-              <button className="full-width" type="submit" id="publicaBtn">Publică</button>
-            </form>
-          );
-        })
-      }
+      <form id="newPostForm" onSubmit={(e) => handleSubmit(e, navigate)}>
+        <input
+          type="text" name="destination_name"
+          placeholder="Destinația turistică vizitată"
+          required
+          list="destination_names"
+          value={destinationName}
+          onChange={(e) => setDestinationName(e.target.value)}
+        />
+        <datalist id="destination_names">
+          {destinations?.map((destination, idx) => {
+            return (
+              <option key={idx} value={destination.destination_name} />
+            );
+          })}
+        </datalist>
+        <textarea
+          name="review_body"
+          placeholder="Scrieți recenzia dumneavoastră aici..."
+          required
+          rows="10"
+          value={reviewBody}
+          onChange={(e) => setReviewBody(e.target.value)}
+        ></textarea>
+        <RateButton className="list-group-item"
+          namespace="infovacanta-react"
+          id={`review-${reviewId}`}
+          //id="review-test"
+          showRating="user"
+        />
+
+        <button className="full-width" type="submit" id="publicaBtn">Publică</button>
+      </form>
+
 
 
       <Link to="/main">
