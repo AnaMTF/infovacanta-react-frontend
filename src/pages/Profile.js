@@ -116,7 +116,11 @@ export const Profile = () => {
               <Link to="/new">
                 <button className="btn btn-primary" id="adauga-recenzie">Adaugă o recenzie</button>
               </Link>
-
+              <Link to="/saved">
+                <button className="btn btn-primary" id="recenzii-favorite">
+                  <i class="fa-solid fa-star" style={{ marginRight: "6px" }}></i>
+                  Recenziile mele favorite</button>
+              </Link>
             </div>
           </div>
         </div>
