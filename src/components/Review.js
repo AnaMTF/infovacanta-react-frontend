@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Axios from "axios";
 import default_profile_picture from "../resources/blank-profile-pic.png";
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Image } from 'react-bootstrap';
 import { NewCommentModal } from "./NewCommentModal";
 import Modal from 'react-bootstrap/Modal';
@@ -26,6 +26,7 @@ export function Review(props) {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const deleteReview = async function () {
     setShowAreYouSure(false);
@@ -37,8 +38,8 @@ export function Review(props) {
     } catch (error) {
       console.error(error);
     } finally {
-      queryClient.refrechQueries(["Review Cards"]);
-      navigate("/main", { replace: true });
+      queryClient.refetchQueries(["Review Cards"]);
+      navigate(0);
     }
   };
 
@@ -65,7 +66,6 @@ export function Review(props) {
     }
   };
 
-  // nu inteleg de ce nu merge
   const unsaveReview = async function () {
     const params = new URLSearchParams();
     params.append("review_id", props.content.review_id);
