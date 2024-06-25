@@ -4,7 +4,7 @@ import "../css/main.css";
 
 import Axios from "axios";
 
-import { Review } from "./Main";
+import { Review } from "../components/Review";
 
 import { useSelector } from "react-redux";
 import { useQuery } from "@tanstack/react-query";

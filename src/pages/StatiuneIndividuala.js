@@ -26,7 +26,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 
-import { Review } from "./Main";
+import { Review } from "../components/Review";
 
 
 export const Statiune = (props) => {

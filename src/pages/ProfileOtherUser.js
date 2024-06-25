@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logoutUser } from '../app/userSlice';
 import { useNavigate } from 'react-router-dom';
 
-import { Review } from "../pages/Main";
+import { Review } from "../components/Review";
 
 import "../css/profil.css";
 import "../css/main.css";

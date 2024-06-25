@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useParams, useNavigate, Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
-import { Review } from "./Main";
+import { Review } from "../components/Review";
 
 import { Tab, Tabs, Card, Button } from "react-bootstrap";
 
