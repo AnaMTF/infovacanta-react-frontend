@@ -30,6 +30,7 @@ import { useParams } from "react-router-dom";
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 
 import { AllCommentsModal } from '../components/AllCommentsModal';
+import { fetchAllComments } from '../utils/fetchFunctions';
 
 export const ProfileOtherUser = (props) => {
   const { userId } = useParams();
@@ -44,15 +45,7 @@ export const ProfileOtherUser = (props) => {
     }));
   };
 
-  const { data: allComments } = useQuery(["comment_id"], async function () {
-    try {
-      const result = await Axios.get(`http://localhost:5000/comments`);
-      console.log(result.data);
-      return result.data;
-    } catch (error) {
-      console.error(error);
-    }
-  });
+  const { data: allComments } = useQuery(["comment_id"], fetchAllComments());
 
   const { data: thisUser } = useQuery(["this_user_id"], async () => {
     try {

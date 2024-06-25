@@ -19,6 +19,7 @@ import { AllCommentsModal } from "../components/AllCommentsModal";
 
 import "../css/styles.css";
 import "../css/header.css";
+import { fetchAllComments } from "../utils/fetchFunctions";
 // import "../css/main.css";
 
 export const Rezultate = (props) => {
@@ -30,15 +31,7 @@ export const Rezultate = (props) => {
     }));
   };
 
-  const { data: allComments } = useQuery(["comment_id"], async function () {
-    try {
-      const result = await Axios.get(`http://localhost:5000/comments`);
-      console.log(result.data);
-      return result.data;
-    } catch (error) {
-      console.error(error);
-    }
-  });
+  const { data: allComments } = useQuery(["comment_id"], fetchAllComments());
 
   useLocation();
 

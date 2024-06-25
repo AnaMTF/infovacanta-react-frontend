@@ -31,6 +31,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 
 import { Review } from "../components/Review";
+import { fetchAllComments } from "../utils/fetchFunctions";
 
 
 export const Statiune = (props) => {
@@ -44,15 +45,7 @@ export const Statiune = (props) => {
     }));
   };
 
-  const { data: allComments } = useQuery(["comment_id"], async function () {
-    try {
-      const result = await Axios.get(`http://localhost:5000/comments`);
-      console.log(result.data);
-      return result.data;
-    } catch (error) {
-      console.error(error);
-    }
-  });
+  const { data: allComments } = useQuery(["comment_id"], fetchAllComments());
 
   const [coordinates, setCoordinates] = useState({ lat: 45.9442858, lng: 25.0094303 });
   const [reviews, setReviews] = useState([]);

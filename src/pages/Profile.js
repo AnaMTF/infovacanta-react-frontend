@@ -29,6 +29,7 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import { AllCommentsModal } from '../components/AllCommentsModal';
+import { fetchAllComments } from '../utils/fetchFunctions';
 
 export const Profile = () => {
   const user = useSelector((state) => state.user.user);
@@ -43,15 +44,7 @@ export const Profile = () => {
     }));
   };
 
-  const { data: allComments } = useQuery(["comment_id"], async function () {
-    try {
-      const result = await Axios.get(`http://localhost:5000/comments`);
-      console.log(result.data);
-      return result.data;
-    } catch (error) {
-      console.error(error);
-    }
-  });
+  const { data: allComments } = useQuery(["comment_id"], fetchAllComments());
 
   const { data: reviews } = useQuery(["reviews"], async () => {
     try {

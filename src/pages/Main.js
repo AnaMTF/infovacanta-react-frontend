@@ -26,6 +26,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Review } from '../components/Review';
 
+import { fetchAllComments } from '../utils/fetchFunctions.js';
+
 export const Main = () => {
   const user = useSelector((state) => state.user.user);
 
@@ -48,15 +50,7 @@ export const Main = () => {
     }
   });
 
-  const { data: allComments } = useQuery(["comment_id"], async function () {
-    try {
-      const result = await Axios.get(`http://localhost:5000/comments`);
-      console.log(result.data);
-      return result.data;
-    } catch (error) {
-      console.error(error);
-    }
-  });
+  const { data: allComments } = useQuery(["comment_id"], fetchAllComments());
 
   useEffect(() => {
     const script1 = document.createElement('script');
