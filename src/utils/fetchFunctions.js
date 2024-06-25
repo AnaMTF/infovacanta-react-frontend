@@ -10,6 +10,16 @@ export const fetchAllComments = async function () {
   }
 };
 
+export const fetchCommentsByReviewId = async function (reviewId) {
+  try {
+    const response = await Axios.get(`http://localhost:5000/reviews/${reviewId}/comments`);
+    console.log("Comments for review " + reviewId + " fetched:\n", response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const fetchDestinations = async function () {
   try {
     const response = await Axios.get(`http://localhost:5000/destinations`);

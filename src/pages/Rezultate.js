@@ -119,10 +119,10 @@ export const Rezultate = (props) => {
                     content={review}
                     toggleShowComments={toggleShowComments}
                   ></Review>
-                  <AllCommentsModal
+                  {/* <AllCommentsModal
                     content={comments}
                     show={showComments} onHide={() => toggleShowComments(review.review_id)}
-                  ></AllCommentsModal>
+                  ></AllCommentsModal> */}
                 </div>
               );
             })}
