@@ -41,7 +41,7 @@ export function Review(props) {
 
   const [isSaved, setIsSaved] = useState(user?.saved_reviews.includes(props.content.review_id) || false);
 
-  const [showAreYouSure, setShowAreYouSure] = useState(false);
+  const [showAreYouSure, setShowAreYouSure] = useState(false); s
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -181,11 +181,6 @@ export function Review(props) {
       </UpdownButton>
     </div>
 
-    <AllCommentsModal
-      review_id={props.content.review_id}
-      show={showComments} onHide={() => setShowComments(false)}
-    ></AllCommentsModal>
-
     <NewCommentModal
       review_id={props.content.review_id}
       review_author_nickname={props.content.nickname}
@@ -212,8 +207,6 @@ export function Review(props) {
 
 export const Main = () => {
   const user = useSelector((state) => state.user.user);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const { data: reviews } = useQuery(["review_id"], async function () {
     try {
@@ -223,6 +216,15 @@ export const Main = () => {
     } catch (error) {
       console.error(error);
       return null;
+    }
+  });
+
+  const { data: comments } = useQuery(["comment_id"], async function () {
+    try {
+      const result = await Axios.get(`http://localhost:5000/reviews/${props.content.review_id}/comments`);
+      return result.data;
+    } catch (error) {
+      console.error(error);
     }
   });
 
@@ -254,7 +256,10 @@ export const Main = () => {
           return (
             <div key={idx}>
               <Review loggedInUserId={user?.user_id} content={review}></Review>
-
+              <AllCommentsModal
+                content={comments?.filter(comment => comment.review_id === review.review_id)}
+                show={showComments} onHide={() => setShowComments(false)}
+              ></AllCommentsModal>
             </div>
           );
         })}

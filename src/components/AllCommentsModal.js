@@ -7,19 +7,8 @@ import "../css/comments.css";
 import default_profile_picture from "../resources/blank-profile-pic.png";
 
 export const AllCommentsModal = (props) => {
-  const { data: comments, isLoading, error } = useQuery(["comment_id"], async function () {
-    try {
-      console.log(`GET: http://localhost:5000/reviews/${props.review_id}/comments`);
-
-      const response = await Axios.get(`http://localhost:5000/reviews/${props.review_id}/comments`);
-      return response.data;
-    } catch (error) {
-      console.error(error);
-    }
-  });
-
   useEffect(() => {
-    console.log("MODAL OPENED\nREVIEW ID: ", props.review_id);
+    console.log(props.content);
   }, []);
 
   return (
@@ -31,10 +20,8 @@ export const AllCommentsModal = (props) => {
       </Modal.Header>
 
       <Modal.Body className="comments">
-        {isLoading && <p>Se încarcă comentariile...</p>}
-        {error && <p>Eroare la încărcarea comentariilor</p>}
         <div id="postsList" className="list-group">
-          {comments?.map((comment, idx) => {
+          {props.content?.map((comment, idx) => {
             return (
               <div key={idx} className="list-group-item list-group-item-action comment-item" id="postsItems">
                 <div className="comment-header">
