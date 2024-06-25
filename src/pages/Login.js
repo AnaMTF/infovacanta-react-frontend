@@ -7,7 +7,7 @@ import "../css/header.css";
 import "../css/styles.css";
 import "../css/login.css";
 
-import "@fortawesome/fontawesome-free"
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -20,6 +20,10 @@ export const Login = () => {
     dispatch(loginUser(email, password, navigate));
   };
 
+  const handleGoogleLogin = () => {
+    window.open("http://localhost:5000/auth/google", "_self");
+  };
+
   return (
     <div className="container mt-5 jumbotron centered">
       <h1>Login</h1>
@@ -30,7 +34,7 @@ export const Login = () => {
             <div className="card-body">
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                  <i className="fa fa-envelope icon"></i>
+                  <i className="fa-solid fa-envelope"></i>
                   <label htmlFor="email">Email</label>
                   <input
                     type="email"
@@ -44,7 +48,7 @@ export const Login = () => {
                   />
                 </div>
                 <div className="form-group">
-                  <i className="fa fa-key icon"></i>
+                  <i className="fa-solid fa-key"></i>
                   <label htmlFor="password">Parolă</label>
                   <input
                     type="password"
@@ -70,12 +74,12 @@ export const Login = () => {
             marginBottom: "25px"
           }}>
             <div className="card-body">
-              <a className="btn btn-block" href="http://localhost:5000/auth/google" role="button">
+              <button className="btn btn-block" onClick={handleGoogleLogin}>
                 <i className="fab fa-google" style={{
                   paddingRight: "6px"
                 }} />
                 Sign In with Google
-              </a>
+              </button>
             </div>
           </div>
 
@@ -83,12 +87,12 @@ export const Login = () => {
             marginBottom: "25px"
           }}>
             <div className="card-body">
-              <a className="btn btn-block" href="/auth/google" role="button">
+              <button className="btn btn-block" href="/auth/google" role="button">
                 <i className="fab fa-facebook" style={{
                   paddingRight: "6px"
                 }} />
                 Sign In with Facebook
-              </a>
+              </button>
             </div>
           </div>
         </div>
