@@ -37,16 +37,6 @@ import { fetchAllComments } from "../utils/fetchFunctions";
 export const Statiune = (props) => {
   const user = useSelector((state) => state.user.user);
 
-  const [showCommentsHashMap, setShowCommentsHashMap] = React.useState({});
-  const toggleShowComments = function (review_id) {
-    setShowCommentsHashMap(prevState => ({
-      ...prevState,
-      [review_id]: !prevState[review_id]
-    }));
-  };
-
-  const { data: allComments } = useQuery(["Comments"], fetchAllComments());
-
   const [coordinates, setCoordinates] = useState({ lat: 45.9442858, lng: 25.0094303 });
   const [reviews, setReviews] = useState([]);
 

@@ -14,15 +14,6 @@ import { fetchAllComments, fetchAllReviews } from "../utils/fetchFunctions";
 
 
 export const SavedReviews = () => {
-  const [showCommentsHashMap, setShowCommentsHashMap] = React.useState({});
-  const toggleShowComments = function (review_id) {
-    setShowCommentsHashMap(prevState => ({
-      ...prevState,
-      [review_id]: !prevState[review_id]
-    }));
-  };
-
-  const { data: allComments } = useQuery(["comment_id"], async () => fetchAllComments());
 
   const user = useSelector((state) => state.user.user);
   const { data: reviews } = useQuery(["Review Cards"], async () => fetchAllReviews());

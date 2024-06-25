@@ -37,15 +37,6 @@ export const ProfileOtherUser = (props) => {
 
   const user = useSelector((state) => state.user.user);
 
-  const [showCommentsHashMap, setShowCommentsHashMap] = React.useState({});
-  const toggleShowComments = function (review_id) {
-    setShowCommentsHashMap(prevState => ({
-      ...prevState,
-      [review_id]: !prevState[review_id]
-    }));
-  };
-
-  const { data: allComments } = useQuery(["Comments"], async () => fetchAllComments());
   const { data: thisUser } = useQuery(["User", userId], async () => fetchUserInfoById(userId));
   const { data: reviews } = useQuery(["Review Cards", userId], async () => fetchReviewsByUserId(userId));
   const { data: userStats } = useQuery(["User Statistics", userId], async () => fetchUserStatisticsById(userId));

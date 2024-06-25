@@ -36,15 +36,6 @@ export const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [showCommentsHashMap, setShowCommentsHashMap] = React.useState({});
-  const toggleShowComments = function (review_id) {
-    setShowCommentsHashMap(prevState => ({
-      ...prevState,
-      [review_id]: !prevState[review_id]
-    }));
-  };
-
-  const { data: allComments } = useQuery(["Comments"], async () => fetchAllComments());
   const { data: reviews } = useQuery(["Review Cards", user?.user_id || "No user logged in"], async () => fetchReviewsByUserId(user?.user_id));
   const { data: userStats } = useQuery(["User Statistics", user?.user_id || "No user logged in"], async () => fetchUserStatisticsById(user?.user_id));
 

@@ -23,15 +23,6 @@ import { fetchAllComments, fetchQueryResultsByKeyword } from "../utils/fetchFunc
 // import "../css/main.css";
 
 export const Rezultate = (props) => {
-  const [showCommentsHashMap, setShowCommentsHashMap] = React.useState({});
-  const toggleShowComments = function (review_id) {
-    setShowCommentsHashMap(prevState => ({
-      ...prevState,
-      [review_id]: !prevState[review_id]
-    }));
-  };
-
-  const { data: allComments } = useQuery(["Comments"], fetchAllComments());
 
   useLocation();
 
