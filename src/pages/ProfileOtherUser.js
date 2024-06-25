@@ -30,49 +30,16 @@ import { useParams } from "react-router-dom";
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 
 import { AllCommentsModal } from '../components/AllCommentsModal';
-import { fetchAllComments } from '../utils/fetchFunctions';
+import { fetchAllComments, fetchReviewsByUserId, fetchUserInfoById, fetchUserStatisticsById } from '../utils/fetchFunctions';
 
 export const ProfileOtherUser = (props) => {
   const { userId } = useParams();
 
   const user = useSelector((state) => state.user.user);
 
-  const [showCommentsHashMap, setShowCommentsHashMap] = React.useState({});
-  const toggleShowComments = function (review_id) {
-    setShowCommentsHashMap(prevState => ({
-      ...prevState,
-      [review_id]: !prevState[review_id]
-    }));
-  };
-
-  const { data: allComments } = useQuery(["comment_id"], fetchAllComments());
-
-  const { data: thisUser } = useQuery(["this_user_id"], async () => {
-    try {
-      const result = await Axios.get(`http://localhost:5000/users/${userId}`);
-      return result.data;
-    } catch (error) {
-      console.error(error);
-    }
-  });
-
-  const { data: reviews } = useQuery(["reviews"], async () => {
-    try {
-      const result = await Axios.get(`http://localhost:5000/users/${userId}/review-cards`);
-      return result.data;
-    } catch (error) {
-      console.error(error);
-    }
-  })
-
-  const { data: userStats } = useQuery(["userStats"], async () => {
-    try {
-      const result = await Axios.get(`http://localhost:5000/query/users/${userId}/statistics`);
-      return result.data;
-    } catch (error) {
-      console.error(error);
-    }
-  });
+  const { data: thisUser } = useQuery(["User", userId], async () => fetchUserInfoById(userId));
+  const { data: reviews } = useQuery(["Review Cards", userId], async () => fetchReviewsByUserId(userId));
+  const { data: userStats } = useQuery(["User Statistics", userId], async () => fetchUserStatisticsById(userId));
 
   useEffect(() => {
     console.log("\nthisUser: ", thisUser);
@@ -170,24 +137,7 @@ export const ProfileOtherUser = (props) => {
         <div className="col-md-8">
           <ul id="postsList" className="list-group">
             {reviews?.map((review, idx) => {
-              const comments = allComments?.filter(comment => comment.review_id == review.review_id);
-              const showComments = showCommentsHashMap[review.review_id] || false;
-
-              //console.log("Comments for review", review.review_id, comments)
-
-              return (
-                <div key={idx}>
-                  <Review
-                    loggedInUserId={user?.user_id}
-                    content={review}
-                    toggleShowComments={toggleShowComments}
-                  ></Review>
-                  <AllCommentsModal
-                    content={comments}
-                    show={showComments} onHide={() => toggleShowComments(review.review_id)}
-                  ></AllCommentsModal>
-                </div>
-              );
+              return (<Review key={idx} loggedInUserId={user?.user_id} content={review} />);
             })}
           </ul>
         </div>

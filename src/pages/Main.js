@@ -26,31 +26,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Review } from '../components/Review';
 
-import { fetchAllComments } from '../utils/fetchFunctions.js';
+import { fetchAllComments, fetchAllReviews } from '../utils/fetchFunctions.js';
 
 export const Main = () => {
   const user = useSelector((state) => state.user.user);
 
-  const [showCommentsHashMap, setShowCommentsHashMap] = React.useState({});
-  const toggleShowComments = function (review_id) {
-    setShowCommentsHashMap(prevState => ({
-      ...prevState,
-      [review_id]: !prevState[review_id]
-    }));
-  };
-
-  const { data: reviews } = useQuery(["review_id"], async function () {
-    try {
-      const result = await Axios.get("http://localhost:5000/review-cards");
-      //console.log(result.data);
-      return result.data;
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
-  });
-
-  const { data: allComments } = useQuery(["comment_id"], fetchAllComments());
+  const { data: reviews } = useQuery(["Review Cards"], async () => fetchAllReviews());
 
   useEffect(() => {
     const script1 = document.createElement('script');
@@ -77,24 +58,7 @@ export const Main = () => {
 
       <ul id="postsList" className="list-group">
         {reviews?.map((review, idx) => {
-          const comments = allComments?.filter(comment => comment.review_id == review.review_id);
-          const showComments = showCommentsHashMap[review.review_id] || false;
-
-          //console.log("Comments for review", review.review_id, comments)
-
-          return (
-            <div key={idx}>
-              <Review
-                loggedInUserId={user?.user_id}
-                content={review}
-                toggleShowComments={toggleShowComments}
-              ></Review>
-              <AllCommentsModal
-                content={comments}
-                show={showComments} onHide={() => toggleShowComments(review.review_id)}
-              ></AllCommentsModal>
-            </div>
-          );
+          return (<Review key={idx} loggedInUserId={user?.user_id} content={review} />);
         })}
       </ul>
     </div>

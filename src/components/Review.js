@@ -9,16 +9,19 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { RateButton, UpdownButton } from '@lyket/react';
 import { addToSavedReviews, removeFromSavedReviews } from '../app/userSlice';
-
+import { AllCommentsModal } from './AllCommentsModal';
+import { fetchCommentsByReviewId } from '../utils/fetchFunctions';
+import { useQuery } from '@tanstack/react-query';
 
 export function Review(props) {
   const user = useSelector((state) => state.user.user);
 
+  const [showComments, setShowComments] = useState(false);
   const [showNewComment, setShowNewComment] = useState(false);
-
   const [isSaved, setIsSaved] = useState(user?.saved_reviews.includes(props.content.review_id) || false);
-
   const [showAreYouSure, setShowAreYouSure] = useState(false);
+
+  const { data: comments } = useQuery(["Comments", props.content.review_id], async () => fetchCommentsByReviewId(props.content.review_id));
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -118,7 +121,7 @@ export function Review(props) {
     {props.loggedInUserId && <button className="comment" onClick={() => setShowNewComment(true)}>
       <i className="fa-solid fa-comment" style={{ marginRight: "6px" }} />
       Lasă un comentariu</button>}
-    <button className="all-comments" onClick={() => props.toggleShowComments(props.content.review_id)}>
+    <button className="all-comments" onClick={() => setShowComments(true)}>
       <i className="fa-solid fa-comments" style={{ marginRight: "6px" }} />
       Vezi toate comentariile</button>
 
@@ -146,6 +149,11 @@ export function Review(props) {
       >
       </UpdownButton>
     </div>
+
+    <AllCommentsModal
+      content={comments}
+      show={showComments} onHide={() => setShowComments(false)}
+    ></AllCommentsModal>
 
     <NewCommentModal
       review_id={props.content.review_id}

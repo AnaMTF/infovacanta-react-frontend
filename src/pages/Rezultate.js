@@ -19,19 +19,10 @@ import { AllCommentsModal } from "../components/AllCommentsModal";
 
 import "../css/styles.css";
 import "../css/header.css";
-import { fetchAllComments } from "../utils/fetchFunctions";
+import { fetchAllComments, fetchQueryResultsByKeyword } from "../utils/fetchFunctions";
 // import "../css/main.css";
 
 export const Rezultate = (props) => {
-  const [showCommentsHashMap, setShowCommentsHashMap] = React.useState({});
-  const toggleShowComments = function (review_id) {
-    setShowCommentsHashMap(prevState => ({
-      ...prevState,
-      [review_id]: !prevState[review_id]
-    }));
-  };
-
-  const { data: allComments } = useQuery(["comment_id"], fetchAllComments());
 
   useLocation();
 
@@ -58,16 +49,7 @@ export const Rezultate = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { data: query_results, isLoading, isError } = useQuery(["review_id"], async function () {
-    try {
-      const result = await Axios.get(`http://localhost:5000/query/${keyword}`);
-      // console.log(result.data);
-      return result.data;
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
-  });
+  const { data: query_results, isLoading, isError } = useQuery(["Query Results", keyword], async () => fetchQueryResultsByKeyword(keyword));
 
   // const { data: reviews, isLoading, error } = useQuery(["reviews"], async () => {
   //   const result = await Axios.get("http://localhost:5000/reviews");
@@ -117,23 +99,7 @@ export const Rezultate = (props) => {
                 }
               }
 
-              // if (search.searchInSavedReviews == true) {
-
-              // }
-
-              return (
-                <div key={idx}>
-                  <Review
-                    loggedInUserId={user?.user_id}
-                    content={review}
-                    toggleShowComments={toggleShowComments}
-                  ></Review>
-                  <AllCommentsModal
-                    content={comments}
-                    show={showComments} onHide={() => toggleShowComments(review.review_id)}
-                  ></AllCommentsModal>
-                </div>
-              );
+              return (<Review key={idx} loggedInUserId={user?.user_id} content={review} />);
             })}
           </ul>
         </div>

@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import "../css/styles.css";
 import "../css/header.css";
 import "../css/new.css";
+import { fetchDestinations } from '../utils/fetchFunctions';
 
 export const EditReview = (props) => {
   const user = useSelector((state) => state.user.user);
@@ -18,17 +19,8 @@ export const EditReview = (props) => {
   const [reviewBody, setReviewBody] = useState('');
   const [destinationName, setDestinationName] = useState('');
 
-  const { data: destinations } = useQuery(["destination_id"], async function () {
-    try {
-      const response = await Axios.get(`http://localhost:5000/destinations`);
-      console.log(response.data);
-      return response.data;
-    } catch (error) {
-      console.error(error);
-    }
-  });
-
-  const { data: reviewBasicInfo, isLoading: reviewIsLoading } = useQuery(["review_id"], async function () {
+  const { data: destinations } = useQuery(["Destinations"], async () => fetchDestinations());
+  const { data: reviewBasicInfo, isLoading: reviewIsLoading } = useQuery(["Review for Edit", reviewId], async function () {
     try {
       const response = await Axios.get(`http://localhost:5000/reviews/${reviewId}/basic`);
       return response.data;
