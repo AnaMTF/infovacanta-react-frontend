@@ -7,6 +7,8 @@ import "../css/header.css";
 import "../css/styles.css";
 import "../css/login.css";
 
+import "@fortawesome/fontawesome-free"
+
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -68,7 +70,7 @@ export const Login = () => {
             marginBottom: "25px"
           }}>
             <div className="card-body">
-              <a className="btn btn-block" href="/auth/google" role="button">
+              <a className="btn btn-block" href="http://localhost:5000/auth/google" role="button">
                 <i className="fab fa-google" style={{
                   paddingRight: "6px"
                 }} />
