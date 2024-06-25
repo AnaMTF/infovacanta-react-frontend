@@ -23,24 +23,7 @@ export const SavedReviews = () => {
       <h1>Recenzii salvate</h1>
       <ul id="postsList" className="list-group">
         {reviews?.filter((review) => user?.saved_reviews.includes(review.review_id)).map((review, idx) => {
-          const comments = allComments?.filter(comment => comment.review_id == review.review_id);
-          const showComments = showCommentsHashMap[review.review_id] || false;
-
-          //console.log("Comments for review", review.review_id, comments)
-
-          return (
-            <div key={idx}>
-              <Review
-                loggedInUserId={user?.user_id}
-                content={review}
-                toggleShowComments={toggleShowComments}
-              ></Review>
-              {/* <AllCommentsModal
-                content={comments}
-                show={showComments} onHide={() => toggleShowComments(review.review_id)}
-              ></AllCommentsModal> */}
-            </div>
-          );
+          return (<Review key={idx} loggedInUserId={user?.user_id} content={review} />);
         })}
       </ul>
     </div>

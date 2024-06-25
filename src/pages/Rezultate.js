@@ -99,23 +99,7 @@ export const Rezultate = (props) => {
                 }
               }
 
-              // if (search.searchInSavedReviews == true) {
-
-              // }
-
-              return (
-                <div key={idx}>
-                  <Review
-                    loggedInUserId={user?.user_id}
-                    content={review}
-                    toggleShowComments={toggleShowComments}
-                  ></Review>
-                  {/* <AllCommentsModal
-                    content={comments}
-                    show={showComments} onHide={() => toggleShowComments(review.review_id)}
-                  ></AllCommentsModal> */}
-                </div>
-              );
+              return (<Review key={idx} loggedInUserId={user?.user_id} content={review} />);
             })}
           </ul>
         </div>
