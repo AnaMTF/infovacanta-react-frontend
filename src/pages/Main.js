@@ -204,7 +204,7 @@ export function Review(props) {
       <Modal.Footer>
         <Button variant="secondary" onClick={() => setShowAreYouSure(false)}>Înapoi</Button>
         <Button variant="danger" onClick={deleteReview}>Da, șterge</Button>
-      </Modal.Footer>s
+      </Modal.Footer>
     </Modal>
   </li>);
 }
@@ -248,23 +248,17 @@ export const Main = () => {
       <Link to="/new">
         <button id="newPostBtn">Recenzie Nouă</button>
       </Link>
-      {/* <Link to="/profil">
-        <button id="newPostBtn">Profil ({user?.nickname || "no user detected"})</button>
-      </Link> */}
-      {/* <Link to="/">
-        <button id="logoutBtn" onClick={() => dispatch(logoutUser(navigate))}>Logout</button>
-      </Link> */}
 
       <ul id="postsList" className="list-group">
         {reviews?.map((review, idx) => {
           return (
-            <Review loggedInUserId={user?.user_id} key={idx} content={review}></Review>
+            <div key={idx}>
+              <Review loggedInUserId={user?.user_id} content={review}></Review>
+
+            </div>
           );
         })}
       </ul>
-
-      {/* <Chatbot /> */}
-
     </div>
   );
 };
