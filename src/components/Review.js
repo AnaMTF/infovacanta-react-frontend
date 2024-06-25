@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Axios from "axios";
 import default_profile_picture from "../resources/blank-profile-pic.png";
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Image } from 'react-bootstrap';
 import { NewCommentModal } from "./NewCommentModal";
 import Modal from 'react-bootstrap/Modal';
@@ -11,10 +11,11 @@ import { RateButton, UpdownButton } from '@lyket/react';
 import { addToSavedReviews, removeFromSavedReviews } from '../app/userSlice';
 import { AllCommentsModal } from './AllCommentsModal';
 import { fetchCommentsByReviewId } from '../utils/fetchFunctions';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function Review(props) {
   const user = useSelector((state) => state.user.user);
+  const queryClient = useQueryClient();
 
   const [showComments, setShowComments] = useState(false);
   const [showNewComment, setShowNewComment] = useState(false);
@@ -25,6 +26,7 @@ export function Review(props) {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const deleteReview = async function () {
     setShowAreYouSure(false);
@@ -36,15 +38,13 @@ export function Review(props) {
     } catch (error) {
       console.error(error);
     } finally {
-      navigate("/main", { replace: true });
+      queryClient.refetchQueries(["Review Cards"]);
+      navigate(0);
     }
   };
 
   const editReview = async function () {
     navigate(`/edit/${props.content.review_id}`);
-  };
-
-  const commentReview = async function () {
   };
 
   const saveReview = async function () {
@@ -66,7 +66,6 @@ export function Review(props) {
     }
   };
 
-  // nu inteleg de ce nu merge
   const unsaveReview = async function () {
     const params = new URLSearchParams();
     params.append("review_id", props.content.review_id);
@@ -144,7 +143,7 @@ export function Review(props) {
 
       <UpdownButton className="list-group-item lyket-counter"
         namespace='infovacanta-react'
-        id={`review-${props.content.review_id}`}
+        id={`review-upvotes-${props.content.review_id}`}
         template='simple'
       >
       </UpdownButton>

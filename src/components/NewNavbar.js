@@ -26,6 +26,20 @@ const SearchFilter = ({ show, handleClose }) => {
 
     const { name, value, type, checked } = event.target;
 
+    if (name === 'minRatings') {
+      const newFilterSettings = {
+        ...filterSettings,
+        [name]: type === 'checkbox' ? checked : parseInt(value),
+      };
+
+      setFilterSettings(newFilterSettings);
+      dispatch(setSearchFilters(newFilterSettings));
+
+      console.log("NEW FILTER SETTINGS\n", newFilterSettings);
+
+      return;
+    }
+
     const newFilterSettings = {
       ...filterSettings,
       [name]: type === 'checkbox' ? checked : value,
@@ -185,7 +199,7 @@ export const MyNavbar = () => {
             variant="outline-primary"
             className="d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2"
             style={{ marginRight: "8px" }}
-            onClick={() => setShow(true)}
+            onClick={handleShow}
           >
             Filtre
           </Button>

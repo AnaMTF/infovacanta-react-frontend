@@ -1,32 +1,14 @@
-import React, { Component, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import Axios from "axios";
-
 import { useSelector } from 'react-redux';
-import { logoutUser } from '../app/userSlice';
-
 import "../css/styles.css";
 import "../css/header.css";
 import "../css/main.css";
 import "../css/savebuttons.css";
-
 import { Link } from "react-router-dom";
-
-import { AllCommentsModal } from "../components/AllCommentsModal";
-
-
-// import Chatbot from '../components/Chatbot';
-
-
 import "@fortawesome/fontawesome-free/css/all.css";
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-// import "@fortawesome/fontawesome-free";
-
 import { Review } from '../components/Review';
-
-import { fetchAllComments, fetchAllReviews } from '../utils/fetchFunctions.js';
+import { fetchAllReviews } from '../utils/fetchFunctions.js';
 
 export const Main = () => {
   const user = useSelector((state) => state.user.user);

@@ -40,9 +40,9 @@ export const NewCommentModal = (props) => {
     }
   };
 
-  useEffect(() => {
-    console.log("NEW COMMENT MODAL FOR REVIEW ID", props.review_id);
-  }, [])
+  // useEffect(() => {
+  //   console.log("NEW COMMENT MODAL FOR REVIEW ID", props.review_id);
+  // }, [])
 
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered scrollable>
