@@ -7,9 +7,9 @@ import "../css/comments.css";
 import default_profile_picture from "../resources/blank-profile-pic.png";
 
 export const AllCommentsModal = (props) => {
-  useEffect(() => {
-    console.log(props.content);
-  }, []);
+  // useEffect(() => {
+  //   console.log(props);
+  // }, []);
 
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered scrollable>

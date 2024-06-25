@@ -7,13 +7,18 @@ import Axios from "axios";
 
 import "../css/comments.css";
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 export const NewCommentModal = (props) => {
+  const navigate = useNavigate
+
   const user = useSelector((state) => state.user.user);
 
   const [content, setContent] = useState("");
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e, navigate) => {
+    e.preventDefault();
+
     const params = new URLSearchParams();
     params.append("content", content);
     params.append("review_id", props.review_id);
@@ -25,10 +30,19 @@ export const NewCommentModal = (props) => {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
       });
+      console.log("Comment posted", params);
+
+      // window.location.reload(); // Reload the page to see the new comment
+      // window.location = window.location.href; // Reload the page to see the new comment
+      navigate("/main"); // Reload the page to see the new comment
     } catch (error) {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    console.log("NEW COMMENT MODAL FOR REVIEW ID", props.review_id);
+  }, [])
 
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered scrollable>
@@ -39,7 +53,7 @@ export const NewCommentModal = (props) => {
       </Modal.Header>
 
       <Modal.Body className="comments">
-        <form id="newPostForm" onSubmit={handleSubmit}>
+        <form id="newPostForm" onSubmit={(e) => handleSubmit(e, navigate)}>
           <textarea
             name="content"
             value={content}
