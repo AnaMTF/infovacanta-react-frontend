@@ -15,11 +15,9 @@ import banner from "../resources/banner.png";
 
 import { useEffect } from "react";
 
-import { AllCommentsModal } from "../components/AllCommentsModal";
-
 import "../css/styles.css";
 import "../css/header.css";
-import { fetchAllComments, fetchQueryResultsByKeyword } from "../utils/fetchFunctions";
+import { fetchQueryResultsByKeyword } from "../utils/fetchFunctions";
 // import "../css/main.css";
 
 export const Rezultate = (props) => {
@@ -37,7 +35,7 @@ export const Rezultate = (props) => {
   const [showUsers, setShowUsers] = useState(search.searchInUsers);
 
   useEffect(() => {
-    console.log("REDUX STATE:\n", search);
+    //console.log("REDUX STATE:\n", search);
 
     setShowReviews(search.searchInReviews);
     setShowDestinations(search.searchInDestinations);
@@ -66,8 +64,22 @@ export const Rezultate = (props) => {
 
           <ul id="postsList" className="list-group">
             {query_results?.reviews.map((review, idx) => {
-              const comments = allComments?.filter(comment => comment.review_id == review.review_id);
-              const showComments = showCommentsHashMap[review.review_id] || false;
+              let num_likes = 0;
+
+              Axios.get(`https://api.lyket.dev/v1/like-buttons/infovacanta-react/review-upvotes-${review.review_id}`, {
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer pt_49ef1b9862ddcdc97d841106b33e79`
+                }
+              })
+                .then((response) => {
+                  num_likes = response.data.data.attributes.total_likes;
+                  console.log(`Post ID ${review.review_id} has ${num_likes} likes`);
+                  //console.log("Response data: ", typeof response.data.data.attributes.total_likes);
+                })
+                .catch((error) => { console.error("An error has occured...") });
+              // const result = await Axios.get(`https://api.lyket.dev/v1/like-buttons/infovacanta-react/review-${review.review_id}`);
+              // const num_likes = result.data?.total_likes;
 
               if (search.minDate) {
                 if (new Date(review.date_posted) < new Date(search.minDate)) {
@@ -97,6 +109,13 @@ export const Rezultate = (props) => {
                 if (review.destination_category.includes("balnear")) {
                   return null;
                 }
+              }
+
+              console.log("Number of likes: ", num_likes);
+              console.log("Minimum likes: ", search.minRatings);
+
+              if (num_likes < search.minRatings) {
+                return null;
               }
 
               return (<Review key={idx} loggedInUserId={user?.user_id} content={review} />);

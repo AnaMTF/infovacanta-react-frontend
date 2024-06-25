@@ -143,7 +143,7 @@ export function Review(props) {
 
       <UpdownButton className="list-group-item lyket-counter"
         namespace='infovacanta-react'
-        id={`review-${props.content.review_id}`}
+        id={`review-upvotes-${props.content.review_id}`}
         template='simple'
       >
       </UpdownButton>
