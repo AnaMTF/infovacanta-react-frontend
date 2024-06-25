@@ -1,8 +1,8 @@
 import Axios from 'axios';
 
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState, useEffect } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { RateButton } from '@lyket/react';
 import { useSelector } from 'react-redux';
 
@@ -15,6 +15,9 @@ export const EditReview = (props) => {
   const user = useSelector((state) => state.user.user);
   const { reviewId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const queryClient = useQueryClient();
 
   const [reviewBody, setReviewBody] = useState('');
   const [destinationName, setDestinationName] = useState('');
@@ -62,7 +65,8 @@ export const EditReview = (props) => {
     } catch (error) {
       console.error(error);
     } finally {
-      navigate("/main");
+      queryClient.refetchQueries(["Review Cards"]);
+      navigate(-1);
     }
   };
 

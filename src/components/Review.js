@@ -11,10 +11,11 @@ import { RateButton, UpdownButton } from '@lyket/react';
 import { addToSavedReviews, removeFromSavedReviews } from '../app/userSlice';
 import { AllCommentsModal } from './AllCommentsModal';
 import { fetchCommentsByReviewId } from '../utils/fetchFunctions';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function Review(props) {
   const user = useSelector((state) => state.user.user);
+  const queryClient = useQueryClient();
 
   const [showComments, setShowComments] = useState(false);
   const [showNewComment, setShowNewComment] = useState(false);
@@ -36,15 +37,13 @@ export function Review(props) {
     } catch (error) {
       console.error(error);
     } finally {
+      queryClient.refrechQueries(["Review Cards"]);
       navigate("/main", { replace: true });
     }
   };
 
   const editReview = async function () {
     navigate(`/edit/${props.content.review_id}`);
-  };
-
-  const commentReview = async function () {
   };
 
   const saveReview = async function () {
