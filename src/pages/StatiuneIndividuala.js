@@ -1,6 +1,10 @@
+import React from "react";
+
 import "../css/header.css";
 import "../css/styles.css";
 import "../css/main.css";
+
+import { AllCommentsModal } from "../components/AllCommentsModal";
 
 import { Container, Navbar, Nav, Row, Col, Card, Button, Alert } from 'react-bootstrap';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
@@ -31,6 +35,24 @@ import { Review } from "../components/Review";
 
 export const Statiune = (props) => {
   const user = useSelector((state) => state.user.user);
+
+  const [showCommentsHashMap, setShowCommentsHashMap] = React.useState({});
+  const toggleShowComments = function (review_id) {
+    setShowCommentsHashMap(prevState => ({
+      ...prevState,
+      [review_id]: !prevState[review_id]
+    }));
+  };
+
+  const { data: allComments } = useQuery(["comment_id"], async function () {
+    try {
+      const result = await Axios.get(`http://localhost:5000/comments`);
+      console.log(result.data);
+      return result.data;
+    } catch (error) {
+      console.error(error);
+    }
+  });
 
   const [coordinates, setCoordinates] = useState({ lat: 45.9442858, lng: 25.0094303 });
   const [reviews, setReviews] = useState([]);
@@ -152,8 +174,23 @@ export const Statiune = (props) => {
         <h1>Recenziile stațiunii</h1>
         <ul id="postsList" className="list-group">
           {reviews?.map((review, idx) => {
+            const comments = allComments?.filter(comment => comment.review_id == review.review_id);
+            const showComments = showCommentsHashMap[review.review_id] || false;
+
+            //console.log("Comments for review", review.review_id, comments)
+
             return (
-              <Review loggedInUserId={user?.user_id} key={idx} content={review}></Review>
+              <div key={idx}>
+                <Review
+                  loggedInUserId={user?.user_id}
+                  content={review}
+                  toggleShowComments={toggleShowComments}
+                ></Review>
+                <AllCommentsModal
+                  content={comments}
+                  show={showComments} onHide={() => toggleShowComments(review.review_id)}
+                ></AllCommentsModal>
+              </div>
             );
           })}
         </ul>

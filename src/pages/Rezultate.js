@@ -15,11 +15,31 @@ import banner from "../resources/banner.png";
 
 import { useEffect } from "react";
 
+import { AllCommentsModal } from "../components/AllCommentsModal";
+
 import "../css/styles.css";
 import "../css/header.css";
 // import "../css/main.css";
 
 export const Rezultate = (props) => {
+  const [showCommentsHashMap, setShowCommentsHashMap] = React.useState({});
+  const toggleShowComments = function (review_id) {
+    setShowCommentsHashMap(prevState => ({
+      ...prevState,
+      [review_id]: !prevState[review_id]
+    }));
+  };
+
+  const { data: allComments } = useQuery(["comment_id"], async function () {
+    try {
+      const result = await Axios.get(`http://localhost:5000/comments`);
+      console.log(result.data);
+      return result.data;
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
   useLocation();
 
   const { keyword } = useParams();
@@ -71,6 +91,9 @@ export const Rezultate = (props) => {
 
           <ul id="postsList" className="list-group">
             {query_results?.reviews.map((review, idx) => {
+              const comments = allComments?.filter(comment => comment.review_id == review.review_id);
+              const showComments = showCommentsHashMap[review.review_id] || false;
+
               if (search.minDate) {
                 if (new Date(review.date_posted) < new Date(search.minDate)) {
                   return null;
@@ -106,7 +129,17 @@ export const Rezultate = (props) => {
               // }
 
               return (
-                <Review loggedInUserId={user?.user_id} key={idx} content={review}></Review>
+                <div key={idx}>
+                  <Review
+                    loggedInUserId={user?.user_id}
+                    content={review}
+                    toggleShowComments={toggleShowComments}
+                  ></Review>
+                  <AllCommentsModal
+                    content={comments}
+                    show={showComments} onHide={() => toggleShowComments(review.review_id)}
+                  ></AllCommentsModal>
+                </div>
               );
             })}
           </ul>

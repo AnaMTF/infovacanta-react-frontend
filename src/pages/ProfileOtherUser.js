@@ -29,10 +29,30 @@ import { useParams } from "react-router-dom";
 
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 
+import { AllCommentsModal } from '../components/AllCommentsModal';
+
 export const ProfileOtherUser = (props) => {
   const { userId } = useParams();
 
   const user = useSelector((state) => state.user.user);
+
+  const [showCommentsHashMap, setShowCommentsHashMap] = React.useState({});
+  const toggleShowComments = function (review_id) {
+    setShowCommentsHashMap(prevState => ({
+      ...prevState,
+      [review_id]: !prevState[review_id]
+    }));
+  };
+
+  const { data: allComments } = useQuery(["comment_id"], async function () {
+    try {
+      const result = await Axios.get(`http://localhost:5000/comments`);
+      console.log(result.data);
+      return result.data;
+    } catch (error) {
+      console.error(error);
+    }
+  });
 
   const { data: thisUser } = useQuery(["this_user_id"], async () => {
     try {
@@ -157,8 +177,23 @@ export const ProfileOtherUser = (props) => {
         <div className="col-md-8">
           <ul id="postsList" className="list-group">
             {reviews?.map((review, idx) => {
+              const comments = allComments?.filter(comment => comment.review_id == review.review_id);
+              const showComments = showCommentsHashMap[review.review_id] || false;
+
+              //console.log("Comments for review", review.review_id, comments)
+
               return (
-                <Review loggedInUserId={user?.user_id} key={idx} content={review}></Review>
+                <div key={idx}>
+                  <Review
+                    loggedInUserId={user?.user_id}
+                    content={review}
+                    toggleShowComments={toggleShowComments}
+                  ></Review>
+                  <AllCommentsModal
+                    content={comments}
+                    show={showComments} onHide={() => toggleShowComments(review.review_id)}
+                  ></AllCommentsModal>
+                </div>
               );
             })}
           </ul>
