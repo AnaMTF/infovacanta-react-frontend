@@ -26,7 +26,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Review } from '../components/Review';
 
-import { fetchAllComments } from '../utils/fetchFunctions.js';
+import { fetchAllComments, fetchAllReviews } from '../utils/fetchFunctions.js';
 
 export const Main = () => {
   const user = useSelector((state) => state.user.user);
@@ -39,18 +39,8 @@ export const Main = () => {
     }));
   };
 
-  const { data: reviews } = useQuery(["review_id"], async function () {
-    try {
-      const result = await Axios.get("http://localhost:5000/review-cards");
-      //console.log(result.data);
-      return result.data;
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
-  });
-
-  const { data: allComments } = useQuery(["comment_id"], fetchAllComments());
+  const { data: reviews } = useQuery(["Review Cards"], async () => fetchAllReviews());
+  const { data: allComments } = useQuery(["Comments"], async () => fetchAllComments());
 
   useEffect(() => {
     const script1 = document.createElement('script');

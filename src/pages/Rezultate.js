@@ -19,7 +19,7 @@ import { AllCommentsModal } from "../components/AllCommentsModal";
 
 import "../css/styles.css";
 import "../css/header.css";
-import { fetchAllComments } from "../utils/fetchFunctions";
+import { fetchAllComments, fetchQueryResultsByKeyword } from "../utils/fetchFunctions";
 // import "../css/main.css";
 
 export const Rezultate = (props) => {
@@ -31,7 +31,7 @@ export const Rezultate = (props) => {
     }));
   };
 
-  const { data: allComments } = useQuery(["comment_id"], fetchAllComments());
+  const { data: allComments } = useQuery(["Comments"], fetchAllComments());
 
   useLocation();
 
@@ -58,16 +58,7 @@ export const Rezultate = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { data: query_results, isLoading, isError } = useQuery(["review_id"], async function () {
-    try {
-      const result = await Axios.get(`http://localhost:5000/query/${keyword}`);
-      // console.log(result.data);
-      return result.data;
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
-  });
+  const { data: query_results, isLoading, isError } = useQuery(["Query Results", keyword], async () => fetchQueryResultsByKeyword(keyword));
 
   // const { data: reviews, isLoading, error } = useQuery(["reviews"], async () => {
   //   const result = await Axios.get("http://localhost:5000/reviews");

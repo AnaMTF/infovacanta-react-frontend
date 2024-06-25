@@ -13,6 +13,7 @@ import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import { Link } from "react-router-dom";
 
 import "@fortawesome/fontawesome-free/css/all.css";
+import { fetchDestinations } from '../utils/fetchFunctions';
 
 function CardReview(props) {
   return (
@@ -35,16 +36,7 @@ function CardReview(props) {
 }
 
 export const Statiuni = ({ list }) => {
-  const { data: statiuni } = useQuery(["destination_id"], async function () {
-    try {
-      const result = await Axios.get("http://localhost:5000/destinations");
-      console.log(result.data);
-      return result.data;
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
-  });
+  const { data: statiuni } = useQuery(["Destinations"], async () => fetchDestinations());
 
   return (
     <>

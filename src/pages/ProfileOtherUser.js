@@ -30,7 +30,7 @@ import { useParams } from "react-router-dom";
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 
 import { AllCommentsModal } from '../components/AllCommentsModal';
-import { fetchAllComments } from '../utils/fetchFunctions';
+import { fetchAllComments, fetchReviewsByUserId, fetchUserInfoById, fetchUserStatisticsById } from '../utils/fetchFunctions';
 
 export const ProfileOtherUser = (props) => {
   const { userId } = useParams();
@@ -45,34 +45,10 @@ export const ProfileOtherUser = (props) => {
     }));
   };
 
-  const { data: allComments } = useQuery(["comment_id"], fetchAllComments());
-
-  const { data: thisUser } = useQuery(["this_user_id"], async () => {
-    try {
-      const result = await Axios.get(`http://localhost:5000/users/${userId}`);
-      return result.data;
-    } catch (error) {
-      console.error(error);
-    }
-  });
-
-  const { data: reviews } = useQuery(["reviews"], async () => {
-    try {
-      const result = await Axios.get(`http://localhost:5000/users/${userId}/review-cards`);
-      return result.data;
-    } catch (error) {
-      console.error(error);
-    }
-  })
-
-  const { data: userStats } = useQuery(["userStats"], async () => {
-    try {
-      const result = await Axios.get(`http://localhost:5000/query/users/${userId}/statistics`);
-      return result.data;
-    } catch (error) {
-      console.error(error);
-    }
-  });
+  const { data: allComments } = useQuery(["Comments"], async () => fetchAllComments());
+  const { data: thisUser } = useQuery(["User", userId], async () => fetchUserInfoById(userId));
+  const { data: reviews } = useQuery(["Review Cards", userId], async () => fetchReviewsByUserId(userId));
+  const { data: userStats } = useQuery(["User Statistics", userId], async () => fetchUserStatisticsById(userId));
 
   useEffect(() => {
     console.log("\nthisUser: ", thisUser);

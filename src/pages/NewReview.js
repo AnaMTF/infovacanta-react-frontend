@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 import "../css/styles.css";
 import "../css/header.css";
 import "../css/new.css";
+import { fetchDestinations, fetchNextReviewId } from '../utils/fetchFunctions';
 
 export const NewReview = (props) => {
   const user = useSelector((state) => state.user.user);
@@ -21,24 +22,8 @@ export const NewReview = (props) => {
 
   const navigate = useNavigate();
 
-  const { data: destinations } = useQuery(["destination_id"], async function () {
-    try {
-      const response = await Axios.get(`http://localhost:5000/destinations`);
-      return response.data;
-    } catch (error) {
-      console.error(error);
-    }
-  });
-
-  const { data: newReviewId } = useQuery(["review_id"], async function () {
-    try {
-      const response = await Axios.get("http://localhost:5000/next-val/reviews");
-      console.log("NEXT REVIEW ID ESTE", response.data)
-      return response.data;
-    } catch (error) {
-      console.error(error);
-    }
-  });
+  const { data: destinations } = useQuery(["Destinations"], async () => fetchDestinations());
+  const { data: newReviewId } = useQuery(["Next Review ID"], async () => fetchNextReviewId());
 
   const handleSubmit = async (e, navigate) => {
     e.preventDefault();

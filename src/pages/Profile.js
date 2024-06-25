@@ -29,7 +29,7 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import { AllCommentsModal } from '../components/AllCommentsModal';
-import { fetchAllComments } from '../utils/fetchFunctions';
+import { fetchAllComments, fetchReviewsByUserId, fetchUserStatisticsById } from '../utils/fetchFunctions';
 
 export const Profile = () => {
   const user = useSelector((state) => state.user.user);
@@ -44,25 +44,9 @@ export const Profile = () => {
     }));
   };
 
-  const { data: allComments } = useQuery(["comment_id"], fetchAllComments());
-
-  const { data: reviews } = useQuery(["reviews"], async () => {
-    try {
-      const result = await Axios.get(`http://localhost:5000/users/${user?.user_id}/review-cards`);
-      return result.data;
-    } catch (error) {
-      console.error(error);
-    }
-  })
-
-  const { data: userStats } = useQuery(["userStats"], async () => {
-    try {
-      const result = await Axios.get(`http://localhost:5000/query/users/${user?.user_id}/statistics`);
-      return result.data;
-    } catch (error) {
-      console.error(error);
-    }
-  });
+  const { data: allComments } = useQuery(["Comments"], async () => fetchAllComments());
+  const { data: reviews } = useQuery(["Review Cards", user?.user_id || "No user logged in"], async () => fetchReviewsByUserId(user?.user_id));
+  const { data: userStats } = useQuery(["User Statistics", user?.user_id || "No user logged in"], async () => fetchUserStatisticsById(user?.user_id));
 
   const [hasBronzeComments, setBronzeComments] = React.useState(true);
   const [hasSilverComments, setSilverComments] = React.useState(true);

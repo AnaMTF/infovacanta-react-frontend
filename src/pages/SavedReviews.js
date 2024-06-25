@@ -10,7 +10,7 @@ import { Review } from "../components/Review";
 import { AllCommentsModal } from "../components/AllCommentsModal";
 import { useSelector } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
-import { fetchAllComments } from "../utils/fetchFunctions";
+import { fetchAllComments, fetchAllReviews } from "../utils/fetchFunctions";
 
 
 export const SavedReviews = () => {
@@ -22,17 +22,10 @@ export const SavedReviews = () => {
     }));
   };
 
-  const { data: allComments } = useQuery(["comment_id"], fetchAllComments());
+  const { data: allComments } = useQuery(["comment_id"], async () => fetchAllComments());
 
   const user = useSelector((state) => state.user.user);
-  const { data: reviews } = useQuery(["reviews"], async () => {
-    try {
-      const result = await Axios.get(`http://localhost:5000/review-cards`);
-      return result.data;
-    } catch (error) {
-      console.error(error);
-    }
-  });
+  const { data: reviews } = useQuery(["Review Cards"], async () => fetchAllReviews());
 
   return (
     <div className="container-fluid jumbotron centered">

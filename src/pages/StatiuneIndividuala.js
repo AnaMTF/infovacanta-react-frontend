@@ -45,14 +45,14 @@ export const Statiune = (props) => {
     }));
   };
 
-  const { data: allComments } = useQuery(["comment_id"], fetchAllComments());
+  const { data: allComments } = useQuery(["Comments"], fetchAllComments());
 
   const [coordinates, setCoordinates] = useState({ lat: 45.9442858, lng: 25.0094303 });
   const [reviews, setReviews] = useState([]);
 
   const { nume } = useParams();
 
-  const { data: statiune, isError, isPaused, isFetchedAfterMount } = useQuery(["destination_link"], async function () {
+  const { data: statiune, isError, isPaused, isFetchedAfterMount } = useQuery(["Destination Information", nume], async function () {
     try {
       const result = await Axios.get(`http://localhost:5000/query/destinations/${nume}`);
       console.log(`http://localhost:5000/query/destinations/${nume}`);
