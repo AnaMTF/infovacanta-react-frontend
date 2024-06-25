@@ -49,11 +49,6 @@ export const Rezultate = (props) => {
 
   const { data: query_results, isLoading, isError } = useQuery(["Query Results", keyword], async () => fetchQueryResultsByKeyword(keyword));
 
-  // const { data: reviews, isLoading, error } = useQuery(["reviews"], async () => {
-  //   const result = await Axios.get("http://localhost:5000/reviews");
-  //   return result.data;
-  // });
-
   return (
     <Tabs defaultKey="reviews" id="uncontrolled-tab-example"
       style={{ backgroundColor: "#E6D1F2", color: "red" }}
