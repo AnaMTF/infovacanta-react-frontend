@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { useState } from 'react'
 
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { RateButton } from '@lyket/react';
 
@@ -19,8 +19,10 @@ export const NewReview = (props) => {
 
   const [review_body, setReviewBody] = useState('');
   const [destination_name, setDestinationName] = useState('');
+  const [review_picture, setReviewPicture] = useState(null);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { data: destinations } = useQuery(["Destinations"], async () => fetchDestinations());
   const { data: newReviewId } = useQuery(["Next Review ID"], async () => fetchNextReviewId());
@@ -31,7 +33,7 @@ export const NewReview = (props) => {
     console.log("Review body:", review_body);
     console.log("Destination name:", destination_name);
 
-    const params = new URLSearchParams();
+    const params = new FormData();
     params.append("review_body", review_body);
     // params.append("review_category", ""); //<-- determinat pe partea de backend
     params.append("destination_name", destination_name);
@@ -39,10 +41,14 @@ export const NewReview = (props) => {
     //params.append("destination_id", ""); //<-- determinat pe partea de backend
     params.append("author_id", user.user_id);
 
+    if (review_picture) {
+      params.append("review_picture", review_picture);
+    }
+
     try {
       await Axios.post("http://localhost:5000/reviews", params, {
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-Type': 'multipart/form-data'
         }
       });
     } catch (error) {
@@ -79,6 +85,11 @@ export const NewReview = (props) => {
           value={review_body}
           onChange={(e) => setReviewBody(e.target.value)}
         ></textarea>
+        <input
+          type="file"
+          name="review_picture"
+          onChange={(e) => setReviewPicture(e.target.files[0])}
+        />
         {
           newReviewId?.map((newid, idx) => {
             return (
