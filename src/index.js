@@ -13,7 +13,7 @@ import { store } from "./app/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <ReduxProvider store={store}>
-        <App />
-    </ReduxProvider>
+  <ReduxProvider store={store}>
+    <App />
+  </ReduxProvider>
 );
