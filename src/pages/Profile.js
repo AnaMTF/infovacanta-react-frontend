@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { useQuery } from "@tanstack/react-query";
 import Axios from "axios";
 
@@ -31,53 +31,89 @@ import { Link } from 'react-router-dom';
 import { AllCommentsModal } from '../components/AllCommentsModal';
 import { fetchAllComments, fetchReviewsByUserId, fetchUserStatisticsById } from '../utils/fetchFunctions';
 
+import badge_age_0 from "../resources/trophies/age-0.png";
+import badge_age_1 from "../resources/trophies/age-1.png";
+import badge_age_2 from "../resources/trophies/age-2.png";
+import badge_age_3 from "../resources/trophies/age-3.png";
+import badge_age_4 from "../resources/trophies/age-4.png";
+import badge_age_5plus from "../resources/trophies/age-5plus.png";
+
 export const Profile = () => {
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { data: reviews } = useQuery(["Review Cards", user?.user_id || "No user logged in"], async () => fetchReviewsByUserId(user?.user_id));
-  const { data: userStats } = useQuery(["User Statistics", user?.user_id || "No user logged in"], async () => fetchUserStatisticsById(user?.user_id));
+  const { data: userStats, isFetchedAfterMount: statsLoaded } = useQuery(["User Statistics", user?.user_id || "No user logged in"], async () => fetchUserStatisticsById(user?.user_id));
 
-  const [hasBronzeComments, setBronzeComments] = React.useState(true);
-  const [hasSilverComments, setSilverComments] = React.useState(true);
-  const [hasGoldComments, setGoldComments] = React.useState(true);
-  const [hasBronzeReviews, setBronzeReviews] = React.useState(true);
-  const [hasSilverReviews, setSilverReviews] = React.useState(true);
-  const [hasGoldReviews, setGoldReviews] = React.useState(true);
-  const [accountAge, setAccountAge] = React.useState(0);
+  const [hasBronzeComments, setBronzeComments] = useState(false);
+  const [hasSilverComments, setSilverComments] = useState(false);
+  const [hasGoldComments, setGoldComments] = useState(false);
+  const [hasBronzeReviews, setBronzeReviews] = useState(false);
+  const [hasSilverReviews, setSilverReviews] = useState(false);
+  const [hasGoldReviews, setGoldReviews] = useState(false);
+  const [accountAge, setAccountAge] = useState("0");
+  const [badgeAge, setBadgeAge] = useState(null);
 
   useEffect(() => {
     userStats?.map((stat) => {
-      if (stat.num_reviews >= 50) {
+      if (stat.num_reviews >= 5) {
         setBronzeReviews(true);
+        console.log("Bronze Reviews");
       }
 
-      if (stat.num_reviews >= 0) {
+      if (stat.num_reviews >= 10) {
         setSilverReviews(true);
+        console.log("Silver Reviews");
       }
 
-      if (stat.num_reviews >= 0) {
+      if (stat.num_reviews >= 15) {
         setGoldReviews(true);
+        console.log("Gold Reviews");
       }
 
-      if (stat.num_comments >= 0) {
+      if (stat.num_comments >= 5) {
         setBronzeComments(true);
+        console.log("Bronze Comments");
       }
 
-      if (stat.num_comments >= 0) {
+      if (stat.num_comments >= 10) {
         setSilverComments(true);
+        console.log("Silver Comments");
       }
 
-      if (stat.num_comments >= 0) {
+      if (stat.num_comments >= 15) {
         setGoldComments(true);
+        console.log("Gold Comments");
       }
 
-      if (stat.account_age) {
-        setAccountAge(stat.account_age);
+      if (stat.acc_age) {
+        setAccountAge(stat.acc_age);
+
+        console.log("Account Age: ", stat.acc_age);
+        switch (stat.acc_age) {
+          case "0":
+            setBadgeAge(badge_age_0);
+            break;
+          case "1":
+            setBadgeAge(badge_age_1);
+            break;
+          case "2":
+            setBadgeAge(badge_age_2);
+            break;
+          case "3":
+            setBadgeAge(badge_age_3);
+            break;
+          case "4":
+            setBadgeAge(badge_age_4);
+            break;
+          default:
+            setBadgeAge(badge_age_5plus);
+            break;
+        }
       }
     });
-  }, [userStats]);
+  }, [userStats, statsLoaded]);
 
   return (
     <div className="container jumbotron centered">
@@ -141,6 +177,20 @@ export const Profile = () => {
             flexDirection: "row",
 
           }}>
+            {
+              <OverlayTrigger placement="bottom" overlay={
+                <Tooltip>
+                  {
+                    accountAge == "1" ? "Acest utilizator este membru InfoVacanță de un an!" : `Acest utilizator este membru InfoVacanță de ${accountAge} ani!`
+                  }
+                </Tooltip>
+              }>
+                <img src={badgeAge} alt="Trophy" width="100" height="100" style={{
+                  // borderRadius: "50%",
+                  margin: "10px 10px 10px 10px",
+                }} />
+              </OverlayTrigger>
+            }
             {
               hasBronzeReviews &&
               <OverlayTrigger placement="bottom" overlay={

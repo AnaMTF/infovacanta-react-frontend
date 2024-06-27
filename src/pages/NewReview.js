@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { useState } from 'react'
 
@@ -26,6 +26,8 @@ export const NewReview = (props) => {
 
   const { data: destinations } = useQuery(["Destinations"], async () => fetchDestinations());
   const { data: newReviewId } = useQuery(["Next Review ID"], async () => fetchNextReviewId());
+
+  const queryClient = useQueryClient();
 
   const handleSubmit = async (e, navigate) => {
     e.preventDefault();
@@ -54,7 +56,8 @@ export const NewReview = (props) => {
     } catch (error) {
       console.error(error);
     } finally {
-      navigate("/main");
+      queryClient.refetchQueries(["Review Cards"]);
+      navigate(-1);
     }
   };
 

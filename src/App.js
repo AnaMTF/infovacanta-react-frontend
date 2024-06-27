@@ -104,7 +104,7 @@ function App() {
           <Router>
             <Navbar />
             <Routes>
-              <Route index element={<Home />} />
+              <Route index element={user ? <Navigate to="/main" /> : <Home />} />
               <Route path="/login" element={user ? <Navigate to="/main" /> : <Login />} />
               <Route path="/register" element={user ? <Navigate to="/main" /> : <Register />} />
 
