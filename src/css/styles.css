@@ -154,3 +154,12 @@ li:last-child {
 .bg-light {
   background-color: #E9FBFE !important;
 }
+
+#uncontrolled-tab-example-tab-users:hover,
+#uncontrolled-tab-example-tab-destinations:hover,
+#uncontrolled-tab-example-tab-reviews:hover,
+#uncontrolled-tab-example-tab-comments:hover {
+  color: #df87d9;
+
+
+}

@@ -51,9 +51,9 @@ export const Rezultate = (props) => {
 
   return (
     <Tabs defaultKey="reviews" id="uncontrolled-tab-example"
-      style={{ backgroundColor: "#E6D1F2", color: "red" }}
+      style={{ backgroundColor: "#E6D1F2" }}
     >
-      {showReviews && <Tab eventKey="reviews" title="Recenzii" style={{ borderRadius: "unset" }}>
+      {showReviews && <Tab eventKey="reviews" title="Recenzii" className="uncontrolled-tab-example" style={{ borderRadius: "unset" }}>
         <div className="container-fluid jumbotron centered">
           <h1>Rezultatele căutării</h1>
 
@@ -187,7 +187,11 @@ export const Rezultate = (props) => {
                     </Card.Text>
 
                     <Link to={`/profil/${user.user_id}`}>
-                      <Button variant="primary">View Profile</Button>
+                      <Button variant="primary" className="buton-statiuni">
+                        <i class="fa-regular fa-user" style={{
+                          marginRight: "6px"
+                        }}></i>
+                        Vedeți profilul</Button>
                     </Link>
                   </Card.Body>
                 </Card>
@@ -196,6 +200,6 @@ export const Rezultate = (props) => {
           </ul>
         </div>
       </Tab>}
-    </Tabs>
+    </Tabs >
   );
 };
