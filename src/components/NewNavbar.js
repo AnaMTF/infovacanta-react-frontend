@@ -188,11 +188,11 @@ export const MyNavbar = () => {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           {/* <Nav.Link as={Link} to="/">Acasă</Nav.Link> */}
-          <Nav.Link as={Link} to="/main">Recenzii</Nav.Link>
-          <Nav.Link as={Link} to="/statiuni">Stațiuni</Nav.Link>
+          <Nav.Link as={Link} to="/main" className="btn-main">Recenzii</Nav.Link>
+          <Nav.Link as={Link} to="/statiuni" className="btn-statiuni">Stațiuni</Nav.Link>
           {/* {!!user?.user_id || <Nav.Link as={Link} to="/login">Login</Nav.Link>}
           {!!user?.user_id || <Nav.Link as={Link} to="/register">Register</Nav.Link>} */}
-          <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
+          <Nav.Link as={Link} to="/contact" className="btn-contact">Contact</Nav.Link>
         </Nav><Form inline className="mx-auto" onSubmit={handleSearch}>
           <Button
             id="filterButton"

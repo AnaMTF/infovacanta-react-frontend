@@ -70,11 +70,11 @@ export const Login = () => {
         </div>
 
         <div className="col-sm-4">
-          <div className="card" style={{
+          <div className="card google" style={{
             marginBottom: "25px"
           }}>
             <div className="card-body">
-              <button className="btn btn-block" onClick={handleGoogleLogin}>
+              <button className="btn btn-block " onClick={handleGoogleLogin}>
                 <i className="fab fa-google" style={{
                   paddingRight: "6px"
                 }} />
@@ -83,11 +83,11 @@ export const Login = () => {
             </div>
           </div>
 
-          <div className="card" style={{
+          <div className="card facebook" style={{
             marginBottom: "25px"
           }}>
-            <div className="card-body">
-              <button className="btn btn-block" href="/auth/google" role="button">
+            <div className="card-body ">
+              <button className="btn btn-block " href="/auth/facebook" role="button">
                 <i className="fab fa-facebook" style={{
                   paddingRight: "6px"
                 }} />

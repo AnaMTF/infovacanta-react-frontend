@@ -105,3 +105,17 @@ input[type="radio"] {
   object-fit: cover;
   margin-right: 10px;
 }
+
+.btn-statiuni:hover,
+.btn-statiuni:active,
+.btn-statiuni:focus,
+.btn-contact:hover,
+.btn-contact:active,
+.btn-contact:focus,
+.btn-main:hover,
+.btn-main:active,
+.btn-main:focus {
+  background-color: rgb(212, 240, 246);
+  border-color: #d4f0f6;
+  box-shadow: inset 0 1px 1px rgba(15, 109, 156, 0.075), 0 0 8px rgba(111, 229, 255, 0.568);
+}

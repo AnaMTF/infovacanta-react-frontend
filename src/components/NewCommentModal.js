@@ -2,16 +2,18 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
 import { useState, useEffect, useRef } from 'react';
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Axios from "axios";
 
 import "../css/comments.css";
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const NewCommentModal = (props) => {
   const navigate = useNavigate
+  const location = useLocation();
 
+  const queryClient = useQueryClient();
   const user = useSelector((state) => state.user.user);
 
   const [content, setContent] = useState("");
@@ -34,7 +36,9 @@ export const NewCommentModal = (props) => {
 
       // window.location.reload(); // Reload the page to see the new comment
       // window.location = window.location.href; // Reload the page to see the new comment
-      navigate("/main"); // Reload the page to see the new comment
+      queryClient.refetchQueries(["Comments", props.review_id]);
+      setContent("");
+      props.onHide();
     } catch (error) {
       console.error(error);
     }

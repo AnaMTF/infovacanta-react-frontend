@@ -79,22 +79,22 @@ export const Register = () => {
           </div>
 
           <div className="col-sm-4">
-            <div className="card social-block" style={{
+            <div className="card social-block google" style={{
               marginBottom: "25px"
             }}>
               <div className="card-body">
-                <a className="btn btn-block" href="/auth/google" role="button">
+                <a className="btn btn-block btn-register" href="/auth/google" role="button">
                   <i className="fab fa-google" style={{
                     paddingRight: "6px"
                   }} />
-                  Sign Up with google
+                  Sign Up with Google
                 </a>
               </div>
             </div>
 
-            <div className="card social-block">
+            <div className="card social-block facebook">
               <div className="card-body">
-                <a className="btn btn-block" href="/auth/google" role="button">
+                <a className="btn btn-block btn-register" href="/auth/facebook" role="button">
                   <i className="fab fa-facebook" style={{
                     paddingRight: "6px"
                   }} />

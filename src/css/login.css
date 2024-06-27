@@ -1,0 +1,36 @@
+.google {
+    background-color: #DB4437;
+}
+
+.google:hover,
+.google:focus {
+    background-color: #d3312e;
+}
+
+.facebook {
+    background-color: #4267B2;
+}
+
+.facebook:hover,
+.facebook:focus {
+    background-color: #3b5a9a;
+}
+
+.btn-register {
+    color: white;
+}
+
+.btn-dark {
+    background-color: #3f275e;
+    border-color: #190123;
+}
+
+.btn-dark:hover,
+.btn-dark:focus,
+.btn-dark:active {
+    background-color: #2f1f42;
+    border-color: #190123;
+    outline: none !important;
+    box-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.075),
+        0 0 8px rgba(81, 0, 255, 0.6) !important;
+}

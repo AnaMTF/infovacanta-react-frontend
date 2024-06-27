@@ -13,10 +13,6 @@
   backface-visibility: hidden;
 }
 
-.jumbotron {
-  padding-top: 0px;
-}
-
 .bannerClass {
   position: relative;
   width: 945px;
@@ -82,7 +78,7 @@
 
 #adauga-recenzie {
   background-color: #dd8cddf6;
-  color: #e3e3ea;
+  color: #ffffff;
   border-color: #8782e7;
 }
 
@@ -99,21 +95,21 @@
 }
 
 #recenzii-favorite {
-  background-color: #d0b5fd;
-  color: #e3e3ea;
-  border-color: #9152fa;
+  background-color: #F9D689;
+  color: #5d4105;
+  border-color: #ecb921;
 }
 
 #recenzii-favorite:focus {
   outline: none !important;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
-    0 0 8px rgba(176, 131, 251, 0.6) !important;
+    0 0 8px rgba(255, 174, 0, 0.6) !important;
 }
 
 #recenzii-favorite:hover {
-  background-color: #d763d7f6;
-  color: #ffffff;
-  border-color: #9152fa;
+  background-color: #f0bf55;
+  color: #5d4105;
+  border-color: #ecb921;
 }
 
 /* .bannerImg:hover {
