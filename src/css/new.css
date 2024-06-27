@@ -1,5 +1,5 @@
 #publicaBtn {
-  margin: 20px 0;
+  margin-top: 20px;
   background-color: #C2DEE6;
   padding: 10px 15px;
   font-size: 1em;
@@ -16,7 +16,7 @@
 }
 
 #cancelBtn {
-  margin: 20px 0;
+  margin-top: 20px;
   background-color: #A987DA;
   padding: 10px 15px;
   font-size: 1em;
@@ -30,4 +30,22 @@
 
 #cancelBtn:hover {
   background-color: #8d70b5;
+}
+
+.css-nmn0av-Base {
+  background: rgba(222, 180, 229);
+  border-radius: 30px;
+  width: 100%;
+  text-align: center;
+  padding-left: 40%;
+  margin-top: 20px;
+}
+
+input[type="file"] {
+  display: block;
+  width: 100%;
+  border-radius: 50px;
+  background-color: rgb(208, 216, 241);
+  text-align: center;
+  margin-top: 20px;
 }

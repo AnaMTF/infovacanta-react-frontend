@@ -9,3 +9,7 @@
         0 0 8px rgba(68, 225, 253, 0.6) !important;
 
 }
+
+.ratingEverywhere>.css-nmn0av-Base {
+    all: unset !important;
+}

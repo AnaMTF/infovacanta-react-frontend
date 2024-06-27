@@ -12,6 +12,8 @@ import { useSelector } from 'react-redux';
 import "../css/styles.css";
 import "../css/header.css";
 import "../css/new.css";
+import "../css/review.css";
+
 import { fetchDestinations, fetchNextReviewId } from '../utils/fetchFunctions';
 
 export const NewReview = (props) => {
@@ -88,15 +90,17 @@ export const NewReview = (props) => {
           value={review_body}
           onChange={(e) => setReviewBody(e.target.value)}
         ></textarea>
-        <input
-          type="file"
-          name="review_picture"
-          onChange={(e) => setReviewPicture(e.target.files[0])}
-        />
+        <div className='review_picture'>
+          <input
+            type="file"
+            name="review_picture"
+            onChange={(e) => setReviewPicture(e.target.files[0])}
+          />
+        </div>
         {
           newReviewId?.map((newid, idx) => {
             return (
-              <RateButton key={idx} className="list-group-item"
+              <RateButton key={idx} className="list-group-item starRating"
                 namespace="infovacanta-react"
                 id={`review-${parseInt(newid.nextval) + 1}`}
                 //id="review-test"

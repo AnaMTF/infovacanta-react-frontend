@@ -154,8 +154,3 @@ li:last-child {
 .bg-light {
   background-color: #E9FBFE !important;
 }
-
-#starRating {
-  background: rgba(222, 180, 229);
-  border-radius: 30px;
-}
