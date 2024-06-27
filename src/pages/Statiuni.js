@@ -24,7 +24,7 @@ function CardReview(props) {
         <small>{props.content.destination_category}</small>
         <p className="card-text">{props.content.description}</p>
         <Link to={props.content.destination_link}>
-          <button className="btn btn-primary">
+          <button className="btn btn-primary buton-statiuni">
             <i className="fa-solid fa-circle-info" style={{
               marginRight: "6px"
             }} />
