@@ -135,7 +135,10 @@ export const Rezultate = (props) => {
                     <small>{destination.destination_category}</small>
                     <p className="card-text">{destination.description}</p>
                     <Link to={destination.destination_link}>
-                      <button className="btn btn-primary">Mai multe detalii</button>
+                      <button className="btn btn-primary buton-statiuni">
+                        <i className="fa-solid fa-circle-info" style={{
+                          marginRight: "6px"
+                        }} />Mai multe detalii</button>
                     </Link>
                   </div>
                 </div>
