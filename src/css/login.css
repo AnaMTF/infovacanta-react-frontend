@@ -5,6 +5,7 @@
 .google:hover,
 .google:focus {
     background-color: #d3312e;
+    color: white !important;
 }
 
 .facebook {
@@ -14,6 +15,7 @@
 .facebook:hover,
 .facebook:focus {
     background-color: #3b5a9a;
+    color: white !important;
 }
 
 .btn-register {
@@ -33,4 +35,8 @@
     outline: none !important;
     box-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.075),
         0 0 8px rgba(81, 0, 255, 0.6) !important;
+}
+
+.btn-block {
+    color: white;
 }

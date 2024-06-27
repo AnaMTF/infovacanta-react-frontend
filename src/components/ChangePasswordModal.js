@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 
 import Axios from 'axios';
+import "../css/changepass.css";
 
 export const ChangePasswordModal = ({ show, handleClose }) => {
   const user = useSelector((state) => state.user.user);
@@ -81,7 +82,7 @@ export const ChangePasswordModal = ({ show, handleClose }) => {
         </form>
       </Modal.Body>
       <Modal.Footer>
-        <button className="btn btn-primary" onClick={handleSubmit}>
+        <button className="btn btn-primary buton-parola" onClick={handleSubmit}>
           Schimbă parola
         </button>
       </Modal.Footer>

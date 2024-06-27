@@ -1,0 +1,19 @@
+.buton-parola {
+    background-color: #dd94b6;
+    color: white;
+    border-color: #ce4786;
+    border-radius: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.buton-parola:hover,
+.buton-parola:focus,
+.buton-parola:active,
+.buton-parola:visited {
+    background-color: #ce4786 !important;
+    color: white;
+    border-color: #dd94b6;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+        0 0 8px rgba(252, 21, 236, 0.6) !important;
+}
