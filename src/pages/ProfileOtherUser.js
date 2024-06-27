@@ -53,6 +53,7 @@ export const ProfileOtherUser = (props) => {
   const [hasBronzeReviews, setBronzeReviews] = React.useState(true);
   const [hasSilverReviews, setSilverReviews] = React.useState(true);
   const [hasGoldReviews, setGoldReviews] = React.useState(true);
+  const [accountAge, setAccountAge] = React.useState(0);
 
   useEffect(() => {
     userStats?.map((stat) => {
@@ -78,6 +79,10 @@ export const ProfileOtherUser = (props) => {
 
       if (stat.num_comments >= 0) {
         setGoldComments(true);
+      }
+
+      if (stat.account_age) {
+        setAccountAge(stat.account_age);
       }
     });
   }, [userStats]);
@@ -126,6 +131,7 @@ export const ProfileOtherUser = (props) => {
                   return user.email;
                 })
               }</h6>
+              {/* <h6>vechime cont: {accountAge} ani</h6> */}
               <p className="card-text">Aici vei găsi toate recenziile postate de acest utilizator.</p>
 
             </div>

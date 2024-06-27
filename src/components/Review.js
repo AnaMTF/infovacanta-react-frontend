@@ -13,6 +13,8 @@ import { AllCommentsModal } from './AllCommentsModal';
 import { fetchCommentsByReviewId } from '../utils/fetchFunctions';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
+import "../css/review.css";
+
 export function Review(props) {
   const user = useSelector((state) => state.user.user);
   const queryClient = useQueryClient();
@@ -104,6 +106,12 @@ export function Review(props) {
     <small><a style={{
       color: "#888"
     }} href={props.loggedInUserId === props.content.author_id ? '/profil' : `/profil/${props.content.author_id}`}>By: {props.content.author_nickname}</a></small>
+
+    {/* <img src={props.content.review_picture_location} /> */}
+    <Image
+      src={props.content.review_picture_location}
+      className="review-pic"
+    ></Image>
 
     <p>{props.content.review_body}</p>
     <small>Date posted: {new Date(props.content.date_posted).toLocaleDateString()}</small>

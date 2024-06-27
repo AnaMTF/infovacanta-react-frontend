@@ -45,6 +45,7 @@ export const Profile = () => {
   const [hasBronzeReviews, setBronzeReviews] = React.useState(true);
   const [hasSilverReviews, setSilverReviews] = React.useState(true);
   const [hasGoldReviews, setGoldReviews] = React.useState(true);
+  const [accountAge, setAccountAge] = React.useState(0);
 
   useEffect(() => {
     userStats?.map((stat) => {
@@ -70,6 +71,10 @@ export const Profile = () => {
 
       if (stat.num_comments >= 0) {
         setGoldComments(true);
+      }
+
+      if (stat.account_age) {
+        setAccountAge(stat.account_age);
       }
     });
   }, [userStats]);
@@ -100,6 +105,7 @@ export const Profile = () => {
               <h5 className="card-title ">{user?.nickname}</h5>
               <h6>nume: {user?.full_name}</h6>
               <h6>email: {user?.email}</h6>
+              {/* <h6>vechime cont: {accountAge} ani</h6> */}
               <p className="card-text">Aici vei găsi toate recenziile postate de tine.</p>
               <Link to="/new">
                 <button className="btn btn-primary" id="adauga-recenzie">Adaugă o recenzie</button>

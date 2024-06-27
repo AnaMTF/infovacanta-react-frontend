@@ -21,6 +21,7 @@ export const EditReview = (props) => {
 
   const [reviewBody, setReviewBody] = useState('');
   const [destinationName, setDestinationName] = useState('');
+  const [review_picture, setReviewPicture] = useState(null);
 
   const { data: destinations } = useQuery(["Destinations"], async () => fetchDestinations());
   const { data: reviewBasicInfo, isLoading: reviewIsLoading } = useQuery(["Review for Edit", reviewId], async function () {
@@ -48,7 +49,7 @@ export const EditReview = (props) => {
     console.log("Review body:", reviewBody);
     console.log("Destination name:", destinationName);
 
-    const params = new URLSearchParams();
+    const params = new FormData();
     params.append("review_body", reviewBody);
     // params.append("review_category", ""); //<-- determinat pe partea de backend
     params.append("destination_name", destinationName);
@@ -56,10 +57,14 @@ export const EditReview = (props) => {
     //params.append("destination_id", ""); //<-- determinat pe partea de backend
     //params.append("author_id", user.user_id);
 
+    if (review_picture) {
+      params.append("review_picture", review_picture);
+    }
+
     try {
       await Axios.put(`http://localhost:5000/reviews/${reviewId}`, params, {
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-Type': 'multipart/form-data'
         }
       });
     } catch (error) {
@@ -100,6 +105,11 @@ export const EditReview = (props) => {
           value={reviewBody}
           onChange={(e) => setReviewBody(e.target.value)}
         ></textarea>
+        <input
+          type="file"
+          name="review_picture"
+          onChange={(e) => setReviewPicture(e.target.files[0])}
+        />
         <RateButton className="list-group-item"
           namespace="infovacanta-react"
           id={`review-${reviewId}`}
