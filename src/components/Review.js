@@ -146,7 +146,10 @@ export function Review(props) {
         </button>
     )}
 
-    <div style={{ width: "100%" }}>
+
+    {
+      // LYKET
+    /* <div style={{ width: "100%" }}>
       <div className="ratingEverywhere">
         <RateButton className="list-group-item"
           namespace="infovacanta-react"
@@ -161,7 +164,7 @@ export function Review(props) {
         template='simple'
       >
       </UpdownButton>
-    </div>
+    </div> */}
 
     <AllCommentsModal
       content={comments}

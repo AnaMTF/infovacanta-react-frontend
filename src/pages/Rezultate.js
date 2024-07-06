@@ -61,18 +61,19 @@ export const Rezultate = (props) => {
             {query_results?.reviews.map((review, idx) => {
               let num_likes = 0;
 
-              Axios.get(`https://api.lyket.dev/v1/like-buttons/infovacanta-react/review-upvotes-${review.review_id}`, {
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': `Bearer pt_49ef1b9862ddcdc97d841106b33e79`
-                }
-              })
-                .then((response) => {
-                  num_likes = response.data.data.attributes.total_likes;
-                  console.log(`Post ID ${review.review_id} has ${num_likes} likes`);
-                  //console.log("Response data: ", typeof response.data.data.attributes.total_likes);
-                })
-                .catch((error) => { console.error("An error has occured...") });
+              // LYKET API
+              // Axios.get(`https://api.lyket.dev/v1/like-buttons/infovacanta-react/review-upvotes-${review.review_id}`, {
+              //   headers: {
+              //     'Content-Type': 'application/json',
+              //     'Authorization': `Bearer pt_49ef1b9862ddcdc97d841106b33e79`
+              //   }
+              // })
+              //   .then((response) => {
+              //     num_likes = response.data.data.attributes.total_likes;
+              //     console.log(`Post ID ${review.review_id} has ${num_likes} likes`);
+              //     //console.log("Response data: ", typeof response.data.data.attributes.total_likes);
+              //   })
+              //   .catch((error) => { console.error("An error has occured...") });
               // const result = await Axios.get(`https://api.lyket.dev/v1/like-buttons/infovacanta-react/review-${review.review_id}`);
               // const num_likes = result.data?.total_likes;
 

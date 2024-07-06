@@ -110,12 +110,15 @@ export const EditReview = (props) => {
           name="review_picture"
           onChange={(e) => setReviewPicture(e.target.files[0])}
         />
-        <RateButton className="list-group-item"
+
+        {
+        //LYKET API
+        /* <RateButton className="list-group-item"
           namespace="infovacanta-react"
           id={`review-${reviewId}`}
           //id="review-test"
           showRating="user"
-        />
+        /> */}
 
         <button className="full-width" type="submit" id="publicaBtn">Publică</button>
       </form>
