@@ -21,7 +21,7 @@ export const Login = () => {
   };
 
   const handleGoogleLogin = () => {
-    window.open("http://localhost:5000/auth/google", "_self");
+    window.open("https://localhost:5000/auth/google", "_self");
   };
 
   return (

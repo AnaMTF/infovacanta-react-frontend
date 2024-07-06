@@ -36,6 +36,8 @@ import "./css/savebuttons.css";
 import { EditReview } from "./pages/EditReview";
 import { SavedReviews } from "./pages/SavedReviews";
 
+import { GoogleAuthCallback } from "./components/GoogleAuthCallback";
+
 function App() {
   // lista cu statiuni; incalca principiul Open/Closed din SOLID!!!!!!!! dar aia e pana la urma
   // am actionat asa pentru a nu face un request catre server pentru a obtine lista statiunilor
@@ -107,6 +109,7 @@ function App() {
               <Route index element={user ? <Navigate to="/main" /> : <Home />} />
               <Route path="/login" element={user ? <Navigate to="/main" /> : <Login />} />
               <Route path="/register" element={user ? <Navigate to="/main" /> : <Register />} />
+              <Route path="/auth-callback" element={<GoogleAuthCallback />} />
 
               <Route path="/new" element={<NewReview />} />
               <Route path="/edit/:reviewId" element={<EditReview />} />
