@@ -44,11 +44,11 @@ export const Statiune = (props) => {
 
   const { data: statiune, isError, isPaused, isFetchedAfterMount } = useQuery(["Destination Information", nume], async function () {
     try {
-      const result = await Axios.get(`http://localhost:5000/query/destinations/${nume}`);
-      console.log(`http://localhost:5000/query/destinations/${nume}`);
+      const result = await Axios.get(`https://localhost:5000/query/destinations/${nume}`);
+      console.log(`https://localhost:5000/query/destinations/${nume}`);
       setCoordinates({ lat: result.data[0].coordinates.x, lng: result.data[0].coordinates.y });
 
-      const result_reviews = await Axios.get(`http://localhost:5000/destinations/${result.data[0]?.destination_id}/review-cards`);
+      const result_reviews = await Axios.get(`https://localhost:5000/destinations/${result.data[0]?.destination_id}/review-cards`);
       setReviews(result_reviews.data);
 
       // console.log(result.data[0]); // <-- testare: afisare date in consola   

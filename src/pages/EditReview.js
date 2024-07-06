@@ -26,7 +26,7 @@ export const EditReview = (props) => {
   const { data: destinations } = useQuery(["Destinations"], async () => fetchDestinations());
   const { data: reviewBasicInfo, isLoading: reviewIsLoading } = useQuery(["Review for Edit", reviewId], async function () {
     try {
-      const response = await Axios.get(`http://localhost:5000/reviews/${reviewId}/basic`);
+      const response = await Axios.get(`https://localhost:5000/reviews/${reviewId}/basic`);
       return response.data;
     } catch (error) {
       console.error(error);
@@ -62,7 +62,7 @@ export const EditReview = (props) => {
     }
 
     try {
-      await Axios.put(`http://localhost:5000/reviews/${reviewId}`, params, {
+      await Axios.put(`https://localhost:5000/reviews/${reviewId}`, params, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

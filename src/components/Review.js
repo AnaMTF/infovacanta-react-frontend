@@ -35,7 +35,7 @@ export function Review(props) {
 
     try {
       console.log(props.content.review_id);
-      await Axios.delete(`http://localhost:5000/reviews/${props.content.review_id}`);
+      await Axios.delete(`https://localhost:5000/reviews/${props.content.review_id}`);
       console.log("Review deleted");
     } catch (error) {
       console.error(error);
@@ -58,7 +58,7 @@ export function Review(props) {
     dispatch(addToSavedReviews(props.content.review_id));
 
     try {
-      await Axios.post("http://localhost:5000/save-review", params, {
+      await Axios.post("https://localhost:5000/save-review", params, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -77,7 +77,7 @@ export function Review(props) {
     dispatch(removeFromSavedReviews(props.content.review_id));
 
     try {
-      await Axios.post("http://localhost:5000/unsave-review", params, {
+      await Axios.post("https://localhost:5000/unsave-review", params, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }

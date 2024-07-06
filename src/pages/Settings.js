@@ -30,7 +30,7 @@ export const Settings = () => {
           }}> Setările contului </h1>
 
           <div className="card-body">
-            <form encType="multipart/form-data" action={`http://localhost:5000/users/${user.user_id}`} method="POST">
+            <form encType="multipart/form-data" action={`https://localhost:5000/users/${user.user_id}`} method="POST">
               <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <input

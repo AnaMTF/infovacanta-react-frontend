@@ -27,7 +27,7 @@ export const NewCommentModal = (props) => {
     params.append("author_id", user?.user_id);
 
     try {
-      await Axios.post("http://localhost:5000/comments-api", params, {
+      await Axios.post("https://localhost:5000/comments-api", params, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }

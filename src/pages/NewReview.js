@@ -50,7 +50,7 @@ export const NewReview = (props) => {
     }
 
     try {
-      await Axios.post("http://localhost:5000/reviews", params, {
+      await Axios.post("https://localhost:5000/reviews", params, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

@@ -21,7 +21,7 @@ export const ChangePasswordModal = ({ show, handleClose }) => {
     params.append("user_id", user.user_id);
 
     try {
-      await Axios.post("http://localhost:5000/change-password", params, {
+      await Axios.post("https://localhost:5000/change-password", params, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
