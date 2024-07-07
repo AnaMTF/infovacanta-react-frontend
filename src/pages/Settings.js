@@ -4,7 +4,6 @@ import "../css/register.css";
 
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 
 import { ChangePasswordModal } from "../components/ChangePasswordModal";
 

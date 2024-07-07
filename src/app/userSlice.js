@@ -93,4 +93,23 @@ export const logoutUser = () => async (dispatch, navigate) => {
   }
 };
 
+export const refreshUser = (id_number) => async (dispatch) => {
+  try {
+    console.log("Refreshing user with id:", id_number);
+    const info = { id: id_number };
+
+    const response = await axios.post('https://localhost:5000/auth/refresh', info, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      timeout: 10000
+    });
+    console.log('User refreshed:', response.data);
+
+    dispatch(setUser(response.data));
+  } catch (error) {
+    console.error('Failed to refresh user:', error);
+  }
+};
+
 export default userSlice.reducer;
