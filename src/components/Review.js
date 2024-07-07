@@ -100,7 +100,9 @@ export function Review(props) {
         height="30"
         className="d-inline-block align-top profile-pic"
         alt="Profile"
-        style={{ objectFit: 'cover' }} />
+        style={{ objectFit: 'cover' }}
+        referrerPolicy='no-referrer'
+      />
     </a>
 
     <small><a style={{

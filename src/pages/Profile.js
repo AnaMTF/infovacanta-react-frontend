@@ -131,7 +131,7 @@ export const Profile = () => {
             <div className="profileClass" id="btnChangeProfile">
               <img src={
                 user?.profile_picture_location || default_profile_picture
-              } className="imagineProfil" alt="Profil" />
+              } className="imagineProfil" alt="Profil" referrerPolicy='no-referrer' />
               {/* <div className="middleProfile" >
                 <div className="textProfil">Schimbă imaginea de profil</div>
               </div> */}

@@ -29,6 +29,7 @@ export const AllCommentsModal = (props) => {
                     src={comment.profile_picture_location || default_profile_picture}
                     alt={`${comment.nickname}'s profile`}
                     className="comment-profile-pic"
+                    referrerPolicy='no-referrer'
                   />
                   <small>{comment.nickname} a comentat la data de <br /> {new Date(comment.date_posted).toLocaleDateString()}:</small>
                 </div>

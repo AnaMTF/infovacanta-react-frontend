@@ -231,6 +231,7 @@ export const MyNavbar = () => {
                 className="d-inline-block align-top profile-pic"
                 alt="Profile"
                 style={{ objectFit: 'cover' }}
+                referrerPolicy='no-referrer'
               />
             </Dropdown.Toggle>
             <Dropdown.Menu style={{ backgroundColor: "#E9FBFE" }}>

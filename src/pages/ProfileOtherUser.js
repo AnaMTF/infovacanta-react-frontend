@@ -145,7 +145,7 @@ export const ProfileOtherUser = (props) => {
                 thisUser?.map((user) => {
                   return user.pfp_location;
                 }) || default_profile_picture
-              } className="imagineProfil" alt="Profil" />
+              } className="imagineProfil" alt="Profil" referrerPolicy='no-referrer' />
               {/* <div className="middleProfile" >
                 <div className="textProfil">Schimbă imaginea de profil</div>
               </div> */}
