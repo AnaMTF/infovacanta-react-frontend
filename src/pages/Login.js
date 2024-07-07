@@ -20,8 +20,8 @@ export const Login = () => {
     dispatch(loginUser(email, password, navigate));
   };
 
-  const handleGoogleLogin = () => {
-    window.open("https://localhost:5000/auth/google", "_self");
+  const handleLogin = (method) => {
+    window.open(`https://localhost:5000/auth/${method}`, "_self");
   };
 
   return (
@@ -74,7 +74,7 @@ export const Login = () => {
             marginBottom: "25px"
           }}>
             <div className="card-body">
-              <button className="btn btn-block " onClick={handleGoogleLogin}>
+              <button className="btn btn-block " onClick={() => handleLogin('google')}>
                 <i className="fab fa-google" style={{
                   paddingRight: "6px"
                 }} />
@@ -87,7 +87,7 @@ export const Login = () => {
             marginBottom: "25px"
           }}>
             <div className="card-body ">
-              <button className="btn btn-block " href="/auth/facebook" role="button">
+              <button className="btn btn-block " onClick={() => handleLogin('facebook')}>
                 <i className="fab fa-facebook" style={{
                   paddingRight: "6px"
                 }} />
