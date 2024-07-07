@@ -9,10 +9,20 @@ export const GoogleAuthCallback = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const searchParams = new URLSearchParams(location.search);
-        const token = searchParams.get('user');
-        if (token) {
-            dispatch(setUser(token));
+        console.log('location: ', location);
+        console.log('location.search: ', location.search);
+
+        const query = new URLSearchParams(location.search);
+        console.log('query: ', query);
+
+        const token = query.get('user');
+        console.log('query.get(\'user\') -> token: ', token);
+
+        const user = JSON.parse(token);
+        console.log(user);
+
+        if (user) {
+            dispatch(setUser(user));
             navigate('/');
         }
     }, [dispatch, location.search, navigate]);

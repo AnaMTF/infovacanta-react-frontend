@@ -109,7 +109,7 @@ function App() {
               <Route index element={user ? <Navigate to="/main" /> : <Home />} />
               <Route path="/login" element={user ? <Navigate to="/main" /> : <Login />} />
               <Route path="/register" element={user ? <Navigate to="/main" /> : <Register />} />
-              <Route path="/auth-callback" element={<GoogleAuthCallback />} />
+              <Route path="/auth/callback" element={<GoogleAuthCallback />} />
 
               <Route path="/new" element={<NewReview />} />
               <Route path="/edit/:reviewId" element={<EditReview />} />

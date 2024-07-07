@@ -64,7 +64,7 @@ export const { setUser, clearUser, addToSavedReviews, removeFromSavedReviews } =
 
 export const registerUser = (user, navigate) => async (dispatch) => {
   try {
-    await axios.post('http://localhost:5000/auth/register/password', user);
+    await axios.post('https://localhost:5000/auth/register/password', user);
     // Optionally log in the user after registration
     dispatch(loginUser(user.username, user.password, navigate));
   } catch (error) {
@@ -74,7 +74,7 @@ export const registerUser = (user, navigate) => async (dispatch) => {
 
 export const loginUser = (username, password, navigate) => async (dispatch) => {
   try {
-    const response = await axios.post('http://localhost:5000/auth/login/password', { username, password });
+    const response = await axios.post('https://localhost:5000/auth/login/password', { username, password });
     console.log('Login response:', response.data);
     dispatch(setUser(response.data));
     navigate("/main");
@@ -85,7 +85,7 @@ export const loginUser = (username, password, navigate) => async (dispatch) => {
 
 export const logoutUser = () => async (dispatch, navigate) => {
   try {
-    await axios.get('http://localhost:5000/auth/logout');
+    await axios.get('https://localhost:5000/auth/logout');
     dispatch(clearUser());
     navigate("/");
   } catch (error) {
