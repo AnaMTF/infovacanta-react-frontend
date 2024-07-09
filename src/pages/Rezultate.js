@@ -196,8 +196,19 @@ export const Rezultate = (props) => {
             {visibleComments?.map((comment, idx) => {
               return (
                 <div key={idx} className="list-group-item list-group-item-action" id="postsItems">
-                  <small>{comment.nickname} a comentat la data de {comment.date_posted}:</small>
-                  <p>{comment.content}</p>
+                  {/* <small>{comment.nickname} a comentat la data de {comment.date_posted}:</small>
+                  <p>{comment.content}</p> */}
+
+                  <div className="comment-header">
+                    <img
+                      src={comment.profile_picture_location || default_profile_picture}
+                      alt={`${comment.nickname}'s profile`}
+                      className="comment-profile-pic"
+                      referrerPolicy='no-referrer'
+                    />
+                    <small>{comment.nickname} a comentat la data de <br /> {new Date(comment.date_posted).toLocaleDateString()}:</small>
+                  </div>
+                  <p id="comment-text">{comment.content}</p>
                 </div>
               );
             })}
