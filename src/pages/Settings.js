@@ -18,6 +18,23 @@ export const Settings = () => {
 
   const handleCloseModal = () => setShowModal(false);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    formData.append("user_id", user.user_id);
+
+    try {
+      const result = await axios.post('https://localhost:5000/file/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="jumbotron container centered">
       <div className="row">
