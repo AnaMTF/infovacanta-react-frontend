@@ -2,10 +2,13 @@ import "../css/styles.css";
 import "../css/header.css";
 import "../css/register.css";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { ChangePasswordModal } from "../components/ChangePasswordModal";
+
+import { setUser } from "../redux/userSlice";
 
 export const Settings = () => {
   const user = useSelector((state) => state.user.user);
@@ -18,18 +21,25 @@ export const Settings = () => {
 
   const handleCloseModal = () => setShowModal(false);
 
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
-    formData.append("user_id", user.user_id);
 
     try {
-      const result = await axios.post('https://localhost:5000/file/upload', formData, {
+      const result = await axios.post(`https://localhost:5000/auth/refresh/${user.user_id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
+
+      dispatch(setUser(result.data));
+      navigate(-1);
+
     } catch (error) {
       console.error(error);
     }
@@ -46,7 +56,7 @@ export const Settings = () => {
           }}> Setările contului </h1>
 
           <div className="card-body">
-            <form encType="multipart/form-data" action={`https://localhost:5000/users/${user.user_id}`} method="POST">
+            <form encType="multipart/form-data" action={``} method="POST">
               <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <input
