@@ -34,7 +34,7 @@ export const Login = () => {
         <div className="col-sm-8">
           <div className="card">
             <div className="card-body">
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={(e) => handleSubmit(e)}> {/* functie simpla sau asa, dar nu e.target.value  */}
                 <div className="form-group">
                   <i className="fa-solid fa-envelope"></i>
                   <label htmlFor="email">Email</label>

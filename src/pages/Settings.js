@@ -19,7 +19,6 @@ export const Settings = () => {
   const [profile_picture, setProfilePicture] = useState(null);
   const [background_picture, setBackgroundPicture] = useState(null);
 
-
   const [showModal, setShowModal] = useState(false);
 
   const handleCloseModal = () => setShowModal(false);
@@ -45,14 +44,14 @@ export const Settings = () => {
     }
 
     try {
-      const result = await axios.post(`https://localhost:5000/auth/refresh/${user.user_id}`, formData, {
+      const result = await axios.post(`https://localhost:5000/test/echo/${user.user_id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
 
-      dispatch(setUser(result.data));
-      navigate(-1);
+      //dispatch(setUser(result.data));
+      //navigate(-1);
 
     } catch (error) {
       console.error(error);
@@ -70,7 +69,7 @@ export const Settings = () => {
           }}> Setările contului </h1>
 
           <div className="card-body">
-            <form encType="multipart/form-data" onSubmit={(e) => handleSubmit(e.target.value)}>
+            <form encType="multipart/form-data" onSubmit={(e) => handleSubmit(e)}>
               <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <input

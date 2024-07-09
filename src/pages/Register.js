@@ -19,6 +19,7 @@ export const Register = () => {
     formData.append('email', email);
     formData.append('nickname', nickname);
     formData.append('full_name', full_name);
+    formData.append('password', password);
 
     if (profile_picture) {
       formData.append('profile_picture', profile_picture);
@@ -30,6 +31,14 @@ export const Register = () => {
           'Content-Type': 'multipart/form-data'
         }
       });
+      await Axios.post('https://localhost:5000/test/echo', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
+      navigate('/login'); console.log('navigate to login');
+
     } catch (error) {
       console.error(error);
     }
@@ -44,7 +53,7 @@ export const Register = () => {
           <div className="col-sm-8">
             <div className="card">
               <div className="card-body">
-                <form encType="multipart/form-data" onSubmit={(e) => handleSubmit(e.target.value)}>
+                <form encType="multipart/form-data" onSubmit={(e) => handleSubmit(e)}> {/* functie simpla sau asa, dar nu e.target.value  */}
                   <div className="form-group">
                     <label htmlFor="email">Email</label>
                     <input
