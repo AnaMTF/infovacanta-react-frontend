@@ -4,8 +4,12 @@ import Axios from 'axios';
 import "../css/styles.css";
 import "../css/header.css";
 import "../css/register.css";
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const Register = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState('');
   const [nickname, setNickname] = useState('');
   const [full_name, setFullname] = useState('');
@@ -31,11 +35,11 @@ export const Register = () => {
           'Content-Type': 'multipart/form-data'
         }
       });
-      await Axios.post('https://localhost:5000/test/echo', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
+      // await Axios.post('https://localhost:5000/test/echo', formData, {
+      //   headers: {
+      //     'Content-Type': 'multipart/form-data'
+      //   }
+      // });
 
       navigate('/login'); console.log('navigate to login');
 
