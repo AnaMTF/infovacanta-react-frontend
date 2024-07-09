@@ -23,7 +23,7 @@ export const Settings = () => {
 
   const dispatch = useDispatch();
   const location = useLocation();
-  const navigate = useNavigate
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
