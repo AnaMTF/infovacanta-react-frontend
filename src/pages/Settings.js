@@ -56,7 +56,7 @@ export const Settings = () => {
           }}> Setările contului </h1>
 
           <div className="card-body">
-            <form encType="multipart/form-data" action={``} method="POST">
+            <form encType="multipart/form-data" onSubmit={(e) => handleSubmit(e)}>
               <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <input
