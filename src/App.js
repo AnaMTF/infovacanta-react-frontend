@@ -29,6 +29,9 @@ import { ProfilOutlet } from "./pages/ProfilOutlet";
 
 import { Settings as SettingsPage } from "./pages/Settings";
 
+// import { Webchat, WebchatProvider, useClient } from '@botpress/webchat';
+
+
 // import { WebchatProvider, useClient } from '@botpress/webchat';
 
 import "@fortawesome/fontawesome-free/css/all.css";
@@ -94,6 +97,8 @@ function App() {
 
   const user = useSelector((state) => state.user.user);
 
+  // const botpressClient = useClient({ clientId: 'e73fd7f1-87be-4885-b8a9-2c18ed435455' });
+
   // const botpressClient = useClient({
   //   clientId: '75424437-4b00-4535-8cf2-b56dbabe0397',
   // });
@@ -103,6 +108,7 @@ function App() {
       <QueryClientProvider client={client}>
         {/* <Provider store={store}> */}
         <LyketProvider apiKey="pt_49ef1b9862ddcdc97d841106b33e79">
+          {/* <WebchatProvider client={botpressClient}> */}
           <Router>
             <Navbar />
             <Routes>
@@ -140,6 +146,8 @@ function App() {
             </Routes>
           </Router>
           <Footer />
+          {/* <Webchat /> */}
+          {/* </WebchatProvider> */}
         </LyketProvider>
         {/* </Provider> */}
       </QueryClientProvider>
