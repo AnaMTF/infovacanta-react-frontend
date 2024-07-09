@@ -39,6 +39,8 @@ import badge_age_3 from "../resources/trophies/age-3.png";
 import badge_age_4 from "../resources/trophies/age-4.png";
 import badge_age_5plus from "../resources/trophies/age-5plus.png";
 
+import { useInView } from 'react-intersection-observer';
+
 export const ProfileOtherUser = (props) => {
   const { userId } = useParams();
 
@@ -47,6 +49,21 @@ export const ProfileOtherUser = (props) => {
   const { data: thisUser } = useQuery(["User", userId], async () => fetchUserInfoById(userId));
   const { data: reviews } = useQuery(["Review Cards", userId], async () => fetchReviewsByUserId(userId));
   const { data: userStats, isFetchedAfterMount: statsLoaded } = useQuery(["User Statistics", userId], async () => fetchUserStatisticsById(userId));
+
+  const [visibleReviews, setVisibleReviews] = useState([]);
+  const [nextBatch, setNextBatch] = useState(0);
+  const { ref, inView } = useInView({
+    threshold: 1,
+  });
+
+  useEffect(() => {
+    if (inView && nextBatch < reviews.length) {
+      const batchSize = 1; // Number of reviews to load per batch
+      const newBatch = reviews.slice(nextBatch, nextBatch + batchSize);
+      setVisibleReviews(prev => [...prev, ...newBatch]);
+      setNextBatch(nextBatch + batchSize);
+    }
+  }, [inView, nextBatch, reviews]);
 
   useEffect(() => {
     console.log("\nthisUser: ", thisUser);
@@ -178,10 +195,16 @@ export const ProfileOtherUser = (props) => {
       <div className="row">
         <div className="col-md-8">
           <ul id="postsList" className="list-group">
-            {reviews?.map((review, idx) => {
+            {visibleReviews?.map((review, idx) => {
               return (<Review key={idx} loggedInUserId={user?.user_id} content={review} />);
             })}
           </ul>
+
+          {nextBatch < reviews?.length && (
+            <div ref={ref}>
+              <h1>Se încarcă mai multe recenzii...</h1>
+            </div>
+          )}
         </div>
         <div className="col-md-auto" style={{
           paddingTop: "22.5px",

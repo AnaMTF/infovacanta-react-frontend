@@ -1,7 +1,7 @@
 import React from "react";
 import Axios from "axios";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useParams, useNavigate, Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -13,12 +13,12 @@ import { Tab, Tabs, Card, Button } from "react-bootstrap";
 import default_picture from "../resources/blank-profile-pic.png";
 import banner from "../resources/banner.png";
 
-import { useEffect } from "react";
-
 import "../css/styles.css";
 import "../css/header.css";
 import { fetchQueryResultsByKeyword } from "../utils/fetchFunctions";
 // import "../css/main.css";
+
+import { useInView } from 'react-intersection-observer';
 
 export const Rezultate = (props) => {
 
@@ -49,6 +49,39 @@ export const Rezultate = (props) => {
 
   const { data: query_results, isLoading, isError } = useQuery(["Query Results", keyword], async () => fetchQueryResultsByKeyword(keyword));
 
+  const [visibleReviews, setVisibleReviews] = useState([]);
+  const [nextBatch, setNextBatch] = useState(0);
+  const { ref, inView } = useInView({
+    threshold: 1,
+  });
+
+  useEffect(() => {
+    if (inView && nextBatch < query_results?.reviews.length) {
+      const batchSize = 1; // Number of reviews to load per batch
+      const newBatch = query_results?.reviews.slice(nextBatch, nextBatch + batchSize);
+      setVisibleReviews(prev => [...prev, ...newBatch]);
+      setNextBatch(nextBatch + batchSize);
+    }
+  }, [inView, nextBatch, query_results?.reviews]);
+
+  const [visibleComments, setVisibleComments] = useState([]);
+  const [nextBatchComments, setNextBatchComments] = useState(0);
+  const { ref: refComments, inView: inViewComments } = useInView({
+    threshold: 1,
+  });
+
+  useEffect(() => {
+    if (inViewComments && nextBatchComments < query_results?.comments.length) {
+      const batchSize = 1; // Number of comments to load per batch
+      const newBatch = query_results?.comments.slice(nextBatchComments, nextBatchComments + batchSize);
+      setVisibleComments(prev => [...prev, ...newBatch]);
+      setNextBatchComments(nextBatchComments + batchSize);
+    }
+
+    console.log("all comments:", query_results?.comments);
+    console.log("visible comments:", visibleComments);
+  }, [inViewComments, nextBatchComments, query_results?.comments]);
+
   return (
     <Tabs defaultKey="reviews" id="uncontrolled-tab-example"
       style={{ backgroundColor: "#E6D1F2" }}
@@ -58,7 +91,7 @@ export const Rezultate = (props) => {
           <h1>Rezultatele căutării</h1>
 
           <ul id="postsList" className="list-group">
-            {query_results?.reviews.map((review, idx) => {
+            {visibleReviews.map((review, idx) => {
               let num_likes = 0;
 
               // LYKET API
@@ -117,6 +150,12 @@ export const Rezultate = (props) => {
               return (<Review key={idx} loggedInUserId={user?.user_id} content={review} />);
             })}
           </ul>
+
+          {nextBatch < query_results?.reviews?.length && (
+            <div ref={ref}>
+              <h1>Se încarcă mai multe recenzii...</h1>
+            </div>
+          )}
         </div>
       </Tab>}
 
@@ -154,7 +193,7 @@ export const Rezultate = (props) => {
           <h1>Rezultatele căutării</h1>
 
           <ul id="postsList" className="list-group">
-            {query_results?.comments.map((comment, idx) => {
+            {visibleComments?.map((comment, idx) => {
               return (
                 <div key={idx} className="list-group-item list-group-item-action" id="postsItems">
                   <small>{comment.nickname} a comentat la data de {comment.date_posted}:</small>
@@ -162,6 +201,12 @@ export const Rezultate = (props) => {
                 </div>
               );
             })}
+
+            {nextBatchComments < query_results?.comments.length && (
+              <div ref={refComments}>
+                <h1>Se încarcă mai multe comentarii...</h1>
+              </div>
+            )}
           </ul>
         </div>
       </Tab>}
