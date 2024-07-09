@@ -2,6 +2,8 @@ import "../css/styles.css";
 import "../css/header.css";
 import "../css/register.css";
 
+import Axios from "axios";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -44,7 +46,7 @@ export const Settings = () => {
     }
 
     try {
-      const result = await axios.post(`https://localhost:5000/test/echo/${user.user_id}`, formData, {
+      const result = await Axios.post(`https://localhost:5000/test/echo/${user.user_id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
