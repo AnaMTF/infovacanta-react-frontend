@@ -3,7 +3,7 @@ import default_profile_picture from "../resources/blank-profile-pic.png";
 
 import React from 'react';
 import { Navbar, Nav, Form, FormControl, Button, Dropdown, Image, FormCheck, Modal } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSearchFilters } from '../app/searchSlice';
@@ -158,6 +158,7 @@ export const MyNavbar = () => {
   const search = useSelector((state) => state.search);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   // stari pentru modal
   const [show, setShow] = useState(false);
@@ -247,7 +248,7 @@ export const MyNavbar = () => {
               {!!user?.user_id || <Dropdown.Item as={Link} to="/register">
                 <i className="fa-user-plus fa-solid" style={{ marginRight: "6px" }} />
                 Register</Dropdown.Item>}
-              {!!user?.user_id && <Dropdown.Item as={Link} to="/" onClick={() => dispatch(logoutUser(navigate))}>
+              {!!user?.user_id && <Dropdown.Item as={Link} to="/" onClick={() => { dispatch(logoutUser(navigate)); navigate("/") }}>
                 <i className="fa-right-from-bracket fa-solid" style={{ marginRight: "6px" }} />
                 Logout</Dropdown.Item>}
             </Dropdown.Menu>

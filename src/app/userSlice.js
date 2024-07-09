@@ -83,11 +83,10 @@ export const loginUser = (username, password, navigate) => async (dispatch) => {
   }
 };
 
-export const logoutUser = () => async (dispatch, navigate) => {
+export const logoutUser = () => async (dispatch) => {
   try {
-    await axios.get('https://localhost:5000/auth/logout');
+    await axios.post('https://localhost:5000/auth/logout');
     dispatch(clearUser());
-    navigate("/");
   } catch (error) {
     console.error('Failed to logout:', error);
   }
