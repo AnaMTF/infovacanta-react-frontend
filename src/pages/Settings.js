@@ -46,14 +46,14 @@ export const Settings = () => {
     }
 
     try {
-      const result = await Axios.post(`https://localhost:5000/test/echo/${user.user_id}`, formData, {
+      const result = await Axios.post(`https://localhost:5000/auth/refresh/${user.user_id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
 
-      //dispatch(setUser(result.data));
-      //navigate(-1);
+      dispatch(setUser(result.data));
+      navigate(-1);
 
     } catch (error) {
       console.error(error);
