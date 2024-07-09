@@ -22,21 +22,21 @@ export const Main = () => {
     threshold: 1,
   });
 
-  useEffect(() => {
-    const script1 = document.createElement('script');
-    script1.src = "https://cdn.botpress.cloud/webchat/v2/inject.js";
+  // useEffect(() => {
+  //   const script1 = document.createElement('script');
+  //   script1.src = "https://cdn.botpress.cloud/webchat/v2/inject.js";
 
-    const script2 = document.createElement('script');
-    script2.src = "https://mediafiles.botpress.cloud/9b63b3fc-f11f-4a11-a8f4-a72b5bbdfcfe/webchat/v2/config.js";
+  //   const script2 = document.createElement('script');
+  //   script2.src = "https://mediafiles.botpress.cloud/9b63b3fc-f11f-4a11-a8f4-a72b5bbdfcfe/webchat/v2/config.js";
 
-    document.body.appendChild(script1);
-    document.body.appendChild(script2);
+  //   document.body.appendChild(script1);
+  //   document.body.appendChild(script2);
 
-    return () => {
-      document.body.removeChild(script1);
-      document.body.removeChild(script2);
-    }
-  }, []);
+  //   return () => {
+  //     document.body.removeChild(script1);
+  //     document.body.removeChild(script2);
+  //   }
+  // }, []);
 
   useEffect(() => {
     if (inView && nextBatch < reviews.length) {
