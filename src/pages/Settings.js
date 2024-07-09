@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import { ChangePasswordModal } from "../components/ChangePasswordModal";
 
-import { setUser } from "../redux/userSlice";
+import { setUser } from "../app/userSlice";
 
 export const Settings = () => {
   const user = useSelector((state) => state.user.user);
