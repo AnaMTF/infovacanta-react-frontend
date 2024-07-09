@@ -1,10 +1,40 @@
-import React, { Component } from 'react';
+import React, { useState, Component } from 'react';
+import Axios from 'axios';
 
 import "../css/styles.css";
 import "../css/header.css";
 import "../css/register.css";
 
 export const Register = () => {
+  const [email, setEmail] = useState('');
+  const [nickname, setNickname] = useState('');
+  const [full_name, setFullname] = useState('');
+  const [password, setPassword] = useState('');
+  const [profile_picture, setProfilePicture] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+
+    formData.append('email', email);
+    formData.append('nickname', nickname);
+    formData.append('full_name', full_name);
+
+    if (profile_picture) {
+      formData.append('profile_picture', profile_picture);
+    }
+
+    try {
+      await Axios.post('https://localhost:5000/auth/register/password', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       <div className="container mt-5 jumbotron centered">
@@ -14,7 +44,7 @@ export const Register = () => {
           <div className="col-sm-8">
             <div className="card">
               <div className="card-body">
-                <form encType="multipart/form-data" action="https://localhost:5000/auth/register/password" method="POST">
+                <form encType="multipart/form-data" onSubmit={(e) => handleSubmit(e.target.value)}>
                   <div className="form-group">
                     <label htmlFor="email">Email</label>
                     <input
@@ -23,6 +53,8 @@ export const Register = () => {
                       className="form-control"
                       placeholder="Emailul dumneavoastră"
                       name="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       required
                     />
                   </div>
@@ -34,6 +66,8 @@ export const Register = () => {
                       className="form-control"
                       placeholder="Numele dumneavoastră de utilizator"
                       name="nickname"
+                      value={nickname}
+                      onChange={(e) => setNickname(e.target.value)}
                       required
                     />
                   </div>
@@ -45,6 +79,8 @@ export const Register = () => {
                       className="form-control"
                       placeholder="Numele dumneavoastră complet"
                       name="full_name"
+                      value={full_name}
+                      onChange={(e) => setFullname(e.target.value)}
                       required
                     />
                   </div>
@@ -56,6 +92,8 @@ export const Register = () => {
                       className="form-control"
                       placeholder="Parola dumneavoastră"
                       name="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                       required
                     />
                   </div>
@@ -67,6 +105,7 @@ export const Register = () => {
                       className="form-control"
                       placeholder="Alegeți o poză de profil"
                       name="profile_picture"
+                      onChange={(e) => setProfilePicture(e.target.files[0])}
                       required
                     />
                   </div>

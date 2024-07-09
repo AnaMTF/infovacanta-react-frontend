@@ -16,6 +16,9 @@ export const Settings = () => {
   const [email, setEmail] = useState(user.email);
   const [full_name, setFullname] = useState(user.full_name);
   const [nickname, setNickname] = useState(user.nickname);
+  const [profile_picture, setProfilePicture] = useState(null);
+  const [background_picture, setBackgroundPicture] = useState(null);
+
 
   const [showModal, setShowModal] = useState(false);
 
@@ -28,7 +31,18 @@ export const Settings = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData(e.target);
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("full_name", full_name);
+    formData.append("nickname", nickname);
+
+    if (profile_picture) {
+      formData.append("profile_picture", profile_picture);
+    }
+
+    if (background_picture) {
+      formData.append("background_picture", background_picture);
+    }
 
     try {
       const result = await axios.post(`https://localhost:5000/auth/refresh/${user.user_id}`, formData, {
@@ -56,7 +70,7 @@ export const Settings = () => {
           }}> Setările contului </h1>
 
           <div className="card-body">
-            <form encType="multipart/form-data" onSubmit={(e) => handleSubmit(e)}>
+            <form encType="multipart/form-data" onSubmit={(e) => handleSubmit(e.target.value)}>
               <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <input
@@ -100,6 +114,7 @@ export const Settings = () => {
                   id="profile_picture"
                   className="form-control"
                   name="profile_picture"
+                  onChange={(e) => setProfilePicture(e.target.files[0])}
                 />
               </div>
 
@@ -110,6 +125,7 @@ export const Settings = () => {
                   id="background_picture"
                   className="form-control"
                   name="background_picture"
+                  onChange={(e) => setBackgroundPicture(e.target.files[0])}
                 />
               </div>
               <button type="submit" className="btn btn-dark">
