@@ -26,7 +26,7 @@ const SearchFilter = ({ show, handleClose }) => {
 
     const { name, value, type, checked } = event.target;
 
-    if (name === 'minRatings') {
+    if (name === 'minRatings' || name === 'minStars' || name === 'maxDistance') {
       const newFilterSettings = {
         ...filterSettings,
         [name]: type === 'checkbox' ? checked : parseInt(value),
@@ -138,6 +138,24 @@ const SearchFilter = ({ show, handleClose }) => {
               type="number"
               name="minRatings"
               value={filterSettings.minRatings}
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="formMinStars">
+            <Form.Label>Numărul minim de stele:</Form.Label>
+            <Form.Control
+              type="number"
+              name="minStars"
+              value={filterSettings.minStars}
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="formMaxDistance">
+            <Form.Label>Distanța maximă:</Form.Label>
+            <Form.Control
+              type="number"
+              name="maxDistance"
+              value={filterSettings.maxDistance}
               onChange={handleChange}
             />
           </Form.Group>

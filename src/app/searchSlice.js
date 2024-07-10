@@ -39,6 +39,8 @@ const searchSlice = createSlice({
       minDate: '',
       maxDate: '',
       minRatings: 0,
+      minStars: 0,
+      maxDistance: 150, // km
       searchInSavedReviews: false,
     }
   },

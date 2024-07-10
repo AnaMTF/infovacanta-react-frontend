@@ -28,6 +28,7 @@ export const Rezultate = (props) => {
 
   const user = useSelector((state) => state.user.user);
   const search = useSelector((state) => state.search.filters);
+  const poz = useSelector((state) => state.myPosition);
 
   const [showReviews, setShowReviews] = useState(search.searchInReviews);
   const [showDestinations, setShowDestinations] = useState(search.searchInDestinations);
