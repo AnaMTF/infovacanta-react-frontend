@@ -19,6 +19,8 @@ import { fetchQueryResultsByKeyword } from "../utils/fetchFunctions";
 // import "../css/main.css";
 
 import { useInView } from 'react-intersection-observer';
+// import getDistanceFromLatLonInKm from "../utils/trigonometryFunctions";
+// import { useGeolocation } from "@uidotdev/usehooks";
 
 export const Rezultate = (props) => {
 
@@ -28,7 +30,8 @@ export const Rezultate = (props) => {
 
   const user = useSelector((state) => state.user.user);
   const search = useSelector((state) => state.search.filters);
-  const poz = useSelector((state) => state.myPosition);
+  // const poz = useSelector((state) => state.myPosition);
+  // const poz = useGeolocation();
 
   const [showReviews, setShowReviews] = useState(search.searchInReviews);
   const [showDestinations, setShowDestinations] = useState(search.searchInDestinations);
@@ -83,6 +86,10 @@ export const Rezultate = (props) => {
     console.log("visible comments:", visibleComments);
   }, [inViewComments, nextBatchComments, query_results?.comments]);
 
+  useEffect(() => {
+    console.log("poz:", poz);
+  }, [poz]);
+
   return (
     <Tabs defaultKey="reviews" id="uncontrolled-tab-example"
       style={{ backgroundColor: "#E6D1F2" }}
@@ -93,7 +100,7 @@ export const Rezultate = (props) => {
 
           <ul id="postsList" className="list-group">
             {visibleReviews.map((review, idx) => {
-              let num_likes = 0;
+              // let num_likes = 0;
 
               // LYKET API
               // Axios.get(`https://api.lyket.dev/v1/like-buttons/infovacanta-react/review-upvotes-${review.review_id}`, {
@@ -110,6 +117,10 @@ export const Rezultate = (props) => {
               //   .catch((error) => { console.error("An error has occured...") });
               // const result = await Axios.get(`https://api.lyket.dev/v1/like-buttons/infovacanta-react/review-${review.review_id}`);
               // const num_likes = result.data?.total_likes;
+
+              // const num_likes = review.upvotes;
+              // const num_stars = review.rating;
+              // const distance = getDistanceFromLatLonInKm(poz.latitude, poz.longitude, review.lat, review.lon);
 
               if (search.minDate) {
                 if (new Date(review.date_posted) < new Date(search.minDate)) {
@@ -141,12 +152,21 @@ export const Rezultate = (props) => {
                 }
               }
 
-              console.log("Number of likes: ", num_likes);
-              console.log("Minimum likes: ", search.minRatings);
+              // console.log("Number of likes: ", num_likes);
+              // console.log("Minimum likes: ", search.minRatings);
 
-              if (num_likes < search.minRatings) {
-                return null;
-              }
+              // if (num_likes < search.minRatings) {
+              //   return null;
+              // }
+
+              // if (num_stars < search.minStars) {
+              //   return null;
+              // }
+
+              // if (distance > search.maxDistance) {
+              //   return null;
+              // }
+              // if ()
 
               return (<Review key={idx} loggedInUserId={user?.user_id} content={review} />);
             })}
