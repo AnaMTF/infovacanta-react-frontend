@@ -118,8 +118,8 @@ export const Rezultate = (props) => {
               // const result = await Axios.get(`https://api.lyket.dev/v1/like-buttons/infovacanta-react/review-${review.review_id}`);
               // const num_likes = result.data?.total_likes;
 
-              // const num_likes = review.upvotes;
-              // const num_stars = review.rating;
+              const num_likes = review.upvotes;
+              const num_stars = review.rating;
               // const distance = getDistanceFromLatLonInKm(poz.latitude, poz.longitude, review.lat, review.lon);
 
               if (search.minDate) {
@@ -155,13 +155,13 @@ export const Rezultate = (props) => {
               // console.log("Number of likes: ", num_likes);
               // console.log("Minimum likes: ", search.minRatings);
 
-              // if (num_likes < search.minRatings) {
-              //   return null;
-              // }
+              if (num_likes < search.minRatings) {
+                return null;
+              }
 
-              // if (num_stars < search.minStars) {
-              //   return null;
-              // }
+              if (num_stars < search.minStars) {
+                return null;
+              }
 
               // if (distance > search.maxDistance) {
               //   return null;
