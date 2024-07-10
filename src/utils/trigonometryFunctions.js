@@ -19,9 +19,4 @@ function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
   return R * c; // Distance in km
 }
 
-// console.log(getDistanceFromLatLonInKm(
-//   44.43434326443276, 26.165389641181687,
-//   44.1766, 28.6150
-// ));
-
 export default getDistanceFromLatLonInKm;
