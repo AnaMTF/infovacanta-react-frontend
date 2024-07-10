@@ -86,9 +86,9 @@ export const Rezultate = (props) => {
     console.log("visible comments:", visibleComments);
   }, [inViewComments, nextBatchComments, query_results?.comments]);
 
-  useEffect(() => {
-    console.log("poz:", poz);
-  }, [poz]);
+  // useEffect(() => {
+  //   console.log("poz:", poz);
+  // }, [poz]);
 
   return (
     <Tabs defaultKey="reviews" id="uncontrolled-tab-example"

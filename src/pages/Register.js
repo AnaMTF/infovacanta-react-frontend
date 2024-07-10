@@ -29,6 +29,11 @@ export const Register = () => {
       formData.append('profile_picture', profile_picture);
     }
 
+    // if (!email || !nickname || !full_name || !password) {
+    //   window.alert("Please fill in all the fields.");
+    //   return;
+    // }
+
     try {
       await Axios.post('https://localhost:5000/auth/register/password', formData, {
         headers: {

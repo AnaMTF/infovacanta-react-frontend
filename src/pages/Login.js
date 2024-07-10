@@ -19,6 +19,11 @@ export const Login = () => {
     e.preventDefault();
     console.log("Login:", email, password);
 
+    // if (!email || !password) {
+    //   window.alert("Please fill in all the fields.");
+    //   return;
+    // }
+
     dispatch(loginUser(email, password, navigate));
   };
 
