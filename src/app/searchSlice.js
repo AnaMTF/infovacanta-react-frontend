@@ -40,7 +40,7 @@ const searchSlice = createSlice({
       maxDate: '',
       minRatings: 0,
       minStars: 0,
-      maxDistance: 150, // km
+      maxDistance: 500, // km
       searchInSavedReviews: false,
     }
   },

@@ -19,8 +19,8 @@ import { fetchQueryResultsByKeyword } from "../utils/fetchFunctions";
 // import "../css/main.css";
 
 import { useInView } from 'react-intersection-observer';
-// import getDistanceFromLatLonInKm from "../utils/trigonometryFunctions";
-// import { useGeolocation } from "@uidotdev/usehooks";
+import getDistanceFromLatLonInKm from "../utils/trigonometryFunctions";
+import { useGeolocation } from "@uidotdev/usehooks";
 
 export const Rezultate = (props) => {
 
@@ -32,11 +32,18 @@ export const Rezultate = (props) => {
   const search = useSelector((state) => state.search.filters);
   // const poz = useSelector((state) => state.myPosition);
   // const poz = useGeolocation();
+  const geolocation = useGeolocation();
 
   const [showReviews, setShowReviews] = useState(search.searchInReviews);
   const [showDestinations, setShowDestinations] = useState(search.searchInDestinations);
   const [showComments, setShowComments] = useState(search.searchInComments);
   const [showUsers, setShowUsers] = useState(search.searchInUsers);
+
+  const [geolocation_state, setGeolocationState] = useState(null);
+
+  useEffect(() => {
+    setGeolocationState(geolocation);
+  }, [geolocation, geolocation.latitude, geolocation.longitude, geolocation.error, geolocation.loading]);
 
   useEffect(() => {
     //console.log("REDUX STATE:\n", search);
@@ -120,7 +127,7 @@ export const Rezultate = (props) => {
 
               const num_likes = review.upvotes;
               const num_stars = review.rating;
-              // const distance = getDistanceFromLatLonInKm(poz.latitude, poz.longitude, review.lat, review.lon);
+              const distance = getDistanceFromLatLonInKm(geolocation_state.latitude, geolocation_state.longitude, review.lat, review.lon);
 
               if (search.minDate) {
                 if (new Date(review.date_posted) < new Date(search.minDate)) {
@@ -163,10 +170,13 @@ export const Rezultate = (props) => {
                 return null;
               }
 
-              // if (distance > search.maxDistance) {
-              //   return null;
-              // }
-              // if ()
+              if (distance > search.maxDistance) { // scuze ma cam doare capul
+                // console.log("User location: ", geolocation_state.latitude, geolocation_state.longitude)
+                // console.log("Review location: ", review.lat, review.lon);
+                // console.log("Distance: ", distance);
+                // console.log("Max distance: ", search.maxDistance);
+                return null;
+              }
 
               return (<Review key={idx} loggedInUserId={user?.user_id} content={review} />);
             })}
@@ -186,6 +196,17 @@ export const Rezultate = (props) => {
 
           <ul id="postsList" className="list-group" >
             {query_results?.destinations.map((destination, idx) => {
+              const distance = getDistanceFromLatLonInKm(geolocation_state.latitude, geolocation_state.longitude, destination.lat, destination.lon);
+
+              console.log("User location: ", geolocation_state.latitude, geolocation_state.longitude)
+              console.log("Destination location: ", destination.lat, destination.lon);
+              console.log("Distance: ", distance);
+              console.log("Max distance: ", search.maxDistance);
+
+              if (distance > search.maxDistance) { // scuze ma cam doare capul
+                return null;
+              }
+
               return (
                 <div className="card" key={idx} style={{
                   marginBottom: "30px",
