@@ -170,7 +170,7 @@ export const Rezultate = (props) => {
                 return null;
               }
 
-              if (distance > search.maxDistance) { // scuze ma cam doare capul
+              if (distance > search.maxDistance) {
                 // console.log("User location: ", geolocation_state.latitude, geolocation_state.longitude)
                 // console.log("Review location: ", review.lat, review.lon);
                 // console.log("Distance: ", distance);
