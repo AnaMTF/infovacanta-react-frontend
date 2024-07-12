@@ -17,8 +17,11 @@ const sortTypeSlice = createSlice({
   reducers: {
     setSortType: (state, action) => {
       state.value = action.payload;
+      console.log("Sort type set to", action.payload);
     },
   },
 });
+
+export const { setSortType } = sortTypeSlice.actions;
 
 export default sortTypeSlice.reducer;

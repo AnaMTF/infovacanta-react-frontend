@@ -2,7 +2,7 @@ import logo from "../resources/infovacanta_logo.png";
 import default_profile_picture from "../resources/blank-profile-pic.png";
 
 import React from 'react';
-import { Navbar, Nav, Form, FormControl, Button, Dropdown, Image, FormCheck, Modal } from 'react-bootstrap';
+import { Navbar, Nav, Form, FormControl, Button, Dropdown, Image, FormCheck, Modal, DropdownButton } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -13,6 +13,7 @@ import { logoutUser } from '../app/userSlice';
 import "../css/header.css";
 
 import Axios from "axios";
+import { setSortType } from "../app/sortTypeSlice";
 
 const SearchFilter = ({ show, handleClose }) => {
   const search = useSelector((state) => state.search.filters);
@@ -172,6 +173,7 @@ const SearchFilter = ({ show, handleClose }) => {
 
 export const MyNavbar = () => {
   const user = useSelector((state) => state.user.user);
+  const sortType = useSelector((state) => state.sortType.value);
 
   const search = useSelector((state) => state.search);
   const dispatch = useDispatch();
@@ -212,7 +214,17 @@ export const MyNavbar = () => {
           {/* {!!user?.user_id || <Nav.Link as={Link} to="/login">Login</Nav.Link>}
           {!!user?.user_id || <Nav.Link as={Link} to="/register">Register</Nav.Link>} */}
           <Nav.Link as={Link} to="/contact" className="btn-contact">Contact</Nav.Link>
-        </Nav><Form inline className="mx-auto" onSubmit={handleSearch}>
+        </Nav>
+
+        <Form inline className="mx-auto" onSubmit={handleSearch}>
+          <DropdownButton title="Setări sortare" style={{ marginRight: "8px" }}>
+            <Dropdown.Item onClick={() => dispatch(setSortType('newest_first'))}>Cele mai recente</Dropdown.Item>
+            <Dropdown.Item onClick={() => dispatch(setSortType('oldest_first'))}>Cele mai vechi</Dropdown.Item>
+            <Dropdown.Item onClick={() => dispatch(setSortType('most_upvotes'))}>Cele mai multe aprecieri</Dropdown.Item>
+            <Dropdown.Item onClick={() => dispatch(setSortType('best_rating'))}>Cel mai mare rating</Dropdown.Item>
+            <Dropdown.Item onClick={() => dispatch(setSortType('closest'))}>Cea mai apriopiată</Dropdown.Item>
+          </DropdownButton>
+
           <Button
             id="filterButton"
             variant="outline-primary"
