@@ -10,10 +10,14 @@ import "@fortawesome/fontawesome-free/css/all.css";
 import { Review } from '../components/Review';
 import { fetchAllReviews } from '../utils/fetchFunctions.js';
 import { useInView } from 'react-intersection-observer';
+import { useGeolocation } from '@uidotdev/usehooks';
+
+import getDistanceFromLatLonInKm from '../utils/trigonometryFunctions.js';
 
 export const Main = () => {
   const user = useSelector((state) => state.user.user);
 
+  const sortType = useSelector((state) => state.sortType.value);
   const { data: reviews } = useQuery(["Review Cards"], async () => fetchAllReviews());
 
   const [visibleReviews, setVisibleReviews] = useState([]);
@@ -21,6 +25,8 @@ export const Main = () => {
   const { ref, inView } = useInView({
     threshold: 1,
   });
+
+  const geolocation = useGeolocation();
 
   useEffect(() => {
     const script1 = document.createElement('script');
@@ -44,6 +50,28 @@ export const Main = () => {
       const batchSize = 1; // Number of reviews to load per batch
       const newBatch = reviews.slice(nextBatch, nextBatch + batchSize);
       setVisibleReviews(prev => [...prev, ...newBatch]);
+
+      // // aplicare sortare
+      // console.log("Sort type", sortType);
+      // switch (sortType) {
+      //   case 'newest_first':
+      //     setVisibleReviews(visibleReviews.reverse());
+      //     break;
+      //   case 'most_upvotes':
+      //     setVisibleReviews(visibleReviews.sort((a, b) => b.upvotes - a.upvotes));
+      //     break;
+      //   case 'best_rating':
+      //     setVisibleReviews(visibleReviews.sort((a, b) => b.rating - a.rating));
+      //     break;
+      //   case 'closest':
+      //     setVisibleReviews(visibleReviews.sort((a, b) => {
+      //       const distanceA = getDistanceFromLatLonInKm(a.lat, a.lon, geolocation.latitude, geolocation.longitude);
+      //       const distanceB = getDistanceFromLatLonInKm(b.lat, b.lon, geolocation.latitude, geolocation.longitude);
+      //       return distanceA - distanceB;
+      //     }));
+      //     break;
+      // }
+
       setNextBatch(nextBatch + batchSize);
     }
   }, [inView, nextBatch, reviews]);
@@ -56,9 +84,24 @@ export const Main = () => {
       </Link>
 
       <ul id="postsList" className="list-group">
-        {visibleReviews.map((review, idx) => {
-          return (<Review key={idx} loggedInUserId={user?.user_id} content={review} />);
-        })}
+        {visibleReviews
+          // .sort((a, b) => {
+          //   switch (sortType) {
+          //     case 'newest_first':
+          //       return new Date(b.date_posted) - new Date(a.date_posted);
+          //     case 'most_upvotes':
+          //       return b.upvotes - a.upvotes;
+          //     case 'best_rating':
+          //       return b.rating - a.rating;
+          //     case 'closest':
+          //       const distanceA = getDistanceFromLatLonInKm(a.lat, a.lon, geolocation.latitude, geolocation.longitude);
+          //       const distanceB = getDistanceFromLatLonInKm(b.lat, b.lon, geolocation.latitude, geolocation.longitude);
+          //       return distanceA - distanceB;
+          //   }
+          // })
+          .map((review, idx) => {
+            return (<Review key={idx} loggedInUserId={user?.user_id} content={review} />);
+          })}
       </ul>
 
       {nextBatch < reviews?.length && (
