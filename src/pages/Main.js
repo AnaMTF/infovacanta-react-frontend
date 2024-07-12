@@ -16,9 +16,25 @@ import getDistanceFromLatLonInKm from '../utils/trigonometryFunctions.js';
 
 export const Main = () => {
   const user = useSelector((state) => state.user.user);
+  const geolocation = useGeolocation();
 
   const sortType = useSelector((state) => state.sortType.value);
   const { data: reviews } = useQuery(["Review Cards"], async () => fetchAllReviews());
+
+  // const sortedReviews = reviews?.sort((a, b) => {
+  //   switch (sortType) {
+  //     case 'newest_first':
+  //       return new Date(b.date_posted) - new Date(a.date_posted);
+  //     case 'most_upvotes':
+  //       return b.upvotes - a.upvotes;
+  //     case 'best_rating':
+  //       return b.rating - a.rating;
+  //     case 'closest':
+  //       const distanceA = getDistanceFromLatLonInKm(a.lat, a.lon, geolocation.latitude, geolocation.longitude);
+  //       const distanceB = getDistanceFromLatLonInKm(b.lat, b.lon, geolocation.latitude, geolocation.longitude);
+  //       return distanceA - distanceB;
+  //   }
+  // });
 
   const [visibleReviews, setVisibleReviews] = useState([]);
   const [nextBatch, setNextBatch] = useState(0);
@@ -26,7 +42,6 @@ export const Main = () => {
     threshold: 1,
   });
 
-  const geolocation = useGeolocation();
 
   useEffect(() => {
     const script1 = document.createElement('script');
