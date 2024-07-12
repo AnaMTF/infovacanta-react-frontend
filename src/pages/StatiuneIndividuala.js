@@ -61,10 +61,12 @@ export const Statiune = (props) => {
     try {
       const result = await Axios.get(`https://localhost:5000/query/destinations/${nume}`);
       console.log(`https://localhost:5000/query/destinations/${nume}`);
-      setCoordinates({ lat: result.data[0].coordinates.x, lng: result.data[0].coordinates.y });
+      setCoordinates({ lat: result.data[0].lat, lng: result.data[0].lon });
+      console.log('statiune:', result.data[0]);
 
       const result_reviews = await Axios.get(`https://localhost:5000/destinations/${result.data[0]?.destination_id}/review-cards`);
       setReviews(result_reviews.data);
+      console.log('reviews:', reviews);
 
       // console.log(result.data[0]); // <-- testare: afisare date in consola   
       return result.data[0];
@@ -74,9 +76,9 @@ export const Statiune = (props) => {
     }
   });
 
-  useEffect(() => {
-    console.log("COORDONATELE SUNT", coordinates)
-  }, [coordinates]);
+  // useEffect(() => {
+  //   console.log("COORDONATELE SUNT", coordinates)
+  // }, [coordinates]);
 
   const switchCategory = function (category) {
     switch (category) {
