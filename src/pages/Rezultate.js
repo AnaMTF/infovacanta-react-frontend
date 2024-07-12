@@ -23,6 +23,7 @@ import getDistanceFromLatLonInKm from "../utils/trigonometryFunctions";
 import { useGeolocation } from "@uidotdev/usehooks";
 
 export const Rezultate = (props) => {
+  const sortType = useSelector((state) => state.sortType.value);
 
   useLocation();
 
@@ -72,6 +73,9 @@ export const Rezultate = (props) => {
       const newBatch = query_results?.reviews.slice(nextBatch, nextBatch + batchSize);
       setVisibleReviews(prev => [...prev, ...newBatch]);
       setNextBatch(nextBatch + batchSize);
+
+      // console.log("reviews:", query_results?.reviews);
+      console.log("visible reviews:", visibleReviews || "null")
     }
   }, [inView, nextBatch, query_results?.reviews]);
 
@@ -89,8 +93,8 @@ export const Rezultate = (props) => {
       setNextBatchComments(nextBatchComments + batchSize);
     }
 
-    console.log("all comments:", query_results?.comments);
-    console.log("visible comments:", visibleComments);
+    // console.log("all comments:", query_results?.comments);
+    // console.log("visible comments:", visibleComments);
   }, [inViewComments, nextBatchComments, query_results?.comments]);
 
   // useEffect(() => {
@@ -106,80 +110,86 @@ export const Rezultate = (props) => {
           <h1>Rezultatele căutării</h1>
 
           <ul id="postsList" className="list-group">
-            {visibleReviews.map((review, idx) => {
-              // let num_likes = 0;
-
-              // LYKET API
-              // Axios.get(`https://api.lyket.dev/v1/like-buttons/infovacanta-react/review-upvotes-${review.review_id}`, {
-              //   headers: {
-              //     'Content-Type': 'application/json',
-              //     'Authorization': `Bearer pt_49ef1b9862ddcdc97d841106b33e79`
+            {
+              // .sort((a, b) => {
+              //   switch (sortType) {
+              //     case 'newest_first':
+              //       return new Date(b.date_posted) - new Date(a.date_posted);
+              //     case 'most_upvotes':
+              //       return b.upvotes - a.upvotes;
+              //     case 'best_rating':
+              //       return b.rating - a.rating;
+              //     case 'closest':
+              //       const distanceA = getDistanceFromLatLonInKm(a.lat, a.lon, geolocation.latitude, geolocation.longitude);
+              //       const distanceB = getDist  anceFromLatLonInKm(b.lat, b.lon, geolocation.latitude, geolocation.longitude);
+              //       return distanceA - distanceB;
               //   }
               // })
-              //   .then((response) => {
-              //     num_likes = response.data.data.attributes.total_likes;
-              //     console.log(`Post ID ${review.review_id} has ${num_likes} likes`);
-              //     //console.log("Response data: ", typeof response.data.data.attributes.total_likes);
-              //   })
-              //   .catch((error) => { console.error("An error has occured...") });
-              // const result = await Axios.get(`https://api.lyket.dev/v1/like-buttons/infovacanta-react/review-${review.review_id}`);
-              // const num_likes = result.data?.total_likes;
+              visibleReviews?.map((review, idx) => {
+                // LYKET API
+                // Axios.get(`https://api.lyket.dev/v1/like-buttons/infovacanta-react/review-upvotes-${review.review_id}`, {
+                //   headers: {
+                //     'Content-Type': 'application/json',
+                //     'Authorization': `Bearer pt_49ef1b9862ddcdc97d841106b33e79`
+                //   }
+                // })
+                //   .then((response) => {
+                //     num_likes = response.data.data.attributes.total_likes;
+                //     console.log(`Post ID ${review.review_id} has ${num_likes} likes`);
+                //     //console.log("Response data: ", typeof response.data.data.attributes.total_likes);
+                //   })
+                //   .catch((error) => { console.error("An error has occured...") });
+                // const result = await Axios.get(`https://api.lyket.dev/v1/like-buttons/infovacanta-react/review-${review.review_id}`);
+                // const num_likes = result.data?.total_likes;
 
-              const num_likes = review.upvotes;
-              const num_stars = review.rating;
-              const distance = getDistanceFromLatLonInKm(geolocation_state.latitude, geolocation_state.longitude, review.lat, review.lon);
+                const num_likes = review.upvotes;
+                const num_stars = review.rating;
+                const distance = getDistanceFromLatLonInKm(geolocation_state.latitude, geolocation_state.longitude, review.lat, review.lon);
 
-              if (search.minDate) {
-                if (new Date(review.date_posted) < new Date(search.minDate)) {
+                if (search.minDate) {
+                  if (new Date(review.date_posted) < new Date(search.minDate)) {
+                    return null;
+                  }
+                }
+
+                if (search.maxDate) {
+                  if (new Date(review.date_posted) > new Date(search.maxDate)) {
+                    return null;
+                  }
+                }
+
+                if (search.isBeachDestination == false) {
+                  if (review.destination_category.includes("mare")) {
+                    return null;
+                  }
+                }
+
+                if (search.isMountainDestination == false) {
+                  if (review.destination_category.includes("munte")) {
+                    return null;
+                  }
+                }
+
+                if (search.isThermalSpringDestination == false) {
+                  if (review.destination_category.includes("balnear")) {
+                    return null;
+                  }
+                }
+
+                if (num_likes < search.minRatings) {
                   return null;
                 }
-              }
 
-              if (search.maxDate) {
-                if (new Date(review.date_posted) > new Date(search.maxDate)) {
+                if (num_stars < search.minStars) {
                   return null;
                 }
-              }
 
-              if (search.isBeachDestination == false) {
-                if (review.destination_category.includes("mare")) {
+                if (distance > search.maxDistance) {
                   return null;
                 }
-              }
 
-              if (search.isMountainDestination == false) {
-                if (review.destination_category.includes("munte")) {
-                  return null;
-                }
-              }
-
-              if (search.isThermalSpringDestination == false) {
-                if (review.destination_category.includes("balnear")) {
-                  return null;
-                }
-              }
-
-              // console.log("Number of likes: ", num_likes);
-              // console.log("Minimum likes: ", search.minRatings);
-
-              if (num_likes < search.minRatings) {
-                return null;
-              }
-
-              if (num_stars < search.minStars) {
-                return null;
-              }
-
-              if (distance > search.maxDistance) {
-                // console.log("User location: ", geolocation_state.latitude, geolocation_state.longitude)
-                // console.log("Review location: ", review.lat, review.lon);
-                // console.log("Distance: ", distance);
-                // console.log("Max distance: ", search.maxDistance);
-                return null;
-              }
-
-              return (<Review key={idx} loggedInUserId={user?.user_id} content={review} />);
-            })}
+                return (<Review key={idx} loggedInUserId={user?.user_id} content={review} />);
+              })}
           </ul>
 
           {nextBatch < query_results?.reviews?.length && (
@@ -198,10 +208,10 @@ export const Rezultate = (props) => {
             {query_results?.destinations.map((destination, idx) => {
               const distance = getDistanceFromLatLonInKm(geolocation_state.latitude, geolocation_state.longitude, destination.lat, destination.lon);
 
-              console.log("User location: ", geolocation_state.latitude, geolocation_state.longitude)
-              console.log("Destination location: ", destination.lat, destination.lon);
-              console.log("Distance: ", distance);
-              console.log("Max distance: ", search.maxDistance);
+              // console.log("User location: ", geolocation_state.latitude, geolocation_state.longitude)
+              // console.log("Destination location: ", destination.lat, destination.lon);
+              // console.log("Distance: ", distance);
+              // console.log("Max distance: ", search.maxDistance);
 
               if (distance > search.maxDistance) { // scuze ma cam doare capul
                 return null;

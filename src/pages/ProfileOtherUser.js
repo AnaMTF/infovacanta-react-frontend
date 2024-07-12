@@ -40,8 +40,14 @@ import badge_age_4 from "../resources/trophies/age-4.png";
 import badge_age_5plus from "../resources/trophies/age-5plus.png";
 
 import { useInView } from 'react-intersection-observer';
+import { useGeolocation } from '@uidotdev/usehooks';
+
+import getDistanceFromLatLonInKm from '../utils/trigonometryFunctions.js';
 
 export const ProfileOtherUser = (props) => {
+  const sortType = useSelector((state) => state.sortType.value);
+  const geolocation = useGeolocation();
+
   const { userId } = useParams();
 
   const user = useSelector((state) => state.user.user);
@@ -195,7 +201,20 @@ export const ProfileOtherUser = (props) => {
       <div className="row">
         <div className="col-md-8">
           <ul id="postsList" className="list-group">
-            {visibleReviews?.map((review, idx) => {
+            {visibleReviews?.sort((a, b) => {
+              switch (sortType) {
+                case 'newest_first':
+                  return new Date(b.date_posted) - new Date(a.date_posted);
+                case 'most_upvotes':
+                  return b.upvotes - a.upvotes;
+                case 'best_rating':
+                  return b.rating - a.rating;
+                case 'closest':
+                  const distanceA = getDistanceFromLatLonInKm(a.lat, a.lon, geolocation.latitude, geolocation.longitude);
+                  const distanceB = getDistanceFromLatLonInKm(b.lat, b.lon, geolocation.latitude, geolocation.longitude);
+                  return distanceA - distanceB;
+              }
+            }).map((review, idx) => {
               return (<Review key={idx} loggedInUserId={user?.user_id} content={review} />);
             })}
           </ul>

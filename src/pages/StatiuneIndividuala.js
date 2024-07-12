@@ -33,8 +33,14 @@ import { useState, useEffect } from "react";
 import { Review } from "../components/Review";
 import { fetchAllComments } from "../utils/fetchFunctions";
 import { useInView } from 'react-intersection-observer';
+import { useGeolocation } from "@uidotdev/usehooks";
+
+import getDistanceFromLatLonInKm from '../utils/trigonometryFunctions.js';
 
 export const Statiune = (props) => {
+  const sortType = useSelector((state) => state.sortType.value);
+  const geolocation = useGeolocation();
+
   const user = useSelector((state) => state.user.user);
 
   const [coordinates, setCoordinates] = useState({ lat: 45.9442858, lng: 25.0094303 });
@@ -173,7 +179,20 @@ export const Statiune = (props) => {
       <div className="container-fluid jumbotron centered">
         <h1>Recenziile stațiunii</h1>
         <ul id="postsList" className="list-group">
-          {visibleReviews?.map((review, idx) => {
+          {visibleReviews?.sort((a, b) => {
+            switch (sortType) {
+              case 'newest_first':
+                return new Date(b.date_posted) - new Date(a.date_posted);
+              case 'most_upvotes':
+                return b.upvotes - a.upvotes;
+              case 'best_rating':
+                return b.rating - a.rating;
+              case 'closest':
+                const distanceA = getDistanceFromLatLonInKm(a.lat, a.lon, geolocation.latitude, geolocation.longitude);
+                const distanceB = getDistanceFromLatLonInKm(b.lat, b.lon, geolocation.latitude, geolocation.longitude);
+                return distanceA - distanceB;
+            }
+          }).map((review, idx) => {
             return (<Review key={idx} loggedInUserId={user?.user_id} content={review} />);
           })}
         </ul>
