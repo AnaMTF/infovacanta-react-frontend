@@ -148,25 +148,23 @@ export function Review(props) {
         </button>
     )}
 
-
-    {
-      // LYKET
-    /* <div style={{ width: "100%" }}>
-      <div className="ratingEverywhere">
+    <div style={{ width: "100%" }}>
+      {/* <div className="ratingEverywhere">
         <RateButton className="list-group-item"
           namespace="infovacanta-react"
           id={`review-${props.content.review_id}`}
           showRating="average" />
-      </div>
-
+      </div> */}
 
       <UpdownButton className="list-group-item lyket-counter"
-        namespace='infovacanta-react'
-        id={`review-upvotes-${props.content.review_id}`}
+        // namespace='infovacanta-react'
+        // id={`review-upvotes-${props.content.review_id}`}
         template='simple'
+        onPressUp={() => { }}
+        onPressDown={() => { }}
       >
       </UpdownButton>
-    </div> */}
+    </div> */
 
     <AllCommentsModal
       content={comments}
