@@ -12,7 +12,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const sortTypeSlice = createSlice({
   name: 'sortType',
   initialState: {
-    value: 'oldest_first',
+    value: 'newest_first',
   },
   reducers: {
     setSortType: (state, action) => {
