@@ -1,5 +1,4 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'; // This is a temporary fix for the self-signed certificate issue. It should be removed in production.
-
 import Axios from "axios";
 import getDistanceFromLatLonInKm from "./trigonometryFunctions";
 
