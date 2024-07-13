@@ -152,14 +152,14 @@ export function Review(props) {
     <div style={{ width: "100%" }}>
       <div className="ratingEverywhere">
         <RateButton className="list-group-item"
-          // namespace="infovacanta-react"
-          // id={`review-${props.content.review_id}`}
+          namespace="infovacanta-react"
+          id={`review-${props.content.review_id}`}
           showRating="average" />
       </div>
 
       <UpdownButton className="list-group-item lyket-counter"
-        // namespace='infovacanta-react'
-        // id={`review-upvotes-${props.content.review_id}`}
+        namespace='infovacanta-react'
+        id={`review-upvotes-${props.content.review_id}`}
         template='simple'
         onPressUp={() => updateUpvotes(props.content.review_id)}
         onPressDown={() => updateUpvotes(props.content.review_id)}
