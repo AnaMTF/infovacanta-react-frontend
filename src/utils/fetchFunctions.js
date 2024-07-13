@@ -1,4 +1,7 @@
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'; // This is a temporary fix for the self-signed certificate issue. It should be removed in production.
+
 import Axios from "axios";
+import getDistanceFromLatLonInKm from "./trigonometryFunctions";
 
 export const fetchAllComments = async function () {
   try {
@@ -40,23 +43,73 @@ export const fetchNextReviewId = async function () {
   }
 };
 
-export const fetchReviewsByUserId = async function (userId) {
+export const fetchReviewsByUserId = async function (userId, sortType, geolocation) {
   try {
     const result = await Axios.get(`https://localhost:5000/users/${userId}/review-cards`);
     //console.log("Reviews by user" + userId + "fetched:\n", result.data);
+
+    switch (sortType) {
+      case 'newest_first':
+        return result.data;
+      case 'oldest_first':
+        return result.data.reverse();
+      case 'most_upvotes':
+        return result.data.sort((a, b) => b.upvotes - a.upvotes);
+      case 'best_rating':
+        return result.data.sort((a, b) => b.rating - a.rating);
+      case 'closest':
+        return result.data.sort((a, b) => {
+          const distanceA = getDistanceFromLatLonInKm(a.lat, a.lon, geolocation.latitude, geolocation.longitude);
+          const distanceB = getDistanceFromLatLonInKm(b.lat, b.lon, geolocation.latitude, geolocation.longitude);
+          return distanceA - distanceB;
+        });
+    }
+
     return result.data;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const fetchAllReviews = async function () {
+// export const fetchAllReviews = async function () {
+//   try {
+//     const result = await Axios.get("https://localhost:5000/review-cards");
+//     //console.log(result.data);
+//     return result.data;
+//   } catch (error) {
+//     console.error(error);
+//     return null;
+//   }
+// };
+
+export const fetchAllReviews = async function (sortType, geolocation) {
   try {
     const result = await Axios.get("https://localhost:5000/review-cards");
-    //console.log(result.data);
+
+    console.log("function fetchAllReviews called.");
+    console.log("geolocation:", geolocation)
+    console.log("sortType:", sortType);
+
+    switch (sortType) {
+      case 'newest_first':
+        return result.data;
+      case 'oldest_first':
+        return result.data.reverse();
+      case 'most_upvotes':
+        return result.data.sort((a, b) => b.upvotes - a.upvotes);
+      case 'best_rating':
+        return result.data.sort((a, b) => b.rating - a.rating);
+      case 'closest':
+        return result.data.sort((a, b) => {
+          const distanceA = getDistanceFromLatLonInKm(a.lat, a.lon, geolocation.latitude, geolocation.longitude);
+          const distanceB = getDistanceFromLatLonInKm(b.lat, b.lon, geolocation.latitude, geolocation.longitude);
+          return distanceA - distanceB;
+        });
+    }
+
     return result.data;
   } catch (error) {
-    console.error(error);
+    console.error("Error.", error);
     return null;
   }
 };
