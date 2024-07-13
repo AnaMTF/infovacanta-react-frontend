@@ -11,6 +11,8 @@ import "../css/header.css";
 import "../css/new.css";
 import { fetchDestinations } from '../utils/fetchFunctions';
 
+import { updateRating } from '../utils/databaseFunctions';
+
 export const EditReview = (props) => {
   const user = useSelector((state) => state.user.user);
   const { reviewId } = useParams();
@@ -116,7 +118,7 @@ export const EditReview = (props) => {
           // id={`review-${reviewId}`}
           // id="review-test"
           showRating="user"
-          onPress={(button) => { }}
+          onPress={() => updateRating(reviewId)}
         />
 
         <button className="full-width" type="submit" id="publicaBtn">Publică</button>

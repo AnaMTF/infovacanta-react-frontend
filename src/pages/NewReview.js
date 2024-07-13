@@ -15,6 +15,7 @@ import "../css/new.css";
 import "../css/review.css";
 
 import { fetchDestinations, fetchNextReviewId } from '../utils/fetchFunctions';
+import { updateRating } from '../utils/databaseFunctions';
 
 export const NewReview = (props) => {
   const user = useSelector((state) => state.user.user);
@@ -55,6 +56,8 @@ export const NewReview = (props) => {
           'Content-Type': 'multipart/form-data'
         }
       });
+
+      updateRating(parseInt(newReviewId.nextval) + 1);
     } catch (error) {
       console.error(error);
     } finally {
@@ -105,6 +108,7 @@ export const NewReview = (props) => {
                 // id={`review-${parseInt(newid.nextval) + 1}`}
                 // id="review-test"
                 showRating="user"
+              // onPress={() => updateRating(parseInt(newid.nextval) + 1)}
               />
             );
           })

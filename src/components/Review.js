@@ -14,6 +14,7 @@ import { fetchCommentsByReviewId } from '../utils/fetchFunctions';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import "../css/review.css";
+import { updateUpvotes } from '../utils/databaseFunctions';
 
 export function Review(props) {
   const user = useSelector((state) => state.user.user);
@@ -160,8 +161,8 @@ export function Review(props) {
         // namespace='infovacanta-react'
         // id={`review-upvotes-${props.content.review_id}`}
         template='simple'
-        onPressUp={() => { }}
-        onPressDown={() => { }}
+        onPressUp={() => updateUpvotes(props.content.review_id)}
+        onPressDown={() => updateUpvotes(props.content.review_id)}
       >
       </UpdownButton>
     </div>
