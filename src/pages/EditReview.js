@@ -116,6 +116,7 @@ export const EditReview = (props) => {
           // id={`review-${reviewId}`}
           // id="review-test"
           showRating="user"
+          onPress={(button) => { }}
         />
 
         <button className="full-width" type="submit" id="publicaBtn">Publică</button>
