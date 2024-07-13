@@ -42,9 +42,6 @@ import { SavedReviews } from "./pages/SavedReviews";
 import { GoogleAuthCallback } from "./components/GoogleAuthCallback";
 
 function App() {
-  // lista cu statiuni; incalca principiul Open/Closed din SOLID!!!!!!!! dar aia e pana la urma
-  // am actionat asa pentru a nu face un request catre server pentru a obtine lista statiunilor
-  // dar daca vom mai avea de adaugat statiuni trebuie modificat si aici
   const lista_statiuni = [
     "mamaia",
     "constanta",
@@ -97,18 +94,10 @@ function App() {
 
   const user = useSelector((state) => state.user.user);
 
-  // const botpressClient = useClient({ clientId: 'e73fd7f1-87be-4885-b8a9-2c18ed435455' });
-
-  // const botpressClient = useClient({
-  //   clientId: '75424437-4b00-4535-8cf2-b56dbabe0397',
-  // });
-
   return (
     <div className="App">
       <QueryClientProvider client={client}>
-        {/* <Provider store={store}> */}
         <LyketProvider apiKey="pt_49ef1b9862ddcdc97d841106b33e79">
-          {/* <WebchatProvider client={botpressClient}> */}
           <Router>
             <Navbar />
             <Routes>
@@ -146,10 +135,7 @@ function App() {
             </Routes>
           </Router>
           <Footer />
-          {/* <Webchat /> */}
-          {/* </WebchatProvider> */}
         </LyketProvider>
-        {/* </Provider> */}
       </QueryClientProvider>
       <ScrollToTopButton />
     </div>
