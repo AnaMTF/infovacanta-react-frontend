@@ -1,6 +1,6 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'; // This is a temporary fix for the self-signed certificate issue. It should be removed in production.
 import Axios from "axios";
-import config from "../config";
+import { config } from "../config";
 
 const namespace = 'infovacanta-react';
 

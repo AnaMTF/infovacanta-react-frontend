@@ -132,6 +132,8 @@ function App() {
               <Route path="/setari" element={user ? <SettingsPage /> : <Navigate to="/" />} />
 
               <Route path="/saved" element={user ? <SavedReviews /> : <Navigate to="/" />} />
+
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Router>
           <Footer />
