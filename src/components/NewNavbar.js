@@ -216,14 +216,35 @@ export const MyNavbar = () => {
           <Nav.Link as={Link} to="/contact" className="btn-contact">Contact</Nav.Link>
         </Nav>
 
-        <Form inline className="mx-auto" onSubmit={handleSearch}>
-          <DropdownButton title="Setări sortare" style={{ marginRight: "8px" }}>
+        <Form inline className="mx-auto" onSubmit={handleSearch} >
+          {/* <DropdownButton title="Setări sortare" style={{ marginRight: "8px" }}
+            variant="outline-sort"
+            className="d-inline-flex focus-ring py-1 px-2 text-decoration-none rounded-2"
+            id="sortButton">
             <Dropdown.Item onClick={() => dispatch(setSortType('newest_first'))}>Cele mai recente</Dropdown.Item>
             <Dropdown.Item onClick={() => dispatch(setSortType('oldest_first'))}>Cele mai vechi</Dropdown.Item>
             <Dropdown.Item onClick={() => dispatch(setSortType('most_upvotes'))}>Cele mai multe aprecieri</Dropdown.Item>
             <Dropdown.Item onClick={() => dispatch(setSortType('best_rating'))}>Cel mai mare rating</Dropdown.Item>
             <Dropdown.Item onClick={() => dispatch(setSortType('closest'))}>Cea mai apriopiată</Dropdown.Item>
-          </DropdownButton>
+          </DropdownButton> */}
+          <Dropdown>
+            <Dropdown.Toggle style={{ marginRight: "8px" }}
+              variant="outline-sort"
+              className="d-inline-flex focus-ring py-1 px-2 text-decoration-none rounded-2"
+              id="sortButton"
+            >
+              Setări sortare
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu style={{ backgroundColor: "#E9FBFE" }}>
+              <Dropdown.Item onClick={() => dispatch(setSortType('newest_first'))}>Cele mai recente</Dropdown.Item>
+              <Dropdown.Item onClick={() => dispatch(setSortType('oldest_first'))}>Cele mai vechi</Dropdown.Item>
+              <Dropdown.Item onClick={() => dispatch(setSortType('most_upvotes'))}>Cele mai multe aprecieri</Dropdown.Item>
+              <Dropdown.Item onClick={() => dispatch(setSortType('best_rating'))}>Cel mai mare rating</Dropdown.Item>
+              <Dropdown.Item onClick={() => dispatch(setSortType('closest'))}>Cea mai apropiată</Dropdown.Item>
+            </Dropdown.Menu>
+
+          </Dropdown>
 
           <Button
             id="filterButton"
