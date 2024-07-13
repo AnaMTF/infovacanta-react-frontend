@@ -104,8 +104,8 @@ export const NewReview = (props) => {
           newReviewId?.map((newid, idx) => {
             return (
               <RateButton key={idx} className="list-group-item starRating"
-                // namespace="infovacanta-react"
-                // id={`review-${parseInt(newid.nextval) + 1}`}
+                namespace="infovacanta-react"
+                id={`review-${parseInt(newid.nextval) + 1}`}
                 // id="review-test"
                 showRating="user"
               // onPress={() => updateRating(parseInt(newid.nextval) + 1)}

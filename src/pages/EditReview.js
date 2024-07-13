@@ -114,8 +114,8 @@ export const EditReview = (props) => {
         />
 
         <RateButton className="list-group-item"
-          // namespace="infovacanta-react"
-          // id={`review-${reviewId}`}
+          namespace="infovacanta-react"
+          id={`review-${reviewId}`}
           // id="review-test"
           showRating="user"
           onPress={() => updateRating(reviewId)}
