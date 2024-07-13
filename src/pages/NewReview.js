@@ -98,17 +98,16 @@ export const NewReview = (props) => {
           />
         </div>
         {
-          // LYKET API
-          // newReviewId?.map((newid, idx) => {
-          //   return (
-          //     <RateButton key={idx} className="list-group-item starRating"
-          //       namespace="infovacanta-react"
-          //       id={`review-${parseInt(newid.nextval) + 1}`}
-          //       //id="review-test"
-          //       showRating="user"
-          //     />
-          //   );
-          // })
+          newReviewId?.map((newid, idx) => {
+            return (
+              <RateButton key={idx} className="list-group-item starRating"
+                // namespace="infovacanta-react"
+                // id={`review-${parseInt(newid.nextval) + 1}`}
+                // id="review-test"
+                showRating="user"
+              />
+            );
+          })
         }
 
         <button className="full-width" type="submit" id="publicaBtn">Publică</button>
