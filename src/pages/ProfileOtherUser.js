@@ -53,7 +53,7 @@ export const ProfileOtherUser = (props) => {
   const user = useSelector((state) => state.user.user);
 
   const { data: thisUser } = useQuery(["User", userId], async () => fetchUserInfoById(userId));
-  const { data: reviews } = useQuery(["Review Cards", userId], async () => fetchReviewsByUserId(userId));
+  const { data: reviews } = useQuery(["Review Cards", userId, sortType, geolocation], async () => fetchReviewsByUserId(userId, sortType, geolocation));
   const { data: userStats, isFetchedAfterMount: statsLoaded } = useQuery(["User Statistics", userId], async () => fetchUserStatisticsById(userId));
 
   const [visibleReviews, setVisibleReviews] = useState([]);
@@ -62,6 +62,14 @@ export const ProfileOtherUser = (props) => {
     threshold: 1,
   });
 
+  useEffect(() => { // cand se schimba sortType sau geolocation
+    if (reviews) {
+      setVisibleReviews(reviews.slice(0, 1));
+      setNextBatch(1);
+    }
+
+  }, [reviews]);
+
   useEffect(() => {
     if (inView && nextBatch < reviews.length) {
       const batchSize = 1; // Number of reviews to load per batch
@@ -69,7 +77,7 @@ export const ProfileOtherUser = (props) => {
       setVisibleReviews(prev => [...prev, ...newBatch]);
       setNextBatch(nextBatch + batchSize);
     }
-  }, [inView, nextBatch, reviews]);
+  }, [inView, nextBatch]);
 
   useEffect(() => {
     console.log("\nthisUser: ", thisUser);
@@ -201,20 +209,7 @@ export const ProfileOtherUser = (props) => {
       <div className="row">
         <div className="col-md-8">
           <ul id="postsList" className="list-group">
-            {visibleReviews?.sort((a, b) => {
-              switch (sortType) {
-                case 'newest_first':
-                  return new Date(b.date_posted) - new Date(a.date_posted);
-                case 'most_upvotes':
-                  return b.upvotes - a.upvotes;
-                case 'best_rating':
-                  return b.rating - a.rating;
-                case 'closest':
-                  const distanceA = getDistanceFromLatLonInKm(a.lat, a.lon, geolocation.latitude, geolocation.longitude);
-                  const distanceB = getDistanceFromLatLonInKm(b.lat, b.lon, geolocation.latitude, geolocation.longitude);
-                  return distanceA - distanceB;
-              }
-            }).map((review, idx) => {
+            {visibleReviews?.map((review, idx) => {
               return (<Review key={idx} loggedInUserId={user?.user_id} content={review} />);
             })}
           </ul>

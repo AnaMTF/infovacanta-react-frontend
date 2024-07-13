@@ -63,7 +63,14 @@ export const Statiune = (props) => {
     }
   }, [inView, nextBatch, reviews]);
 
-  const { data: statiune, isError, isPaused, isFetchedAfterMount } = useQuery(["Destination Information", nume], async function () {
+  useEffect(() => { // cand se schimba sortType sau geolocation
+    if (reviews) {
+      setVisibleReviews(reviews.slice(0, 1));
+      setNextBatch(1);
+    }
+  }, [reviews]);
+
+  const { data: statiune, isError, isPaused, isFetchedAfterMount } = useQuery(["Destination Information", nume, sortType, geolocation], async function () {
     try {
       const result = await Axios.get(`https://localhost:5000/query/destinations/${nume}`);
       console.log(`https://localhost:5000/query/destinations/${nume}`);
@@ -71,7 +78,24 @@ export const Statiune = (props) => {
       console.log('statiune:', result.data[0]);
 
       const result_reviews = await Axios.get(`https://localhost:5000/destinations/${result.data[0]?.destination_id}/review-cards`);
-      setReviews(result_reviews.data);
+
+      switch (sortType) {
+        case 'newest_first':
+        case 'closest': // Toate sunt la aceeasi distanta
+          setReviews(result_reviews.data);
+          break;
+        case 'oldest_first':
+          setReviews(result_reviews.data.reverse());
+          break;
+        case 'most_upvotes':
+          setReviews(result_reviews.data.sort((a, b) => b.upvotes - a.upvotes));
+          break;
+        case 'best_rating':
+          setReviews(result_reviews.data.sort((a, b) => b.rating - a.rating));
+          break;
+      }
+
+      // setReviews(result_reviews.data);
       console.log('reviews:', reviews);
 
       // console.log(result.data[0]); // <-- testare: afisare date in consola   
@@ -179,20 +203,7 @@ export const Statiune = (props) => {
       <div className="container-fluid jumbotron centered">
         <h1>Recenziile stațiunii</h1>
         <ul id="postsList" className="list-group">
-          {visibleReviews?.sort((a, b) => {
-            switch (sortType) {
-              case 'newest_first':
-                return new Date(b.date_posted) - new Date(a.date_posted);
-              case 'most_upvotes':
-                return b.upvotes - a.upvotes;
-              case 'best_rating':
-                return b.rating - a.rating;
-              case 'closest':
-                const distanceA = getDistanceFromLatLonInKm(a.lat, a.lon, geolocation.latitude, geolocation.longitude);
-                const distanceB = getDistanceFromLatLonInKm(b.lat, b.lon, geolocation.latitude, geolocation.longitude);
-                return distanceA - distanceB;
-            }
-          }).map((review, idx) => {
+          {visibleReviews?.map((review, idx) => {
             return (<Review key={idx} loggedInUserId={user?.user_id} content={review} />);
           })}
         </ul>
