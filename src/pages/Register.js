@@ -53,6 +53,10 @@ export const Register = () => {
     }
   };
 
+  const handleLogin = (method) => {
+    window.open(`https://localhost:5000/auth/${method}`, "_self");
+  };
+
   return (
     <div>
       <div className="container mt-5 jumbotron centered">
@@ -140,23 +144,23 @@ export const Register = () => {
               marginBottom: "25px"
             }}>
               <div className="card-body">
-                <a className="btn btn-block btn-register" href="/auth/google" role="button">
+                <button className="btn btn-block btn-register" onClick={() => handleLogin('google')} >
                   <i className="fab fa-google" style={{
                     paddingRight: "6px"
                   }} />
                   Sign Up with Google
-                </a>
+                </button>
               </div>
             </div>
 
             <div className="card social-block facebook">
               <div className="card-body">
-                <a className="btn btn-block btn-register" href="/auth/facebook" role="button">
+                <button className="btn btn-block btn-register" onClick={() => handleLogin('facebook')} >
                   <i className="fab fa-facebook" style={{
                     paddingRight: "6px"
                   }} />
                   Sign Up with Facebook
-                </a>
+                </button>
               </div>
             </div>
           </div>
